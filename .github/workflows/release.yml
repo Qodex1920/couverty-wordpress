@@ -1,0 +1,26 @@
+name: Plugin Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  attach-zip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build plugin ZIP
+        run: |
+          mkdir -p build/couverty
+          rsync -a --exclude='.git' --exclude='.github' --exclude='.gitignore' . build/couverty/
+          cd build && zip -rq couverty.zip couverty/
+          [ -s couverty.zip ] || { echo "ZIP creation failed"; exit 1; }
+
+      - name: Attach ZIP to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: gh release upload "$RELEASE_TAG" build/couverty.zip --clobber
