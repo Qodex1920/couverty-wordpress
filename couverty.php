@@ -3,7 +3,7 @@
  * Plugin Name: Couverty
  * Plugin URI: https://couverty.ch
  * Description: Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty
- * Version: 1.6.1
+ * Version: 1.6.2
  * Author: Couverty
  * Author URI: https://couverty.ch
  * License: GPL v2 or later
@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants
-define( 'COUVERTY_VERSION', '1.6.1' );
+define( 'COUVERTY_VERSION', '1.6.2' );
 define( 'COUVERTY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_FILE', __FILE__ );
@@ -80,6 +80,26 @@ if ( file_exists( COUVERTY_PLUGIN_DIR . 'vendor/plugin-update-checker/plugin-upd
 	);
 	// Only download the couverty.zip asset (ignore other files attached to releases).
 	$couverty_update_checker->getVcsApi()->enableReleaseAssets( '/^couverty\.zip$/' );
+}
+
+
+// Plugin icon for updates page.
+add_filter( 'plugin_row_meta', function( $meta, $file ) {
+	if ( 'couverty/couverty.php' === $file || plugin_basename( __FILE__ ) === $file ) {
+		// Icon is handled by plugin-update-checker via addResultFilter below.
+	}
+	return $meta;
+}, 10, 2 );
+
+if ( isset( $couverty_update_checker ) ) {
+	$couverty_update_checker->addResultFilter( function( $info ) {
+		$info->icons = array(
+			'1x'      => COUVERTY_PLUGIN_URL . 'assets/images/icon-128x128.png',
+			'2x'      => COUVERTY_PLUGIN_URL . 'assets/images/icon-256x256.png',
+			'default' => COUVERTY_PLUGIN_URL . 'assets/images/icon-256x256.png',
+		);
+		return $info;
+	} );
 }
 
 // Initialize plugin on plugins_loaded hook.
