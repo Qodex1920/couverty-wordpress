@@ -32,7 +32,7 @@
 		function testConnection() {
 			var btn = $('#couverty-test-connection');
 			var originalText = btn.text();
-			btn.prop('disabled', true).text('Testing...');
+			btn.prop('disabled', true).text('Test en cours...');
 
 			$.ajax({
 				url: couverty.ajax_url,
@@ -41,28 +41,29 @@
 				data: {
 					action: 'couverty_test_connection',
 					nonce: couverty.nonce,
+					api_key: $('input[name="couverty_settings[api_key]"]').val(),
 				},
 				success: function(response) {
 					if (response.success) {
-						var msg = 'Connection successful!';
+						var msg = 'Connexion réussie !';
 						if (response.data.restaurant_name) {
-							msg += ' Restaurant: ' + response.data.restaurant_name;
+							msg += ' Restaurant : ' + response.data.restaurant_name;
 						}
 						if (response.data.slug) {
-							msg += ' (Slug: ' + response.data.slug + ')';
+							msg += ' (Slug : ' + response.data.slug + ')';
 							$('input[name="couverty_settings[slug]"]').val(response.data.slug);
 						}
 						if (response.data.synced) {
-							msg += ' — Data synced: ' + response.data.plats + ' plats, '
+							msg += ' — Données synchronisées : ' + response.data.plats + ' plats, '
 								+ response.data.boissons + ' boissons';
 						}
 						showResult(msg, true);
 					} else {
-						showResult(response.data || 'Connection failed', false);
+						showResult(response.data || 'Connexion échouée', false);
 					}
 				},
 				error: function() {
-					showResult('AJAX request failed', false);
+					showResult('Erreur de communication avec le serveur', false);
 				},
 				complete: function() {
 					btn.prop('disabled', false).text(originalText);
@@ -73,7 +74,7 @@
 		function clearCache() {
 			var btn = $('#couverty-clear-cache');
 			var originalText = btn.text();
-			btn.prop('disabled', true).text('Clearing...');
+			btn.prop('disabled', true).text('Vidage en cours...');
 
 			$.ajax({
 				url: couverty.ajax_url,
@@ -84,12 +85,12 @@
 				},
 				success: function(response) {
 					showResult(
-						response.success ? response.data : (response.data || 'Failed'),
+						response.success ? response.data : (response.data || 'Échec'),
 						response.success
 					);
 				},
 				error: function() {
-					showResult('AJAX request failed', false);
+					showResult('Erreur de communication avec le serveur', false);
 				},
 				complete: function() {
 					btn.prop('disabled', false).text(originalText);
@@ -100,7 +101,7 @@
 		function syncData() {
 			var btn = $('#couverty-sync-data');
 			var originalText = btn.text();
-			btn.prop('disabled', true).text('Syncing...');
+			btn.prop('disabled', true).text('Synchronisation en cours...');
 
 			$.ajax({
 				url: couverty.ajax_url,
@@ -118,11 +119,11 @@
 							+ response.data.menus + ' menus)';
 						showResult(msg, true);
 					} else {
-						showResult(response.data || 'Sync failed', false);
+						showResult(response.data || 'Synchronisation échouée', false);
 					}
 				},
 				error: function() {
-					showResult('Sync request failed (timeout?)', false);
+					showResult('La synchronisation a échoué (délai d\'attente dépassé ?)', false);
 				},
 				complete: function() {
 					btn.prop('disabled', false).text(originalText);

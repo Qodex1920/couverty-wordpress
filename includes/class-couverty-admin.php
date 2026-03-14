@@ -55,14 +55,14 @@ class Couverty_Admin {
 		// Connection section
 		add_settings_section(
 			'couverty_connection',
-			__( 'Connection', 'couverty' ),
+			__( 'Connexion API', 'couverty' ),
 			array( $this, 'render_connection_section' ),
 			'couverty_settings'
 		);
 
 		add_settings_field(
 			'couverty_api_key',
-			__( 'API Key', 'couverty' ),
+			__( 'Clé API', 'couverty' ),
 			array( $this, 'render_api_key_field' ),
 			'couverty_settings',
 			'couverty_connection'
@@ -78,7 +78,7 @@ class Couverty_Admin {
 
 		add_settings_field(
 			'couverty_cache_duration',
-			__( 'Cache Duration', 'couverty' ),
+			__( 'Durée du cache', 'couverty' ),
 			array( $this, 'render_cache_duration_field' ),
 			'couverty_settings',
 			'couverty_cache'
@@ -87,14 +87,14 @@ class Couverty_Admin {
 		// Floating button section
 		add_settings_section(
 			'couverty_floating',
-			__( 'Floating Button', 'couverty' ),
+			__( 'Bouton flottant de réservation', 'couverty' ),
 			array( $this, 'render_floating_section' ),
 			'couverty_settings'
 		);
 
 		add_settings_field(
 			'couverty_floating_enabled',
-			__( 'Enable Floating Button', 'couverty' ),
+			__( 'Activer le bouton flottant', 'couverty' ),
 			array( $this, 'render_floating_enabled_field' ),
 			'couverty_settings',
 			'couverty_floating'
@@ -102,7 +102,7 @@ class Couverty_Admin {
 
 		add_settings_field(
 			'couverty_floating_text',
-			__( 'Button Text', 'couverty' ),
+			__( 'Texte du bouton', 'couverty' ),
 			array( $this, 'render_floating_text_field' ),
 			'couverty_settings',
 			'couverty_floating'
@@ -110,7 +110,7 @@ class Couverty_Admin {
 
 		add_settings_field(
 			'couverty_slug',
-			__( 'Restaurant Slug', 'couverty' ),
+			__( 'Identifiant du restaurant', 'couverty' ),
 			array( $this, 'render_slug_field' ),
 			'couverty_settings',
 			'couverty_floating'
@@ -249,10 +249,16 @@ class Couverty_Admin {
 		check_ajax_referer( 'couverty_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( __( 'Insufficient permissions', 'couverty' ) );
+			wp_send_json_error( __( 'Permissions insuffisantes', 'couverty' ) );
 		}
 
-		$api      = Couverty::get_instance()->get_api();
+		// Use API key from POST if provided (allows testing before saving).
+		$test_api_key = isset( $_POST['api_key'] ) ? sanitize_text_field( wp_unslash( $_POST['api_key'] ) ) : '';
+		if ( $test_api_key ) {
+			$api = new Couverty_API( array_merge( Couverty::get_settings(), array( 'api_key' => $test_api_key ) ) );
+		} else {
+			$api = Couverty::get_instance()->get_api();
+		}
 		$result   = $api->test_connection();
 
 		if ( ! $result['success'] ) {
@@ -290,20 +296,20 @@ class Couverty_Admin {
 		check_ajax_referer( 'couverty_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( __( 'Insufficient permissions', 'couverty' ) );
+			wp_send_json_error( __( 'Permissions insuffisantes', 'couverty' ) );
 		}
 
 		$sync   = new Couverty_Sync();
 		$result = $sync->sync( true );
 
 		if ( ! $result['success'] ) {
-			wp_send_json_error( isset( $result['error'] ) ? $result['error'] : __( 'Sync failed. Check your API key.', 'couverty' ) );
+			wp_send_json_error( isset( $result['error'] ) ? $result['error'] : __( 'Synchronisation échouée. Vérifiez votre clé API.', 'couverty' ) );
 		}
 
 		$counts = $this->get_post_counts();
 
 		wp_send_json_success( array(
-			'message'  => __( 'Data synced successfully!', 'couverty' ),
+			'message'  => __( 'Données synchronisées avec succès !', 'couverty' ),
 			'plats'    => $counts['plats'],
 			'boissons' => $counts['boissons'],
 			'menus'    => $counts['menus'],
@@ -317,13 +323,13 @@ class Couverty_Admin {
 		check_ajax_referer( 'couverty_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( __( 'Insufficient permissions', 'couverty' ) );
+			wp_send_json_error( __( 'Permissions insuffisantes', 'couverty' ) );
 		}
 
 		$api = Couverty::get_instance()->get_api();
 		$api->clear_cache();
 
-		wp_send_json_success( __( 'Cache cleared successfully', 'couverty' ) );
+		wp_send_json_success( __( 'Cache vidé avec succès', 'couverty' ) );
 	}
 
 	/**
@@ -334,13 +340,13 @@ class Couverty_Admin {
 		$is_connected = ! empty( $settings['api_key'] ) && ! empty( $settings['slug'] );
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Couverty Settings', 'couverty' ); ?></h1>
+			<h1><?php esc_html_e( 'Couverty — Réglages', 'couverty' ); ?></h1>
 
 			<form action="options.php" method="POST">
 				<?php
 				settings_fields( 'couverty_settings' );
 				do_settings_sections( 'couverty_settings' );
-				submit_button();
+				submit_button( __( 'Enregistrer les réglages', 'couverty' ) );
 				?>
 			</form>
 
@@ -388,15 +394,15 @@ class Couverty_Admin {
 		);
 		?>
 		<div class="couverty-admin-section">
-			<h2><?php esc_html_e( 'Shortcodes & Blocks', 'couverty' ); ?></h2>
+			<h2><?php esc_html_e( 'Shortcodes & Blocs', 'couverty' ); ?></h2>
 			<p class="description" style="margin-bottom: 15px;">
-				<?php esc_html_e( 'Use these shortcodes in any editor, page builder, or theme template. Gutenberg blocks are also available in the block inserter under the "Couverty" category.', 'couverty' ); ?>
+				<?php esc_html_e( 'Utilisez ces shortcodes dans n\'importe quel éditeur, constructeur de pages ou template de thème. Les blocs Gutenberg sont également disponibles dans la catégorie « Couverty ».', 'couverty' ); ?>
 			</p>
 
 			<table class="widefat striped">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'Content', 'couverty' ); ?></th>
+						<th><?php esc_html_e( 'Contenu', 'couverty' ); ?></th>
 						<th><?php esc_html_e( 'Shortcode', 'couverty' ); ?></th>
 						<th><?php esc_html_e( 'Options', 'couverty' ); ?></th>
 					</tr>
@@ -414,7 +420,7 @@ class Couverty_Admin {
 
 			<?php if ( ! $is_connected ) : ?>
 				<p class="description" style="margin-top: 10px; color: #d63638;">
-					<?php esc_html_e( 'Connect your API key above to start using shortcodes and blocks.', 'couverty' ); ?>
+					<?php esc_html_e( 'Connectez votre clé API ci-dessus pour commencer à utiliser les shortcodes et blocs.', 'couverty' ); ?>
 				</p>
 			<?php endif; ?>
 		</div>
@@ -429,17 +435,17 @@ class Couverty_Admin {
 		$post_type_info = $this->get_post_type_info();
 		?>
 		<div class="couverty-admin-section">
-			<h2><?php esc_html_e( 'Dynamic Data', 'couverty' ); ?></h2>
+			<h2><?php esc_html_e( 'Données dynamiques', 'couverty' ); ?></h2>
 			<p class="description" style="margin-bottom: 15px;">
-				<?php esc_html_e( 'Couverty stores your restaurant data as standard WordPress custom fields. This means they work automatically with any page builder or theme.', 'couverty' ); ?>
+				<?php esc_html_e( 'Couverty stocke les données de votre restaurant en tant que champs personnalisés WordPress standards. Ils fonctionnent automatiquement avec tous les constructeurs de pages.', 'couverty' ); ?>
 			</p>
 
 			<div style="background: #f0f6fc; border-left: 4px solid #2271b1; padding: 12px 16px; margin-bottom: 20px;">
-				<strong><?php esc_html_e( 'How it works:', 'couverty' ); ?></strong>
+				<strong><?php esc_html_e( 'Comment ça fonctionne :', 'couverty' ); ?></strong>
 				<ol style="margin: 8px 0 0; padding-left: 20px;">
-					<li><?php esc_html_e( 'In your page builder, create a Query Loop (or Posts element) and select a Couverty post type as source', 'couverty' ); ?></li>
-					<li><?php esc_html_e( 'Inside the loop, use the "Custom Field" or "Dynamic Data" option of your builder', 'couverty' ); ?></li>
-					<li><?php esc_html_e( 'Enter the field name from the table below to display the corresponding data', 'couverty' ); ?></li>
+					<li><?php esc_html_e( 'Dans votre constructeur de pages, créez une boucle de requête (Query Loop) et sélectionnez un type de contenu Couverty', 'couverty' ); ?></li>
+					<li><?php esc_html_e( 'À l\'intérieur de la boucle, utilisez l\'option « Champ personnalisé » ou « Données dynamiques »', 'couverty' ); ?></li>
+					<li><?php esc_html_e( 'Entrez le nom du champ depuis le tableau ci-dessous', 'couverty' ); ?></li>
 				</ol>
 			</div>
 
@@ -455,8 +461,8 @@ class Couverty_Admin {
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Field', 'couverty' ); ?></th>
-							<th><?php esc_html_e( 'Field Name', 'couverty' ); ?></th>
+							<th><?php esc_html_e( 'Champ', 'couverty' ); ?></th>
+							<th><?php esc_html_e( 'Nom du champ', 'couverty' ); ?></th>
 							<th><?php esc_html_e( 'Type', 'couverty' ); ?></th>
 						</tr>
 					</thead>
@@ -488,19 +494,19 @@ class Couverty_Admin {
 			<?php endforeach; ?>
 
 			<div style="background: #fcf9e8; border-left: 4px solid #dba617; padding: 12px 16px; margin-top: 20px;">
-				<strong><?php esc_html_e( 'Taxonomies (for filtering):', 'couverty' ); ?></strong>
+				<strong><?php esc_html_e( 'Taxonomies (pour le filtrage) :', 'couverty' ); ?></strong>
 				<ul style="margin: 8px 0 0; padding-left: 20px;">
-					<li><code style="user-select: all;">couverty_cat_plat</code> — <?php esc_html_e( 'Dish categories', 'couverty' ); ?></li>
-					<li><code style="user-select: all;">couverty_cat_boisson</code> — <?php esc_html_e( 'Drink categories', 'couverty' ); ?></li>
+					<li><code style="user-select: all;">couverty_cat_plat</code> — <?php esc_html_e( 'Catégories de plats', 'couverty' ); ?></li>
+					<li><code style="user-select: all;">couverty_cat_boisson</code> — <?php esc_html_e( 'Catégories de boissons', 'couverty' ); ?></li>
 				</ul>
 			</div>
 
 			<div style="background: #f6f7f7; border-left: 4px solid #8c8f94; padding: 12px 16px; margin-top: 15px;">
-				<strong><?php esc_html_e( 'Builder-specific syntax:', 'couverty' ); ?></strong>
+				<strong><?php esc_html_e( 'Syntaxe par constructeur :', 'couverty' ); ?></strong>
 				<table style="margin-top: 8px; border-collapse: collapse; width: 100%;">
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>Elementor</strong></td>
-						<td style="padding: 4px 0;"><?php esc_html_e( 'Dynamic Tags → Custom Field → enter the field name', 'couverty' ); ?></td>
+						<td style="padding: 4px 0;"><?php esc_html_e( 'Dynamic Tags → Custom Field → entrez le nom du champ', 'couverty' ); ?></td>
 					</tr>
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>Bricks</strong></td>
@@ -508,7 +514,7 @@ class Couverty_Admin {
 							<?php
 							printf(
 								/* translators: %1$s: example syntax, %2$s: field name */
-								esc_html__( 'Use %1$s syntax (e.g. %2$s)', 'couverty' ),
+								esc_html__( 'Utilisez la syntaxe %1$s (ex: %2$s)', 'couverty' ),
 								'<code>{cf_field_name}</code>',
 								'<code>{cf_couverty_prix}</code>'
 							);
@@ -517,15 +523,15 @@ class Couverty_Admin {
 					</tr>
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>Divi</strong></td>
-						<td style="padding: 4px 0;"><?php esc_html_e( 'Dynamic Content → Post Fields → Custom Fields → enter the field name', 'couverty' ); ?></td>
+						<td style="padding: 4px 0;"><?php esc_html_e( 'Dynamic Content → Post Fields → Custom Fields → entrez le nom du champ', 'couverty' ); ?></td>
 					</tr>
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>Beaver Builder</strong></td>
-						<td style="padding: 4px 0;"><?php esc_html_e( 'Field Connections → Post Custom Field → enter the field name', 'couverty' ); ?></td>
+						<td style="padding: 4px 0;"><?php esc_html_e( 'Field Connections → Post Custom Field → entrez le nom du champ', 'couverty' ); ?></td>
 					</tr>
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>Gutenberg</strong></td>
-						<td style="padding: 4px 0;"><?php esc_html_e( 'Use the Couverty blocks or Query Loop block with post type filter', 'couverty' ); ?></td>
+						<td style="padding: 4px 0;"><?php esc_html_e( 'Utilisez les blocs Couverty ou le bloc Query Loop avec filtre de type de contenu', 'couverty' ); ?></td>
 					</tr>
 					<tr>
 						<td style="padding: 4px 12px 4px 0; white-space: nowrap;"><strong>PHP</strong></td>
@@ -562,9 +568,9 @@ class Couverty_Admin {
 		);
 		?>
 		<div class="couverty-admin-section">
-			<h2><?php esc_html_e( 'REST API (for page builders)', 'couverty' ); ?></h2>
+			<h2><?php esc_html_e( 'API REST (pour les constructeurs de pages)', 'couverty' ); ?></h2>
 			<p class="description" style="margin-bottom: 15px;">
-				<?php esc_html_e( 'Use these endpoints in Bricks, Elementor, or any page builder that supports dynamic data via REST API or PHP functions.', 'couverty' ); ?>
+				<?php esc_html_e( 'Utilisez ces endpoints dans Bricks, Elementor ou tout constructeur de pages supportant les données dynamiques via API REST ou fonctions PHP.', 'couverty' ); ?>
 			</p>
 
 			<table class="widefat striped">
@@ -617,15 +623,15 @@ class Couverty_Admin {
 		$status_error   = isset( $sync_status['error'] ) ? $sync_status['error'] : '';
 		?>
 		<div class="couverty-admin-section">
-			<h2><?php esc_html_e( 'Data Sync', 'couverty' ); ?></h2>
+			<h2><?php esc_html_e( 'Synchronisation des données', 'couverty' ); ?></h2>
 			<p class="description" style="margin-bottom: 15px;">
-				<?php esc_html_e( 'Couverty data is synced into WordPress as custom post types. This makes your menu available as dynamic content in any page builder (Gutenberg, Bricks, Elementor, etc.).', 'couverty' ); ?>
+				<?php esc_html_e( 'Les données de votre restaurant sont synchronisées automatiquement depuis Couverty vers WordPress sous forme de types de contenu personnalisés (CPT). Cela permet d\'utiliser vos données dans n\'importe quel constructeur de pages.', 'couverty' ); ?>
 			</p>
 
 			<?php if ( false === $status_success && $status_error ) : ?>
 				<div class="notice notice-error inline" style="margin: 0 0 15px;">
 					<p>
-						<strong><?php esc_html_e( 'Last sync failed:', 'couverty' ); ?></strong>
+						<strong><?php esc_html_e( 'Dernière synchronisation échouée :', 'couverty' ); ?></strong>
 						<?php echo esc_html( $status_error ); ?>
 					</p>
 				</div>
@@ -634,14 +640,14 @@ class Couverty_Admin {
 			<?php if ( $is_stale ) : ?>
 				<div class="notice notice-warning inline" style="margin: 0 0 15px;">
 					<p>
-						<?php esc_html_e( 'Data may be outdated — last sync was over 1 hour ago. WP-Cron requires site traffic to run. Click "Sync Now" to update.', 'couverty' ); ?>
+						<?php esc_html_e( 'Les données sont peut-être obsolètes — la dernière synchronisation date de plus d\'une heure. Cliquez sur « Synchroniser » pour mettre à jour.', 'couverty' ); ?>
 					</p>
 				</div>
 			<?php endif; ?>
 
 			<table class="form-table">
 				<tr>
-					<th><?php esc_html_e( 'Status', 'couverty' ); ?></th>
+					<th><?php esc_html_e( 'Statut', 'couverty' ); ?></th>
 					<td>
 						<?php if ( $last_sync ) : ?>
 							<?php if ( true === $status_success ) : ?>
@@ -652,13 +658,13 @@ class Couverty_Admin {
 							<?php
 							printf(
 								/* translators: %s: last sync timestamp */
-								esc_html__( 'Last sync: %s', 'couverty' ),
+								esc_html__( 'Dernière synchro : %s', 'couverty' ),
 								esc_html( $last_sync )
 							);
 							?>
 						<?php else : ?>
 							<span style="color: #dba617;">&#9679;</span>
-							<?php esc_html_e( 'Never synced', 'couverty' ); ?>
+							<?php esc_html_e( 'Jamais synchronisé', 'couverty' ); ?>
 						<?php endif; ?>
 						<br>
 						<span class="description">
@@ -678,10 +684,10 @@ class Couverty_Admin {
 					<th><?php esc_html_e( 'Actions', 'couverty' ); ?></th>
 					<td>
 						<button type="button" id="couverty-sync-data" class="button button-primary">
-							<?php esc_html_e( 'Sync Now', 'couverty' ); ?>
+							<?php esc_html_e( 'Synchroniser', 'couverty' ); ?>
 						</button>
 						<span class="description" style="margin-left: 10px;">
-							<?php esc_html_e( 'Auto-syncs every 30 minutes via WP-Cron.', 'couverty' ); ?>
+							<?php esc_html_e( 'Synchronisation automatique toutes les 30 minutes.', 'couverty' ); ?>
 						</span>
 					</td>
 				</tr>
@@ -691,13 +697,13 @@ class Couverty_Admin {
 			$all_fields     = $this->get_meta_fields();
 			$post_type_info = $this->get_post_type_info();
 			?>
-			<h3 style="margin-top: 15px; margin-bottom: 8px;"><?php esc_html_e( 'Available post types', 'couverty' ); ?></h3>
+			<h3 style="margin-top: 15px; margin-bottom: 8px;"><?php esc_html_e( 'Types de contenu disponibles', 'couverty' ); ?></h3>
 			<table class="widefat striped">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'Post Type', 'couverty' ); ?></th>
-						<th><?php esc_html_e( 'Fields', 'couverty' ); ?></th>
-						<th><?php esc_html_e( 'Taxonomy', 'couverty' ); ?></th>
+						<th><?php esc_html_e( 'Type de contenu', 'couverty' ); ?></th>
+						<th><?php esc_html_e( 'Champs', 'couverty' ); ?></th>
+						<th><?php esc_html_e( 'Taxonomie', 'couverty' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -717,7 +723,7 @@ class Couverty_Admin {
 				</tbody>
 			</table>
 			<p class="description" style="margin-top: 10px;">
-				<?php esc_html_e( 'Select these post types in your page builder\'s Query Loop / Posts element to display Couverty data with full layout control.', 'couverty' ); ?>
+				<?php esc_html_e( 'Sélectionnez ces types de contenu dans votre constructeur de pages (Query Loop / Posts) pour afficher les données Couverty.', 'couverty' ); ?>
 			</p>
 		</div>
 		<?php
@@ -727,7 +733,7 @@ class Couverty_Admin {
 	 * Render connection section
 	 */
 	public function render_connection_section() {
-		echo '<p>' . esc_html__( 'Configure your Couverty API connection', 'couverty' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configurez la connexion à votre compte Couverty', 'couverty' ) . '</p>';
 	}
 
 	/**
@@ -744,9 +750,9 @@ class Couverty_Admin {
 			class="regular-text"
 			required
 		/>
-		<p class="description"><?php esc_html_e( 'Your Couverty API key', 'couverty' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Disponible dans votre tableau de bord Couverty > Intégrations > Clé API', 'couverty' ); ?></p>
 		<button type="button" id="couverty-test-connection" class="button">
-			<?php esc_html_e( 'Test Connection', 'couverty' ); ?>
+			<?php esc_html_e( 'Tester la connexion', 'couverty' ); ?>
 		</button>
 		<?php
 	}
@@ -755,7 +761,7 @@ class Couverty_Admin {
 	 * Render cache section
 	 */
 	public function render_cache_section() {
-		echo '<p>' . esc_html__( 'Configure caching for API responses', 'couverty' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configurez la mise en cache des données', 'couverty' ) . '</p>';
 	}
 
 	/**
@@ -768,7 +774,7 @@ class Couverty_Admin {
 			300   => __( '5 minutes', 'couverty' ),
 			600   => __( '10 minutes', 'couverty' ),
 			1800  => __( '30 minutes', 'couverty' ),
-			3600  => __( '1 hour', 'couverty' ),
+			3600  => __( '1 heure', 'couverty' ),
 		);
 		?>
 		<select name="couverty_settings[cache_duration]">
@@ -779,7 +785,7 @@ class Couverty_Admin {
 			<?php endforeach; ?>
 		</select>
 		<button type="button" id="couverty-clear-cache" class="button" style="margin-left: 10px;">
-			<?php esc_html_e( 'Clear Cache Now', 'couverty' ); ?>
+			<?php esc_html_e( 'Vider le cache', 'couverty' ); ?>
 		</button>
 		<?php
 	}
@@ -788,7 +794,7 @@ class Couverty_Admin {
 	 * Render floating section
 	 */
 	public function render_floating_section() {
-		echo '<p>' . esc_html__( 'Configure floating reservation button', 'couverty' ) . '</p>';
+		echo '<p>' . esc_html__( 'Un bouton de réservation apparaît en bas à droite sur toutes les pages de votre site', 'couverty' ) . '</p>';
 	}
 
 	/**
@@ -805,7 +811,7 @@ class Couverty_Admin {
 				value="1"
 				<?php checked( $floating_enabled, 1 ); ?>
 			/>
-			<?php esc_html_e( 'Show floating button on all pages', 'couverty' ); ?>
+			<?php esc_html_e( 'Afficher sur toutes les pages', 'couverty' ); ?>
 		</label>
 		<?php
 	}
@@ -824,7 +830,7 @@ class Couverty_Admin {
 			class="regular-text"
 			placeholder="Réserver"
 		/>
-		<p class="description"><?php esc_html_e( 'Text displayed on the floating button', 'couverty' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Texte affiché sur le bouton', 'couverty' ); ?></p>
 		<?php
 	}
 
@@ -842,7 +848,7 @@ class Couverty_Admin {
 			class="regular-text"
 			readonly
 		/>
-		<p class="description"><?php esc_html_e( 'Auto-filled when connection is successful', 'couverty' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Rempli automatiquement lors du test de connexion', 'couverty' ); ?></p>
 		<?php
 	}
 }
