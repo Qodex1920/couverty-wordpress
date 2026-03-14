@@ -15,9 +15,10 @@ jobs:
       - name: Build plugin ZIP
         run: |
           mkdir -p build/couverty
-          rsync -a --exclude='.git' --exclude='.github' --exclude='.gitignore' . build/couverty/
+          rsync -a --exclude-from=.distignore . build/couverty/
           cd build && zip -rq couverty.zip couverty/
           [ -s couverty.zip ] || { echo "ZIP creation failed"; exit 1; }
+          echo "ZIP contents:" && unzip -l couverty.zip | head -15
 
       - name: Attach ZIP to release
         env:

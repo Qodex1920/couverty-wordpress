@@ -78,8 +78,8 @@ if ( file_exists( COUVERTY_PLUGIN_DIR . 'vendor/plugin-update-checker/plugin-upd
 		__FILE__,
 		'couverty'
 	);
-	// Download ZIP from release assets (not source archive).
-	$couverty_update_checker->getVcsApi()->enableReleaseAssets();
+	// Only download the couverty.zip asset (ignore other files attached to releases).
+	$couverty_update_checker->getVcsApi()->enableReleaseAssets( '/^couverty\.zip$/' );
 }
 
 // Initialize plugin on plugins_loaded hook.
