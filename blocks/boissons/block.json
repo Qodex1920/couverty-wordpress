@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "couverty/boissons",
+  "version": "1.0.0",
+  "title": "Couverty – Boissons",
+  "category": "couverty",
+  "icon": "coffee",
+  "description": "Affiche la carte des boissons de votre restaurant depuis Couverty.",
+  "keywords": ["boissons", "drinks", "carte", "vins", "couverty"],
+  "attributes": {
+    "layout": { "type": "string", "default": "list", "enum": ["list", "grid"] },
+    "showPrices": { "type": "boolean", "default": true },
+    "showDetails": { "type": "boolean", "default": true }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "html": false
+  },
+  "textdomain": "couverty",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

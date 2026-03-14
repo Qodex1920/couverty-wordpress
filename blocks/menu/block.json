@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "couverty/menu",
+  "version": "1.0.0",
+  "title": "Couverty – Menu",
+  "category": "couverty",
+  "icon": "food",
+  "description": "Affiche la carte des plats de votre restaurant depuis Couverty.",
+  "keywords": ["menu", "restaurant", "plats", "couverty", "carte"],
+  "attributes": {
+    "layout": { "type": "string", "default": "list", "enum": ["list", "grid"] },
+    "showPrices": { "type": "boolean", "default": true },
+    "showImages": { "type": "boolean", "default": true },
+    "showAllergens": { "type": "boolean", "default": true }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "html": false
+  },
+  "textdomain": "couverty",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,68 @@
+/* Couverty Admin Styles */
+
+#couverty-test-connection,
+#couverty-clear-cache {
+	margin-left: 10px;
+}
+
+.couverty-test-result {
+	margin-top: 20px;
+	padding: 15px;
+	border-radius: 4px;
+	border-left: 4px solid;
+}
+
+.couverty-test-result.success {
+	background-color: #ecf7ec;
+	border-color: #46b450;
+	color: #155724;
+}
+
+.couverty-test-result.success:before {
+	content: "✓ ";
+	font-weight: bold;
+}
+
+.couverty-test-result.error {
+	background-color: #fef5f5;
+	border-color: #dc3545;
+	color: #721c24;
+}
+
+.couverty-test-result.error:before {
+	content: "✕ ";
+	font-weight: bold;
+}
+
+.couverty-status-indicator {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.couverty-status-indicator.connected {
+	background-color: #46b450;
+}
+
+.couverty-status-indicator.disconnected {
+	background-color: #dc3545;
+}
+
+.form-table th {
+	font-weight: 600;
+}
+
+.couverty-settings-section {
+	margin-top: 25px;
+	padding: 15px;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+
+.couverty-settings-section h3 {
+	margin-top: 0;
+	color: #333;
+}

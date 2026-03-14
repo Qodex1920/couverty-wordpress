@@ -1,0 +1,547 @@
+/* Couverty Public Styles */
+
+/* Custom Properties for theming */
+.couverty-menu,
+.couverty-boissons,
+.couverty-menu-du-jour,
+.couverty-reservation {
+	--couverty-font: inherit;
+	--couverty-text: #1a1a1a;
+	--couverty-text-muted: #9a8b78;
+	--couverty-bg: transparent;
+	--couverty-border: #d4c5b4;
+	--couverty-accent: #8b1a2b;
+	--couverty-accent-light: #b8956a;
+	--couverty-radius: 8px;
+	--couverty-spacing: 1rem;
+}
+
+/* Base styles */
+.couverty-menu,
+.couverty-boissons,
+.couverty-menu-du-jour,
+.couverty-reservation {
+	font-family: var(--couverty-font);
+	color: var(--couverty-text);
+}
+
+/* ═══════════════════════════════
+   CATEGORY
+   ═══════════════════════════════ */
+
+.couverty-category {
+	margin-bottom: 2.5rem;
+}
+
+.couverty-category__title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0 0 1.25rem 0;
+	color: var(--couverty-text);
+	text-align: center;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.couverty-category__title::before,
+.couverty-category__title::after {
+	content: '';
+	width: 2.5rem;
+	height: 2px;
+	background-color: var(--couverty-border);
+	flex-shrink: 0;
+}
+
+.couverty-category__description {
+	color: var(--couverty-text-muted);
+	font-size: 0.875rem;
+	margin: -0.75rem 0 1.25rem 0;
+	text-align: center;
+	font-style: italic;
+}
+
+.couverty-category__items {
+	margin-top: 0;
+}
+
+/* ═══════════════════════════════
+   PLAT (list layout)
+   ═══════════════════════════════ */
+
+.couverty-menu--list .couverty-plat {
+	padding: 0.875rem 0;
+}
+
+.couverty-plat__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 1.5rem;
+}
+
+.couverty-plat__name-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 0;
+	flex: 1;
+}
+
+.couverty-plat__name {
+	font-weight: 700;
+	font-size: 1.0625rem;
+	color: var(--couverty-accent);
+	word-break: break-word;
+}
+
+.couverty-plat__image-btn {
+	background: none;
+	border: none;
+	padding: 2px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	color: var(--couverty-accent-light);
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+}
+
+.couverty-plat__image-btn:hover {
+	opacity: 1;
+}
+
+.couverty-plat__image-icon {
+	width: 18px;
+	height: 18px;
+	display: block;
+}
+
+.couverty-plat__price {
+	font-weight: 600;
+	font-size: 1.0625rem;
+	white-space: nowrap;
+	color: var(--couverty-text);
+	flex-shrink: 0;
+	padding-top: 1px;
+}
+
+.couverty-price-separator {
+	color: var(--couverty-text-muted);
+	margin: 0 0.15em;
+}
+
+.couverty-plat__description {
+	color: var(--couverty-text-muted);
+	font-size: 0.875rem;
+	margin: 0.125rem 0 0 0;
+	line-height: 1.5;
+}
+
+.couverty-plat__image {
+	display: none;
+}
+
+.couverty-plat__tags {
+	margin-top: 0.375rem;
+}
+
+.couverty-plat__allergens {
+	font-size: 0.75rem;
+	color: var(--couverty-text-muted);
+	font-style: italic;
+	margin-top: 0.375rem;
+}
+
+/* ═══════════════════════════════
+   PLAT (grid layout)
+   ═══════════════════════════════ */
+
+.couverty-menu--grid .couverty-category__items,
+.couverty-boissons--grid .couverty-category__items {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.couverty-menu--grid .couverty-plat,
+.couverty-boissons--grid .couverty-boisson {
+	border: 1px solid var(--couverty-border);
+	border-radius: var(--couverty-radius);
+	padding: 1rem;
+	background: var(--couverty-bg);
+}
+
+.couverty-menu--grid .couverty-plat__image {
+	display: block;
+	width: 100%;
+	height: 160px;
+	object-fit: cover;
+	border-radius: var(--couverty-radius);
+	margin-bottom: 0.75rem;
+}
+
+.couverty-menu--grid .couverty-plat__header {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+}
+
+.couverty-menu--grid .couverty-plat__image-btn {
+	display: none;
+}
+
+.couverty-menu--grid .couverty-plat__name {
+	font-size: 1rem;
+}
+
+.couverty-menu--grid .couverty-plat__price {
+	font-size: 0.9375rem;
+	color: var(--couverty-accent);
+}
+
+/* ═══════════════════════════════
+   TAGS
+   ═══════════════════════════════ */
+
+.couverty-tag {
+	display: inline-block;
+	font-size: 0.6875rem;
+	font-weight: 500;
+	padding: 0.125rem 0.5rem;
+	border-radius: 999px;
+	margin-right: 0.25rem;
+}
+
+.couverty-tag--vege {
+	background: #dcfce7;
+	color: #166534;
+}
+
+.couverty-tag--vegan {
+	background: #d1fae5;
+	color: #065f46;
+}
+
+.couverty-tag--sg {
+	background: #fef3c7;
+	color: #92400e;
+}
+
+/* ═══════════════════════════════
+   BOISSON
+   ═══════════════════════════════ */
+
+.couverty-boisson {
+	padding: 0.875rem 0;
+}
+
+.couverty-boissons--list .couverty-boisson + .couverty-boisson {
+	border-top: none;
+}
+
+.couverty-boisson__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 1.5rem;
+}
+
+.couverty-boisson__name {
+	font-weight: 700;
+	font-size: 1.0625rem;
+	color: var(--couverty-accent);
+	flex: 1;
+	min-width: 0;
+	word-break: break-word;
+}
+
+.couverty-boisson__price {
+	font-weight: 600;
+	font-size: 1.0625rem;
+	white-space: nowrap;
+	color: var(--couverty-text);
+	flex-shrink: 0;
+	padding-top: 1px;
+}
+
+.couverty-boisson__description {
+	color: var(--couverty-text-muted);
+	font-size: 0.875rem;
+	margin: 0.125rem 0 0 0;
+}
+
+.couverty-boisson__details {
+	font-size: 0.8125rem;
+	color: var(--couverty-text-muted);
+	margin: 0.125rem 0 0 0;
+	font-style: italic;
+}
+
+.couverty-boissons--grid .couverty-boisson__header {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+}
+
+.couverty-boissons--grid .couverty-boisson__name {
+	font-size: 1rem;
+}
+
+.couverty-boissons--grid .couverty-boisson__price {
+	font-size: 0.9375rem;
+	color: var(--couverty-accent);
+}
+
+/* ═══════════════════════════════
+   HEADERS & NOTES
+   ═══════════════════════════════ */
+
+.couverty-menu__header,
+.couverty-boissons__header {
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+.couverty-menu__title,
+.couverty-boissons__title {
+	font-size: 1.75rem;
+	font-weight: 700;
+	margin: 0 0 0.5rem;
+}
+
+.couverty-menu__description,
+.couverty-boissons__description {
+	color: var(--couverty-text-muted);
+	font-size: 0.9375rem;
+	margin: 0;
+}
+
+.couverty-menu__notes,
+.couverty-boissons__notes {
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--couverty-border);
+	font-size: 0.75rem;
+	color: var(--couverty-text-muted);
+	font-style: italic;
+	line-height: 1.6;
+}
+
+/* ═══════════════════════════════
+   MENU DU JOUR
+   ═══════════════════════════════ */
+
+.couverty-menu-du-jour {
+	margin: 0;
+}
+
+.couverty-menu-du-jour__title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1.25rem;
+	color: var(--couverty-text);
+	text-align: center;
+}
+
+.couverty-menu-jour {
+	padding: 1.25rem;
+	border: 1px solid var(--couverty-border);
+	border-radius: var(--couverty-radius);
+	margin-bottom: 1rem;
+	background: var(--couverty-bg);
+}
+
+.couverty-menu-jour--today {
+	border-color: var(--couverty-accent);
+	border-width: 2px;
+	background: color-mix(in srgb, var(--couverty-accent) 4%, transparent);
+}
+
+.couverty-menu-jour__day {
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin: 0 0 0.75rem 0;
+	color: var(--couverty-accent);
+}
+
+.couverty-menu-jour__courses {
+	flex: 1;
+}
+
+.couverty-menu-jour__course {
+	display: flex;
+	gap: 0.75rem;
+	margin-bottom: 0.5rem;
+	font-size: 0.9375rem;
+	color: var(--couverty-text);
+}
+
+.couverty-menu-jour__course:last-of-type {
+	margin-bottom: 0;
+}
+
+.couverty-menu-jour__label {
+	font-weight: 500;
+	color: var(--couverty-text-muted);
+	flex-shrink: 0;
+	min-width: 65px;
+}
+
+.couverty-menu-jour__content {
+	flex: 1;
+	word-break: break-word;
+}
+
+.couverty-menu-jour__price {
+	font-weight: 600;
+	margin-top: 0.75rem;
+	text-align: right;
+	color: var(--couverty-accent);
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--couverty-border);
+	font-size: 1.0625rem;
+}
+
+/* ═══════════════════════════════
+   IMAGE LIGHTBOX (shortcodes)
+   ═══════════════════════════════ */
+
+.couverty-lightbox {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85);
+	z-index: 99999;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
+
+.couverty-lightbox__img {
+	max-width: 90vw;
+	max-height: 85vh;
+	object-fit: contain;
+	border-radius: var(--couverty-radius);
+}
+
+.couverty-lightbox__close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background: rgba(255, 255, 255, 0.9);
+	border: none;
+	border-radius: 50%;
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.75rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #000;
+	transition: background-color 0.2s ease;
+	padding: 0;
+	line-height: 1;
+}
+
+.couverty-lightbox__close:hover {
+	background: #fff;
+}
+
+/* ═══════════════════════════════
+   RESERVATION & ERROR
+   ═══════════════════════════════ */
+
+.couverty-reservation {
+	margin: 0;
+}
+
+.couverty-error {
+	padding: 1rem;
+	background: #fef2f2;
+	border: 1px solid #fecaca;
+	border-radius: var(--couverty-radius);
+	color: #991b1b;
+	font-size: 0.875rem;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════ */
+
+@media (max-width: 768px) {
+	.couverty-plat__header,
+	.couverty-boisson__header {
+		gap: 1rem;
+	}
+
+	.couverty-plat__name,
+	.couverty-boisson__name {
+		font-size: 1rem;
+	}
+
+	.couverty-plat__price,
+	.couverty-boisson__price {
+		font-size: 1rem;
+	}
+
+	.couverty-menu--grid .couverty-category__items,
+	.couverty-boissons--grid .couverty-category__items {
+		grid-template-columns: 1fr;
+	}
+
+	.couverty-menu-jour {
+		padding: 1rem;
+	}
+
+	.couverty-category__title {
+		font-size: 1.25rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.couverty-plat__header,
+	.couverty-boisson__header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.125rem;
+	}
+
+	.couverty-plat__price,
+	.couverty-boisson__price {
+		color: var(--couverty-accent);
+		font-size: 0.9375rem;
+	}
+
+	.couverty-category__title {
+		font-size: 1.125rem;
+		gap: 0.5rem;
+	}
+
+	.couverty-category__title::before,
+	.couverty-category__title::after {
+		width: 1.5rem;
+	}
+
+	.couverty-menu-jour {
+		padding: 0.75rem;
+	}
+
+	.couverty-menu-jour__label {
+		min-width: 55px;
+	}
+
+	.couverty-lightbox__close {
+		width: 2rem;
+		height: 2rem;
+		font-size: 1.5rem;
+	}
+}

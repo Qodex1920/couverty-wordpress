@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "couverty/reservation",
+  "version": "1.0.0",
+  "title": "Couverty – Réservation",
+  "category": "couverty",
+  "icon": "calendar",
+  "description": "Affiche le widget de réservation de votre restaurant depuis Couverty.",
+  "keywords": ["reservation", "booking", "réserver", "couverty"],
+  "attributes": {
+    "height": { "type": "number", "default": 600 },
+    "appearance": { "type": "string", "default": "card", "enum": ["card", "glass", "minimal", "dark"] },
+    "radius": { "type": "string", "default": "lg", "enum": ["none", "sm", "md", "lg"] }
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "html": false
+  },
+  "textdomain": "couverty",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}
