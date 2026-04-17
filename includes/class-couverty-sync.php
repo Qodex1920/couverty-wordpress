@@ -14,10 +14,17 @@ class Couverty_Sync {
 	const CRON_HOOK     = 'couverty_sync_event';
 	const CRON_INTERVAL = 'couverty_30min';
 
+	private static $hooks_registered = false;
+
 	/**
-	 * Constructor
+	 * Constructor — hooks are registered only once, even if multiple instances are created.
 	 */
 	public function __construct() {
+		if ( self::$hooks_registered ) {
+			return;
+		}
+		self::$hooks_registered = true;
+
 		add_action( 'init', array( $this, 'register_content_types' ) );
 		add_action( self::CRON_HOOK, array( $this, 'sync' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_cron_schedule' ) );
@@ -70,6 +77,7 @@ class Couverty_Sync {
 		$this->register_cpt( 'couverty_plat', __( 'Plats', 'couverty' ), __( 'Plat', 'couverty' ), 'dashicons-food' );
 		$this->register_cpt( 'couverty_boisson', __( 'Boissons', 'couverty' ), __( 'Boisson', 'couverty' ), 'dashicons-coffee' );
 		$this->register_cpt( 'couverty_menu_jour', __( 'Menus du jour', 'couverty' ), __( 'Menu du jour', 'couverty' ), 'dashicons-calendar-alt' );
+		$this->register_cpt( 'couverty_evenement', __( 'Événements', 'couverty' ), __( 'Événement', 'couverty' ), 'dashicons-calendar' );
 
 		// Taxonomies.
 		$this->register_tax( 'couverty_cat_plat', 'couverty_plat', __( 'Categories plats', 'couverty' ) );
@@ -136,41 +144,59 @@ class Couverty_Sync {
 	private function register_meta() {
 		$fields = array(
 			'couverty_plat' => array(
-				'couverty_prix'        => array( 'type' => 'string',  'default' => '' ),
-				'couverty_image_url'   => array( 'type' => 'string',  'default' => '' ),
-				'couverty_vegetarien'  => array( 'type' => 'boolean', 'default' => false ),
-				'couverty_vegan'       => array( 'type' => 'boolean', 'default' => false ),
-				'couverty_sans_gluten' => array( 'type' => 'boolean', 'default' => false ),
-				'couverty_allergenes'  => array( 'type' => 'string',  'default' => '' ),
+				'couverty_prix'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Prix', 'couverty' ), 'description' => __( 'Formatted price, e.g. CHF 18.- / CHF 28.-', 'couverty' ) ),
+				'couverty_image_url'   => array( 'type' => 'string',  'default' => '', 'label' => __( 'Image URL', 'couverty' ) ),
+				'couverty_vegetarien'  => array( 'type' => 'boolean', 'default' => false, 'label' => __( 'Végétarien', 'couverty' ) ),
+				'couverty_vegan'       => array( 'type' => 'boolean', 'default' => false, 'label' => __( 'Végan', 'couverty' ) ),
+				'couverty_sans_gluten' => array( 'type' => 'boolean', 'default' => false, 'label' => __( 'Sans gluten', 'couverty' ) ),
+				'couverty_allergenes'  => array( 'type' => 'string',  'default' => '', 'label' => __( 'Allergènes', 'couverty' ) ),
 				'couverty_external_id' => array( 'type' => 'string',  'default' => '' ),
 				'couverty_ordre'       => array( 'type' => 'integer', 'default' => 0 ),
 			),
 			'couverty_boisson' => array(
-				'couverty_prix'        => array( 'type' => 'string',  'default' => '' ),
-				'couverty_volume'      => array( 'type' => 'string',  'default' => '' ),
-				'couverty_region'      => array( 'type' => 'string',  'default' => '' ),
-				'couverty_annee'       => array( 'type' => 'integer', 'default' => 0 ),
+				'couverty_prix'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Prix', 'couverty' ), 'description' => __( 'Formatted price, e.g. CHF 5.-', 'couverty' ) ),
+				'couverty_volume'      => array( 'type' => 'string',  'default' => '', 'label' => __( 'Volume', 'couverty' ) ),
+				'couverty_region'      => array( 'type' => 'string',  'default' => '', 'label' => __( 'Région', 'couverty' ) ),
+				'couverty_annee'       => array( 'type' => 'integer', 'default' => 0, 'label' => __( 'Année', 'couverty' ) ),
 				'couverty_external_id' => array( 'type' => 'string',  'default' => '' ),
 				'couverty_ordre'       => array( 'type' => 'integer', 'default' => 0 ),
 			),
 			'couverty_menu_jour' => array(
 				'couverty_jour'        => array( 'type' => 'integer', 'default' => 0 ),
-				'couverty_jour_label'  => array( 'type' => 'string',  'default' => '' ),
-				'couverty_entree'      => array( 'type' => 'string',  'default' => '' ),
-				'couverty_dessert'     => array( 'type' => 'string',  'default' => '' ),
-				'couverty_prix'        => array( 'type' => 'string',  'default' => '' ),
+				'couverty_jour_label'  => array( 'type' => 'string',  'default' => '', 'label' => __( 'Jour', 'couverty' ) ),
+				'couverty_entree'      => array( 'type' => 'string',  'default' => '', 'label' => __( 'Entrée', 'couverty' ) ),
+				'couverty_plat'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Plat', 'couverty' ) ),
+				'couverty_dessert'     => array( 'type' => 'string',  'default' => '', 'label' => __( 'Dessert', 'couverty' ) ),
+				'couverty_prix'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Prix', 'couverty' ), 'description' => __( 'Formatted price, e.g. CHF 18.-', 'couverty' ) ),
 				'couverty_external_id' => array( 'type' => 'string',  'default' => '' ),
+			),
+			'couverty_evenement' => array(
+				'couverty_date_debut'  => array( 'type' => 'string', 'default' => '', 'label' => __( 'Date de début', 'couverty' ), 'description' => __( 'ISO 8601 datetime', 'couverty' ) ),
+				'couverty_date_fin'    => array( 'type' => 'string', 'default' => '', 'label' => __( 'Date de fin', 'couverty' ), 'description' => __( 'ISO 8601 datetime (optional)', 'couverty' ) ),
+				'couverty_image_url'   => array( 'type' => 'string', 'default' => '', 'label' => __( 'Image URL', 'couverty' ) ),
+				'couverty_url'         => array( 'type' => 'string', 'default' => '', 'label' => __( 'Lien vers l\'événement', 'couverty' ), 'description' => __( 'URL of the public event detail page', 'couverty' ) ),
+				'couverty_external_id' => array( 'type' => 'string', 'default' => '' ),
 			),
 		);
 
 		foreach ( $fields as $post_type => $metas ) {
 			foreach ( $metas as $key => $config ) {
-				register_post_meta( $post_type, $key, array(
+				$args = array(
 					'type'         => $config['type'],
 					'single'       => true,
 					'default'      => $config['default'],
 					'show_in_rest' => true,
-				) );
+				);
+				if ( 'string' === $config['type'] ) {
+					$args['sanitize_callback'] = 'sanitize_text_field';
+				}
+				if ( ! empty( $config['label'] ) ) {
+					$args['label'] = $config['label'];
+				}
+				if ( ! empty( $config['description'] ) ) {
+					$args['description'] = $config['description'];
+				}
+				register_post_meta( $post_type, $key, $args );
 			}
 		}
 	}
@@ -220,7 +246,7 @@ class Couverty_Sync {
 			return array( 'success' => false, 'error' => __( 'API returned no data', 'couverty' ) );
 		}
 
-		$counts = array( 'plats' => 0, 'boissons' => 0, 'menus' => 0 );
+		$counts = array( 'plats' => 0, 'boissons' => 0, 'menus' => 0, 'evenements' => 0 );
 
 		if ( isset( $menu['plats'] ) ) {
 			$counts['plats'] = $this->sync_plats( $menu['plats'] );
@@ -230,6 +256,13 @@ class Couverty_Sync {
 		}
 		if ( isset( $menu['menuSemaine'] ) ) {
 			$counts['menus'] = $this->sync_menu_du_jour( $menu['menuSemaine'] );
+		}
+
+		// Evenements — separate endpoint, needs slug.
+		$restaurant_cached = get_option( 'couverty_restaurant_data', array() );
+		$slug              = isset( $restaurant_cached['slug'] ) ? $restaurant_cached['slug'] : '';
+		if ( $slug ) {
+			$counts['evenements'] = $this->sync_evenements( $api, $slug );
 		}
 
 		// Restaurant info → wp_options (fetch fresh if forced, reuse if already fetched).
@@ -414,6 +447,7 @@ class Couverty_Sync {
 					'couverty_jour'       => $jour,
 					'couverty_jour_label' => $jour_label,
 					'couverty_entree'     => isset( $menu['entree'] ) ? $menu['entree'] : '',
+					'couverty_plat'       => isset( $menu['plat'] ) ? $menu['plat'] : '',
 					'couverty_dessert'    => isset( $menu['dessert'] ) ? $menu['dessert'] : '',
 					'couverty_prix'       => $prix,
 				)
@@ -427,6 +461,54 @@ class Couverty_Sync {
 		if ( ! empty( $synced_ids ) ) {
 			$this->cleanup( 'couverty_menu_jour', $synced_ids );
 		}
+
+		return count( $synced_ids );
+	}
+
+	/**
+	 * Sync upcoming events into couverty_evenement CPT
+	 *
+	 * @param Couverty_API $api  API client.
+	 * @param string       $slug Tenant slug.
+	 * @return int Number of synced items.
+	 */
+	private function sync_evenements( $api, $slug ) {
+		$response = $api->get_events( $slug );
+
+		if ( ! is_array( $response ) || ! isset( $response['events'] ) || ! is_array( $response['events'] ) ) {
+			return 0;
+		}
+
+		$synced_ids = array();
+
+		foreach ( $response['events'] as $event ) {
+			$event_id = isset( $event['id'] ) ? $event['id'] : '';
+			if ( empty( $event_id ) ) {
+				continue;
+			}
+
+			$post_id = $this->upsert(
+				'couverty_evenement',
+				$event_id,
+				array(
+					'post_title'   => isset( $event['titre'] ) ? $event['titre'] : '',
+					'post_content' => isset( $event['description'] ) ? $event['description'] : '',
+					'post_status'  => 'publish',
+				),
+				array(
+					'couverty_date_debut' => isset( $event['dateDebut'] ) ? $event['dateDebut'] : '',
+					'couverty_date_fin'   => isset( $event['dateFin'] ) ? $event['dateFin'] : '',
+					'couverty_image_url'  => isset( $event['imageUrl'] ) ? $event['imageUrl'] : '',
+					'couverty_url'        => $api->build_event_url( $slug, $event_id ),
+				)
+			);
+
+			if ( $post_id ) {
+				$synced_ids[] = $post_id;
+			}
+		}
+
+		$this->cleanup( 'couverty_evenement', $synced_ids );
 
 		return count( $synced_ids );
 	}
@@ -594,7 +676,7 @@ class Couverty_Sync {
 	 * Delete all synced CPT data (for uninstall)
 	 */
 	public static function delete_all_data() {
-		$types = array( 'couverty_plat', 'couverty_boisson', 'couverty_menu_jour' );
+		$types = array( 'couverty_plat', 'couverty_boisson', 'couverty_menu_jour', 'couverty_evenement' );
 
 		foreach ( $types as $type ) {
 			$posts = get_posts( array(

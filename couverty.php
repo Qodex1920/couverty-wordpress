@@ -3,7 +3,7 @@
  * Plugin Name: Couverty
  * Plugin URI: https://couverty.ch
  * Description: Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty
- * Version: 1.7.1
+ * Version: 1.7.2
  * Author: Couverty
  * Author URI: https://couverty.ch
  * License: GPL v2 or later
@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants
-define( 'COUVERTY_VERSION', '1.7.1' );
+define( 'COUVERTY_VERSION', '1.7.2' );
 define( 'COUVERTY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_FILE', __FILE__ );
@@ -67,6 +67,20 @@ add_action( 'init', function() {
 		if ( ! wp_next_scheduled( Couverty_Sync::CRON_HOOK ) ) {
 			wp_schedule_event( time() + 60, Couverty_Sync::CRON_INTERVAL, Couverty_Sync::CRON_HOOK );
 		}
+
+		// Clean up stale meta keys from previous versions, then force re-sync.
+		global $wpdb;
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s, %s)",
+				'couverty_prix2',
+				'couverty_prix3',
+				'couverty_prix_affichage'
+			)
+		);
+		delete_option( 'couverty_menu_updated_at' );
+		$sync = new Couverty_Sync();
+		$sync->sync( true );
 	}
 }, 99 );
 

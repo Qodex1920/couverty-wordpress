@@ -207,7 +207,14 @@ class Couverty_Admin {
 				'couverty_prix'       => array( 'label' => __( 'Prix', 'couverty' ), 'type' => 'string', 'hint' => 'CHF 18.-' ),
 				'couverty_jour_label' => array( 'label' => __( 'Jour', 'couverty' ), 'type' => 'string' ),
 				'couverty_entree'     => array( 'label' => __( 'Entrée', 'couverty' ), 'type' => 'string' ),
+				'couverty_plat'       => array( 'label' => __( 'Plat', 'couverty' ), 'type' => 'string' ),
 				'couverty_dessert'    => array( 'label' => __( 'Dessert', 'couverty' ), 'type' => 'string' ),
+			),
+			'couverty_evenement' => array(
+				'couverty_date_debut' => array( 'label' => __( 'Date de début', 'couverty' ), 'type' => 'string', 'hint' => 'ISO 8601 datetime' ),
+				'couverty_date_fin'   => array( 'label' => __( 'Date de fin', 'couverty' ), 'type' => 'string', 'hint' => 'ISO 8601 datetime (optionnel)' ),
+				'couverty_image_url'  => array( 'label' => __( 'Image URL', 'couverty' ), 'type' => 'string' ),
+				'couverty_url'        => array( 'label' => __( 'Lien vers l\'événement', 'couverty' ), 'type' => 'string', 'hint' => __( 'Page détail sur votre site', 'couverty' ) ),
 			),
 		);
 	}
@@ -219,9 +226,10 @@ class Couverty_Admin {
 	 */
 	private function get_post_type_info() {
 		return array(
-			'couverty_plat'     => array( 'label' => __( 'Plats', 'couverty' ), 'taxonomy' => 'couverty_cat_plat' ),
-			'couverty_boisson'  => array( 'label' => __( 'Boissons', 'couverty' ), 'taxonomy' => 'couverty_cat_boisson' ),
+			'couverty_plat'      => array( 'label' => __( 'Plats', 'couverty' ), 'taxonomy' => 'couverty_cat_plat' ),
+			'couverty_boisson'   => array( 'label' => __( 'Boissons', 'couverty' ), 'taxonomy' => 'couverty_cat_boisson' ),
 			'couverty_menu_jour' => array( 'label' => __( 'Menu du jour', 'couverty' ), 'taxonomy' => null ),
+			'couverty_evenement' => array( 'label' => __( 'Événements', 'couverty' ), 'taxonomy' => null ),
 		);
 	}
 

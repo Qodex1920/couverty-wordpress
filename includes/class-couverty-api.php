@@ -111,6 +111,33 @@ class Couverty_API {
 	}
 
 	/**
+	 * Get upcoming events for a tenant
+	 *
+	 * @param string $slug Tenant slug.
+	 * @return array|null Array of events or null on error. Response shape: { events: [...] }.
+	 */
+	public function get_events( $slug ) {
+		if ( empty( $slug ) ) {
+			return null;
+		}
+		$cache_key = 'couverty_events_' . md5( $slug );
+		return $this->get_cached( $cache_key, function() use ( $slug ) {
+			return $this->request( '/api/public/' . rawurlencode( $slug ) . '/events' );
+		}, $this->cache_duration );
+	}
+
+	/**
+	 * Build the public URL for an event detail page.
+	 *
+	 * @param string $slug     Tenant slug.
+	 * @param string $event_id Event ID.
+	 * @return string
+	 */
+	public function build_event_url( $slug, $event_id ) {
+		return rtrim( $this->base_url, '/' ) . '/' . rawurlencode( $slug ) . '/evenements/' . rawurlencode( $event_id );
+	}
+
+	/**
 	 * Test connection to API
 	 *
 	 * @return array
