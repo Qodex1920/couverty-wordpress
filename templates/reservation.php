@@ -4,53 +4,41 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Reservation iframe template
  *
+ * The iframe itself is built by assets/js/couverty-reservation.js, which also
+ * validates the origin of the resize messages sent by the embedded widget.
+ *
  * @var array $atts Shortcode attributes (height, appearance, radius)
  */
 
-$height = isset( $atts['height'] ) ? (int) $atts['height'] : 600;
+$height     = isset( $atts['height'] ) ? (int) $atts['height'] : 600;
 $appearance = isset( $atts['appearance'] ) ? sanitize_text_field( $atts['appearance'] ) : 'card';
-$radius = isset( $atts['radius'] ) ? sanitize_text_field( $atts['radius'] ) : 'lg';
+$radius     = isset( $atts['radius'] ) ? sanitize_text_field( $atts['radius'] ) : 'lg';
 
-// Get base URL and slug from settings
 $settings = Couverty::get_settings();
-$base_url = isset( $settings['base_url'] ) ? $settings['base_url'] : 'https://couverty.ch';
-$slug = isset( $settings['slug'] ) ? $settings['slug'] : '';
+$base_url = rtrim( isset( $settings['base_url'] ) ? $settings['base_url'] : 'https://couverty.ch', '/' );
+$slug     = isset( $settings['slug'] ) ? $settings['slug'] : '';
 
-// Generate unique widget ID
-$unique_id = wp_unique_id( 'cv-' );
-
-// Build iframe URL
 $iframe_url = add_query_arg(
-	[
+	array(
 		'appearance' => $appearance,
-		'radius' => $radius,
-	],
-	$base_url . '/embed/' . $slug
+		'radius'     => $radius,
+	),
+	$base_url . '/embed/' . rawurlencode( $slug )
 );
+
+// Origin the widget is allowed to post resize messages from.
+$parsed = wp_parse_url( $base_url );
+$origin = isset( $parsed['scheme'], $parsed['host'] )
+	? $parsed['scheme'] . '://' . $parsed['host'] . ( isset( $parsed['port'] ) ? ':' . $parsed['port'] : '' )
+	: $base_url;
+
+wp_enqueue_script( 'couverty-reservation' );
 ?>
 
-<div class="couverty-reservation">
-	<div id="couverty-reservation-widget-<?php echo esc_attr( $unique_id ); ?>"></div>
-	<script>
-	(function() {
-		var iframe = document.createElement('iframe');
-		iframe.src = '<?php echo esc_url( $iframe_url ); ?>';
-		iframe.style.width = '100%';
-		iframe.style.minHeight = '<?php echo esc_attr( (string) $height ); ?>px';
-		iframe.style.border = 'none';
-		iframe.style.overflow = 'hidden';
-		iframe.setAttribute('scrolling', 'no');
-		iframe.setAttribute('frameborder', '0');
-		iframe.setAttribute('title', 'Réservation');
-
-		window.addEventListener('message', function(event) {
-			if (event.data && event.data.type === 'widget:resize') {
-				iframe.style.height = event.data.height + 'px';
-			}
-		});
-
-		var c = document.getElementById('couverty-reservation-widget-<?php echo esc_attr( $unique_id ); ?>');
-		if (c) c.appendChild(iframe);
-	})();
-	</script>
-</div>
+<div
+	class="couverty-reservation"
+	data-couverty-embed="<?php echo esc_url( $iframe_url ); ?>"
+	data-couverty-origin="<?php echo esc_attr( $origin ); ?>"
+	data-couverty-height="<?php echo esc_attr( (string) $height ); ?>"
+	data-couverty-title="<?php esc_attr_e( 'Réservation en ligne', 'couverty' ); ?>"
+></div>

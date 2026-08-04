@@ -3,13 +3,31 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Blocks handler for Couverty
+ *
+ * Blocks are server-rendered through the shortcode handler, so the markup stays
+ * identical whether the user picked a block, a shortcode or a page builder.
+ *
+ * The rendered markup is not run through wp_kses_post(): the templates escape
+ * every value they output, and kses would strip the reservation widget's script
+ * tag. Attribute values coming from the editor are whitelisted here instead.
  */
 class Couverty_Blocks {
 
 	/**
-	 * Constructor - register filters and hooks
+	 * Shared shortcode handler used to render every block.
+	 *
+	 * @var Couverty_Shortcodes
 	 */
-	public function __construct() {
+	private $shortcodes;
+
+	/**
+	 * Constructor - register filters and hooks
+	 *
+	 * @param Couverty_Shortcodes $shortcodes Shared shortcode handler.
+	 */
+	public function __construct( Couverty_Shortcodes $shortcodes ) {
+		$this->shortcodes = $shortcodes;
+
 		add_filter( 'block_categories_all', [ $this, 'register_block_category' ], 10, 2 );
 		add_action( 'init', [ $this, 'register_blocks' ] );
 	}
@@ -48,37 +66,53 @@ class Couverty_Blocks {
 	 * @return void
 	 */
 	public function register_blocks() {
-		// Register Menu block
-		register_block_type(
-			COUVERTY_PLUGIN_DIR . 'blocks/menu',
-			[
-				'render_callback' => [ $this, 'render_menu_block' ],
-			]
-		);
+		$blocks = [
+			'menu'         => [ $this, 'render_menu_block' ],
+			'boissons'     => [ $this, 'render_boissons_block' ],
+			'menu-du-jour' => [ $this, 'render_menu_du_jour_block' ],
+			'reservation'  => [ $this, 'render_reservation_block' ],
+		];
 
-		// Register Boissons block
-		register_block_type(
-			COUVERTY_PLUGIN_DIR . 'blocks/boissons',
-			[
-				'render_callback' => [ $this, 'render_boissons_block' ],
-			]
-		);
+		foreach ( $blocks as $dir => $callback ) {
+			$block_type = register_block_type(
+				COUVERTY_PLUGIN_DIR . 'blocks/' . $dir,
+				[ 'render_callback' => $callback ]
+			);
 
-		// Register Menu du jour block
-		register_block_type(
-			COUVERTY_PLUGIN_DIR . 'blocks/menu-du-jour',
-			[
-				'render_callback' => [ $this, 'render_menu_du_jour_block' ],
-			]
-		);
+			if ( ! $block_type instanceof WP_Block_Type || empty( $block_type->editor_script_handles ) ) {
+				continue;
+			}
 
-		// Register Reservation block
-		register_block_type(
-			COUVERTY_PLUGIN_DIR . 'blocks/reservation',
-			[
-				'render_callback' => [ $this, 'render_reservation_block' ],
-			]
-		);
+			foreach ( $block_type->editor_script_handles as $handle ) {
+				wp_set_script_translations( $handle, 'couverty', COUVERTY_PLUGIN_DIR . 'languages' );
+			}
+		}
+	}
+
+	/**
+	 * Pick a value from a whitelist, falling back to a default.
+	 *
+	 * @param array  $attributes Block attributes.
+	 * @param string $key        Attribute name.
+	 * @param array  $allowed    Allowed values.
+	 * @param string $default    Fallback value.
+	 * @return string
+	 */
+	private function pick( $attributes, $key, $allowed, $default ) {
+		return isset( $attributes[ $key ] ) && in_array( $attributes[ $key ], $allowed, true )
+			? $attributes[ $key ]
+			: $default;
+	}
+
+	/**
+	 * Normalize a boolean attribute into the string form shortcodes expect.
+	 *
+	 * @param array  $attributes Block attributes.
+	 * @param string $key        Attribute name.
+	 * @return string 'true' or 'false'
+	 */
+	private function flag( $attributes, $key ) {
+		return ( $attributes[ $key ] ?? true ) ? 'true' : 'false';
 	}
 
 	/**
@@ -88,18 +122,12 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_menu_block( $attributes ) {
-		$shortcodes = new Couverty_Shortcodes();
-		$valid_layouts = [ 'list', 'grid' ];
-		$layout = isset( $attributes['layout'] ) && in_array( $attributes['layout'], $valid_layouts, true )
-			? $attributes['layout'] : 'list';
-
-		$atts = [
-			'layout'         => $layout,
-			'show_prices'    => ( $attributes['showPrices'] ?? true ) ? 'true' : 'false',
-			'show_images'    => ( $attributes['showImages'] ?? true ) ? 'true' : 'false',
-			'show_allergens' => ( $attributes['showAllergens'] ?? true ) ? 'true' : 'false',
-		];
-		return wp_kses_post( $shortcodes->render_menu( $atts ) );
+		return $this->shortcodes->render_menu( [
+			'layout'         => $this->pick( $attributes, 'layout', [ 'list', 'grid' ], 'list' ),
+			'show_prices'    => $this->flag( $attributes, 'showPrices' ),
+			'show_images'    => $this->flag( $attributes, 'showImages' ),
+			'show_allergens' => $this->flag( $attributes, 'showAllergens' ),
+		] );
 	}
 
 	/**
@@ -109,17 +137,11 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_boissons_block( $attributes ) {
-		$shortcodes = new Couverty_Shortcodes();
-		$valid_layouts = [ 'list', 'grid' ];
-		$layout = isset( $attributes['layout'] ) && in_array( $attributes['layout'], $valid_layouts, true )
-			? $attributes['layout'] : 'list';
-
-		$atts = [
-			'layout'        => $layout,
-			'show_prices'   => ( $attributes['showPrices'] ?? true ) ? 'true' : 'false',
-			'show_details'  => ( $attributes['showDetails'] ?? true ) ? 'true' : 'false',
-		];
-		return wp_kses_post( $shortcodes->render_boissons( $atts ) );
+		return $this->shortcodes->render_boissons( [
+			'layout'       => $this->pick( $attributes, 'layout', [ 'list', 'grid' ], 'list' ),
+			'show_prices'  => $this->flag( $attributes, 'showPrices' ),
+			'show_details' => $this->flag( $attributes, 'showDetails' ),
+		] );
 	}
 
 	/**
@@ -129,11 +151,9 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_menu_du_jour_block( $attributes ) {
-		$shortcodes = new Couverty_Shortcodes();
-		$atts = [
-			'show_price' => ( $attributes['showPrice'] ?? true ) ? 'true' : 'false',
-		];
-		return wp_kses_post( $shortcodes->render_menu_du_jour( $atts ) );
+		return $this->shortcodes->render_menu_du_jour( [
+			'show_price' => $this->flag( $attributes, 'showPrice' ),
+		] );
 	}
 
 	/**
@@ -143,23 +163,10 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_reservation_block( $attributes ) {
-		$shortcodes    = new Couverty_Shortcodes();
-		$valid_appearances = [ 'card', 'glass', 'minimal', 'dark' ];
-		$valid_radii       = [ 'none', 'sm', 'md', 'lg' ];
-
-		$appearance = isset( $attributes['appearance'] ) && in_array( $attributes['appearance'], $valid_appearances, true )
-			? $attributes['appearance'] : 'card';
-		$radius = isset( $attributes['radius'] ) && in_array( $attributes['radius'], $valid_radii, true )
-			? $attributes['radius'] : 'lg';
-
-		$atts = [
+		return $this->shortcodes->render_reservation( [
 			'height'     => max( 300, min( 1200, (int) ( $attributes['height'] ?? 600 ) ) ),
-			'appearance' => $appearance,
-			'radius'     => $radius,
-		];
-		// Note: no wp_kses_post() here — reservation template contains
-		// a <script> tag for iframe creation that would be stripped.
-		// Input values (appearance, radius, height) are validated above.
-		return $shortcodes->render_reservation( $atts );
+			'appearance' => $this->pick( $attributes, 'appearance', [ 'card', 'glass', 'minimal', 'dark' ], 'card' ),
+			'radius'     => $this->pick( $attributes, 'radius', [ 'none', 'sm', 'md', 'lg' ], 'lg' ),
+		] );
 	}
 }

@@ -27,6 +27,11 @@ if ( $show_images ) {
 		}
 	}
 }
+
+// Only ship the lightbox script when there is actually something to open.
+if ( $has_images && 'list' === $layout ) {
+	wp_enqueue_script( 'couverty-lightbox' );
+}
 ?>
 
 <div class="couverty-menu couverty-menu--<?php echo esc_attr( $layout ); ?>">
@@ -67,7 +72,7 @@ if ( $show_images ) {
 							<div class="couverty-plat__name-wrapper">
 								<span class="couverty-plat__name"><?php echo esc_html( $plat['nom'] ?? '' ); ?></span>
 								<?php if ( 'list' === $layout && $show_images && isset( $plat['imageUrl'] ) && $plat['imageUrl'] ) : ?>
-									<button class="couverty-plat__image-btn" data-src="<?php echo esc_attr( $plat['imageUrl'] ); ?>" data-alt="<?php echo esc_attr( $plat['nom'] ?? '' ); ?>" aria-label="<?php esc_attr_e( 'View image', 'couverty' ); ?>">
+									<button class="couverty-plat__image-btn" data-src="<?php echo esc_attr( $plat['imageUrl'] ); ?>" data-alt="<?php echo esc_attr( $plat['nom'] ?? '' ); ?>" aria-label="<?php esc_attr_e( 'Voir la photo du plat', 'couverty' ); ?>">
 										<svg class="couverty-plat__image-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 											<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
 											<circle cx="12" cy="12" r="3"></circle>
@@ -91,19 +96,27 @@ if ( $show_images ) {
 						<?php endif; ?>
 
 						<div class="couverty-plat__tags">
-							<?php if ( isset( $plat['vegetarien'] ) && $plat['vegetarien'] ) : ?>
-								<span class="couverty-tag couverty-tag--vege">Végétarien</span>
+							<?php if ( ! empty( $plat['vegetarien'] ) ) : ?>
+								<span class="couverty-tag couverty-tag--vege"><?php esc_html_e( 'Végétarien', 'couverty' ); ?></span>
 							<?php endif; ?>
-							<?php if ( isset( $plat['vegan'] ) && $plat['vegan'] ) : ?>
-								<span class="couverty-tag couverty-tag--vegan">Vegan</span>
+							<?php if ( ! empty( $plat['vegan'] ) ) : ?>
+								<span class="couverty-tag couverty-tag--vegan"><?php esc_html_e( 'Vegan', 'couverty' ); ?></span>
 							<?php endif; ?>
-							<?php if ( isset( $plat['sansGluten'] ) && $plat['sansGluten'] ) : ?>
-								<span class="couverty-tag couverty-tag--sg">Sans gluten</span>
+							<?php if ( ! empty( $plat['sansGluten'] ) ) : ?>
+								<span class="couverty-tag couverty-tag--sg"><?php esc_html_e( 'Sans gluten', 'couverty' ); ?></span>
 							<?php endif; ?>
 						</div>
 
-						<?php if ( $show_allergens && isset( $plat['allergenes'] ) && is_array( $plat['allergenes'] ) && ! empty( $plat['allergenes'] ) ) : ?>
-							<p class="couverty-plat__allergens">Allergènes : <?php echo esc_html( implode( ', ', $plat['allergenes'] ) ); ?></p>
+						<?php if ( $show_allergens && ! empty( $plat['allergenes'] ) && is_array( $plat['allergenes'] ) ) : ?>
+							<p class="couverty-plat__allergens">
+								<?php
+								printf(
+									/* translators: %s: comma-separated allergen list */
+									esc_html__( 'Allergènes : %s', 'couverty' ),
+									esc_html( implode( ', ', $plat['allergenes'] ) )
+								);
+								?>
+							</p>
 						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
@@ -117,35 +130,3 @@ if ( $show_images ) {
 		</div>
 	<?php endif; ?>
 </div>
-
-<?php if ( $has_images ) : ?>
-	<div id="couverty-lightbox" class="couverty-lightbox" style="display:none;">
-		<button class="couverty-lightbox__close" aria-label="Close">&times;</button>
-		<img class="couverty-lightbox__img" src="" alt="">
-	</div>
-	<script>
-		(function() {
-			var lightbox = document.getElementById('couverty-lightbox');
-			var closeBtn = lightbox.querySelector('.couverty-lightbox__close');
-
-			document.querySelectorAll('.couverty-plat__image-btn').forEach(function(btn) {
-				btn.addEventListener('click', function(e) {
-					e.preventDefault();
-					lightbox.querySelector('img').src = this.dataset.src;
-					lightbox.querySelector('img').alt = this.dataset.alt || '';
-					lightbox.style.display = 'flex';
-				});
-			});
-
-			closeBtn.addEventListener('click', function() {
-				lightbox.style.display = 'none';
-			});
-
-			lightbox.addEventListener('click', function(e) {
-				if (e.target === this) {
-					this.style.display = 'none';
-				}
-			});
-		})();
-	</script>
-<?php endif; ?>

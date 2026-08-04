@@ -9,100 +9,98 @@ defined( 'ABSPATH' ) || exit;
  */
 
 $config = isset( $data['config'] ) ? $data['config'] : [];
-$menus = isset( $data['menus'] ) ? $data['menus'] : [];
+$menus  = isset( $data['menus'] ) ? $data['menus'] : [];
 
-// Day labels
 $day_labels = [
-	0 => 'Semaine',
-	1 => 'Lundi',
-	2 => 'Mardi',
-	3 => 'Mercredi',
-	4 => 'Jeudi',
-	5 => 'Vendredi',
-	6 => 'Samedi',
-	7 => 'Dimanche',
+	0 => __( 'Semaine', 'couverty' ),
+	1 => __( 'Lundi', 'couverty' ),
+	2 => __( 'Mardi', 'couverty' ),
+	3 => __( 'Mercredi', 'couverty' ),
+	4 => __( 'Jeudi', 'couverty' ),
+	5 => __( 'Vendredi', 'couverty' ),
+	6 => __( 'Samedi', 'couverty' ),
+	7 => __( 'Dimanche', 'couverty' ),
 ];
 
-// Get current day (1=Monday to 7=Sunday)
-$current_day = (int) date( 'N' );
+// Current day (1=Monday to 7=Sunday) in the site's timezone, not the server's.
+$current_day = (int) wp_date( 'N' );
 
-// Check if single menu for the week
-$menu_unique_semaine = isset( $config['menuUniqueSemaine'] ) && $config['menuUniqueSemaine'];
-$show_prices = isset( $config['afficherPrix'] ) && $config['afficherPrix'];
+$menu_unique_semaine = ! empty( $config['menuUniqueSemaine'] );
+$show_prices         = ! empty( $config['afficherPrix'] );
+
+/**
+ * Render a single day card.
+ *
+ * @param array  $menu        Menu data (entree, plat, dessert, prix).
+ * @param string $day_label   Heading for the card.
+ * @param bool   $is_today    Whether to highlight the card.
+ * @param bool   $show_prices Whether the price should be displayed.
+ */
+$render_day = static function ( $menu, $day_label, $is_today, $show_prices ) {
+	$courses = [
+		'entree'  => __( 'Entrée', 'couverty' ),
+		'plat'    => __( 'Plat', 'couverty' ),
+		'dessert' => __( 'Dessert', 'couverty' ),
+	];
+	?>
+	<div class="couverty-menu-jour<?php echo $is_today ? ' couverty-menu-jour--today' : ''; ?>">
+		<h4 class="couverty-menu-jour__day"><?php echo esc_html( $day_label ); ?></h4>
+		<div class="couverty-menu-jour__courses">
+			<?php foreach ( $courses as $key => $label ) : ?>
+				<?php
+				$value = isset( $menu[ $key ] ) ? $menu[ $key ] : '';
+				// The main course is always shown, even when empty, to keep the layout stable.
+				if ( '' === $value && 'plat' !== $key ) {
+					continue;
+				}
+				?>
+				<div class="couverty-menu-jour__course">
+					<span class="couverty-menu-jour__label"><?php echo esc_html( $label ); ?></span>
+					<span class="couverty-menu-jour__content"><?php echo esc_html( $value ); ?></span>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<?php if ( $show_prices && ! empty( $menu['prix'] ) ) : ?>
+			<div class="couverty-menu-jour__price">
+				<?php
+				echo esc_html(
+					! empty( $menu['prixAffichage'] )
+						? $menu['prixAffichage']
+						: 'CHF ' . number_format( (float) $menu['prix'], 2, '.', '' )
+				);
+				?>
+			</div>
+		<?php endif; ?>
+	</div>
+	<?php
+};
 ?>
 
 <div class="couverty-menu-du-jour">
-	<?php if ( isset( $config['titre'] ) && $config['titre'] ) : ?>
+	<?php if ( ! empty( $config['titre'] ) ) : ?>
 		<h3 class="couverty-menu-du-jour__title"><?php echo esc_html( $config['titre'] ); ?></h3>
 	<?php endif; ?>
 
 	<?php if ( $menu_unique_semaine ) : ?>
 		<?php
-		$single_menu = null;
 		foreach ( $menus as $menu ) {
 			if ( isset( $menu['jour'] ) && 0 === (int) $menu['jour'] ) {
-				$single_menu = $menu;
+				$render_day( $menu, $day_labels[0], false, $show_prices );
 				break;
 			}
 		}
 		?>
-		<?php if ( $single_menu ) : ?>
-			<div class="couverty-menu-jour">
-				<h4 class="couverty-menu-jour__day"><?php echo esc_html( $day_labels[0] ); ?></h4>
-				<div class="couverty-menu-jour__courses">
-					<?php if ( isset( $single_menu['entree'] ) && $single_menu['entree'] ) : ?>
-						<div class="couverty-menu-jour__course">
-							<span class="couverty-menu-jour__label">Entrée</span>
-							<span class="couverty-menu-jour__content"><?php echo esc_html( $single_menu['entree'] ); ?></span>
-						</div>
-					<?php endif; ?>
-					<div class="couverty-menu-jour__course">
-						<span class="couverty-menu-jour__label">Plat</span>
-						<span class="couverty-menu-jour__content"><?php echo esc_html( $single_menu['plat'] ?? '' ); ?></span>
-					</div>
-					<?php if ( isset( $single_menu['dessert'] ) && $single_menu['dessert'] ) : ?>
-						<div class="couverty-menu-jour__course">
-							<span class="couverty-menu-jour__label">Dessert</span>
-							<span class="couverty-menu-jour__content"><?php echo esc_html( $single_menu['dessert'] ); ?></span>
-						</div>
-					<?php endif; ?>
-				</div>
-				<?php if ( $show_prices && isset( $single_menu['prix'] ) && $single_menu['prix'] ) : ?>
-					<div class="couverty-menu-jour__price">CHF <?php echo esc_html( number_format( (float) $single_menu['prix'], 2, '.', '' ) ); ?></div>
-				<?php endif; ?>
-			</div>
-		<?php endif; ?>
 	<?php else : ?>
-		<?php foreach ( $menus as $menu ) : ?>
-			<?php
+		<?php
+		foreach ( $menus as $menu ) {
 			$jour = isset( $menu['jour'] ) ? (int) $menu['jour'] : 0;
-			$is_today = ( $jour === $current_day );
-			$class = $is_today ? 'couverty-menu-jour couverty-menu-jour--today' : 'couverty-menu-jour';
-			?>
-			<div class="<?php echo esc_attr( $class ); ?>">
-				<h4 class="couverty-menu-jour__day"><?php echo esc_html( $day_labels[ $jour ] ?? '' ); ?></h4>
-				<div class="couverty-menu-jour__courses">
-					<?php if ( isset( $menu['entree'] ) && $menu['entree'] ) : ?>
-						<div class="couverty-menu-jour__course">
-							<span class="couverty-menu-jour__label">Entrée</span>
-							<span class="couverty-menu-jour__content"><?php echo esc_html( $menu['entree'] ); ?></span>
-						</div>
-					<?php endif; ?>
-					<div class="couverty-menu-jour__course">
-						<span class="couverty-menu-jour__label">Plat</span>
-						<span class="couverty-menu-jour__content"><?php echo esc_html( $menu['plat'] ?? '' ); ?></span>
-					</div>
-					<?php if ( isset( $menu['dessert'] ) && $menu['dessert'] ) : ?>
-						<div class="couverty-menu-jour__course">
-							<span class="couverty-menu-jour__label">Dessert</span>
-							<span class="couverty-menu-jour__content"><?php echo esc_html( $menu['dessert'] ); ?></span>
-						</div>
-					<?php endif; ?>
-				</div>
-				<?php if ( $show_prices && isset( $menu['prix'] ) && $menu['prix'] ) : ?>
-					<div class="couverty-menu-jour__price">CHF <?php echo esc_html( number_format( (float) $menu['prix'], 2, '.', '' ) ); ?></div>
-				<?php endif; ?>
-			</div>
-		<?php endforeach; ?>
+			$render_day(
+				$menu,
+				isset( $day_labels[ $jour ] ) ? $day_labels[ $jour ] : '',
+				$jour === $current_day,
+				$show_prices
+			);
+		}
+		?>
 	<?php endif; ?>
 </div>

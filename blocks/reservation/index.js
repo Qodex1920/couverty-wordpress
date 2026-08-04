@@ -1,80 +1,76 @@
-(function() {
-  var el = wp.element.createElement;
-  var registerBlockType = wp.blocks.registerBlockType;
-  var InspectorControls = wp.blockEditor.InspectorControls;
-  var PanelBody = wp.components.PanelBody;
-  var NumberControl = wp.components.NumberControl;
-  var SelectControl = wp.components.SelectControl;
+(function () {
+	var el = wp.element.createElement;
+	var __ = wp.i18n.__;
+	var registerBlockType = wp.blocks.registerBlockType;
+	var InspectorControls = wp.blockEditor.InspectorControls;
+	var PanelBody = wp.components.PanelBody;
+	var RangeControl = wp.components.RangeControl;
+	var SelectControl = wp.components.SelectControl;
+	var Placeholder = wp.components.Placeholder;
 
-  registerBlockType('couverty/reservation', {
-    edit: function(props) {
-      var attributes = props.attributes;
-      return el('div', { className: props.className },
-        el(InspectorControls, {},
-          el(PanelBody, { title: 'Paramètres', initialOpen: true },
-            el(NumberControl, {
-              label: 'Hauteur (px)',
-              value: attributes.height,
-              onChange: function(val) { props.setAttributes({ height: val }); },
-              min: 300,
-              max: 1200,
-              step: 50
-            }),
-            el(SelectControl, {
-              label: 'Apparence',
-              value: attributes.appearance,
-              options: [
-                { label: 'Card', value: 'card' },
-                { label: 'Glass', value: 'glass' },
-                { label: 'Minimal', value: 'minimal' },
-                { label: 'Dark', value: 'dark' }
-              ],
-              onChange: function(val) { props.setAttributes({ appearance: val }); }
-            }),
-            el(SelectControl, {
-              label: 'Arrondi',
-              value: attributes.radius,
-              options: [
-                { label: 'Aucun', value: 'none' },
-                { label: 'Petit', value: 'sm' },
-                { label: 'Moyen', value: 'md' },
-                { label: 'Grand', value: 'lg' }
-              ],
-              onChange: function(val) { props.setAttributes({ radius: val }); }
-            })
-          )
-        ),
-        el('div', {
-          style: {
-            padding: '2rem',
-            background: '#f8fafc',
-            border: '2px dashed #cbd5e1',
-            borderRadius: '8px',
-            textAlign: 'center'
-          }
-        },
-          el('span', {
-            className: 'dashicons dashicons-calendar',
-            style: {
-              fontSize: '2rem',
-              marginBottom: '0.5rem',
-              display: 'block'
-            }
-          }),
-          el('p', {
-            style: {
-              fontWeight: '500',
-              margin: '0.5rem 0 0.25rem'
-            }
-          }, 'Widget de réservation Couverty'),
-          el('p', {
-            style: {
-              color: '#6b7280',
-              fontSize: '0.875rem'
-            }
-          }, 'Le formulaire de réservation sera affiché ici.')
-        )
-      );
-    }
-  });
+	registerBlockType('couverty/reservation', {
+		edit: function (props) {
+			var attributes = props.attributes;
+
+			return el(
+				'div',
+				wp.blockEditor.useBlockProps ? wp.blockEditor.useBlockProps() : { className: props.className },
+				el(
+					InspectorControls,
+					{},
+					el(
+						PanelBody,
+						{ title: __('Paramètres', 'couverty'), initialOpen: true },
+						el(RangeControl, {
+							label: __('Hauteur (px)', 'couverty'),
+							value: attributes.height,
+							onChange: function (val) {
+								props.setAttributes({ height: val });
+							},
+							min: 300,
+							max: 1200,
+							step: 50,
+						}),
+						el(SelectControl, {
+							label: __('Apparence', 'couverty'),
+							value: attributes.appearance,
+							options: [
+								{ label: __('Carte', 'couverty'), value: 'card' },
+								{ label: __('Verre', 'couverty'), value: 'glass' },
+								{ label: __('Minimal', 'couverty'), value: 'minimal' },
+								{ label: __('Sombre', 'couverty'), value: 'dark' },
+							],
+							onChange: function (val) {
+								props.setAttributes({ appearance: val });
+							},
+						}),
+						el(SelectControl, {
+							label: __('Arrondi', 'couverty'),
+							value: attributes.radius,
+							options: [
+								{ label: __('Aucun', 'couverty'), value: 'none' },
+								{ label: __('Petit', 'couverty'), value: 'sm' },
+								{ label: __('Moyen', 'couverty'), value: 'md' },
+								{ label: __('Grand', 'couverty'), value: 'lg' },
+							],
+							onChange: function (val) {
+								props.setAttributes({ radius: val });
+							},
+						})
+					)
+				),
+				el(
+					Placeholder,
+					{
+						icon: 'calendar',
+						label: __('Réservation Couverty', 'couverty'),
+						instructions: __(
+							'Le formulaire de réservation s\'affiche sur le site public. Ajustez sa hauteur et son apparence dans les réglages du bloc.',
+							'couverty'
+						),
+					}
+				)
+			);
+		},
+	});
 })();

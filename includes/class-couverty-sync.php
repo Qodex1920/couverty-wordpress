@@ -11,8 +11,9 @@ defined( 'ABSPATH' ) || exit;
 
 class Couverty_Sync {
 
-	const CRON_HOOK     = 'couverty_sync_event';
-	const CRON_INTERVAL = 'couverty_30min';
+	const CRON_HOOK        = 'couverty_sync_event';
+	const CRON_RESYNC_HOOK = 'couverty_force_sync_event';
+	const CRON_INTERVAL    = 'couverty_30min';
 
 	private static $hooks_registered = false;
 
@@ -27,6 +28,7 @@ class Couverty_Sync {
 
 		add_action( 'init', array( $this, 'register_content_types' ) );
 		add_action( self::CRON_HOOK, array( $this, 'sync' ) );
+		add_action( self::CRON_RESYNC_HOOK, array( $this, 'force_sync' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_cron_schedule' ) );
 	}
 
@@ -34,15 +36,14 @@ class Couverty_Sync {
 
 	/**
 	 * Plugin activation — register CPTs + schedule cron
+	 *
+	 * No flush_rewrite_rules() needed: every CPT and taxonomy here is
+	 * registered with rewrite => false and has_archive => false.
 	 */
 	public static function activate() {
 		$instance = new self();
 		$instance->register_content_types();
-		flush_rewrite_rules();
-
-		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
-			wp_schedule_event( time() + 60, self::CRON_INTERVAL, self::CRON_HOOK );
-		}
+		self::schedule_resync();
 	}
 
 	/**
@@ -50,7 +51,29 @@ class Couverty_Sync {
 	 */
 	public static function deactivate() {
 		wp_clear_scheduled_hook( self::CRON_HOOK );
-		flush_rewrite_rules();
+		wp_clear_scheduled_hook( self::CRON_RESYNC_HOOK );
+	}
+
+	/**
+	 * Make sure the recurring sync is scheduled, and queue a one-off full
+	 * re-sync shortly after. Used on activation and after an update, so the
+	 * API round-trip never happens inside a visitor's page load.
+	 */
+	public static function schedule_resync() {
+		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
+			wp_schedule_event( time() + 60, self::CRON_INTERVAL, self::CRON_HOOK );
+		}
+
+		if ( ! wp_next_scheduled( self::CRON_RESYNC_HOOK ) ) {
+			wp_schedule_single_event( time() + 30, self::CRON_RESYNC_HOOK );
+		}
+	}
+
+	/**
+	 * Cron callback for the one-off full re-sync.
+	 */
+	public function force_sync() {
+		$this->sync( true );
 	}
 
 	/**
@@ -212,8 +235,9 @@ class Couverty_Sync {
 		$settings = Couverty::get_settings();
 
 		if ( empty( $settings['api_key'] ) ) {
-			$this->save_sync_status( false, __( 'API key not configured', 'couverty' ) );
-			return array( 'success' => false, 'error' => __( 'API key not configured', 'couverty' ) );
+			$error = __( 'Aucune clé API renseignée.', 'couverty' );
+			$this->save_sync_status( false, $error );
+			return array( 'success' => false, 'error' => $error );
 		}
 
 		$api = Couverty::get_instance()->get_api();
@@ -230,8 +254,8 @@ class Couverty_Sync {
 
 			if ( $remote_updated && $remote_updated === $local_updated ) {
 				// Data hasn't changed — skip full sync.
-				$this->save_sync_status( true, __( 'No changes detected — sync skipped', 'couverty' ) );
-				update_option( 'couverty_last_sync', current_time( 'mysql' ), false );
+				$this->save_sync_status( true, __( 'Aucun changement détecté — synchronisation ignorée.', 'couverty' ) );
+				update_option( 'couverty_last_sync', current_time( 'mysql', true ), false );
 				return array( 'success' => true, 'skipped' => true );
 			}
 		}
@@ -242,8 +266,13 @@ class Couverty_Sync {
 		$menu = $api->get_menu( 'all' );
 
 		if ( ! is_array( $menu ) ) {
-			$this->save_sync_status( false, __( 'API returned no data — existing data preserved', 'couverty' ) );
-			return array( 'success' => false, 'error' => __( 'API returned no data', 'couverty' ) );
+			$error = $api->get_last_error_message();
+			if ( ! $error ) {
+				$error = __( 'L\'API n\'a renvoyé aucune donnée — les données existantes sont conservées.', 'couverty' );
+			}
+
+			$this->save_sync_status( false, $error );
+			return array( 'success' => false, 'error' => $error );
 		}
 
 		$counts = array( 'plats' => 0, 'boissons' => 0, 'menus' => 0, 'evenements' => 0 );
@@ -293,11 +322,12 @@ class Couverty_Sync {
 	 * @param array  $counts  Synced item counts.
 	 */
 	private function save_sync_status( $success, $error = '', $counts = array() ) {
+		// Timestamps are stored in GMT so they can be compared with time() directly.
 		update_option( 'couverty_sync_status', array(
 			'success' => $success,
 			'error'   => $error,
 			'counts'  => $counts,
-			'time'    => current_time( 'mysql' ),
+			'time'    => current_time( 'mysql', true ),
 		), false );
 	}
 

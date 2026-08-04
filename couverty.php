@@ -2,8 +2,9 @@
 /**
  * Plugin Name: Couverty
  * Plugin URI: https://couverty.ch
+ * Update URI: https://github.com/Qodex1920/couverty-wordpress/
  * Description: Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty
- * Version: 1.7.2
+ * Version: 1.8.0
  * Author: Couverty
  * Author URI: https://couverty.ch
  * License: GPL v2 or later
@@ -17,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants
-define( 'COUVERTY_VERSION', '1.7.2' );
+define( 'COUVERTY_VERSION', '1.8.0' );
 define( 'COUVERTY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_FILE', __FILE__ );
@@ -56,19 +57,23 @@ require_once COUVERTY_PLUGIN_DIR . 'includes/functions.php';
 register_activation_hook( __FILE__, array( 'Couverty_Sync', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Couverty_Sync', 'deactivate' ) );
 
-// Handle plugin update without deactivate/reactivate cycle.
+/**
+ * Handle plugin updates without a deactivate/reactivate cycle.
+ *
+ * Kept deliberately cheap: the actual re-sync runs in the background so the
+ * first visitor after an update never waits on the Couverty API.
+ */
 add_action( 'init', function() {
 	$stored = get_option( 'couverty_version', '' );
-	if ( $stored !== COUVERTY_VERSION ) {
-		flush_rewrite_rules();
-		update_option( 'couverty_version', COUVERTY_VERSION, true );
 
-		// Ensure cron is scheduled.
-		if ( ! wp_next_scheduled( Couverty_Sync::CRON_HOOK ) ) {
-			wp_schedule_event( time() + 60, Couverty_Sync::CRON_INTERVAL, Couverty_Sync::CRON_HOOK );
-		}
+	if ( COUVERTY_VERSION === $stored ) {
+		return;
+	}
 
-		// Clean up stale meta keys from previous versions, then force re-sync.
+	update_option( 'couverty_version', COUVERTY_VERSION, true );
+
+	// Prices became a single pre-formatted string in 1.7.0 — drop the old keys.
+	if ( $stored && version_compare( $stored, '1.7.0', '<' ) ) {
 		global $wpdb;
 		$wpdb->query(
 			$wpdb->prepare(
@@ -78,34 +83,27 @@ add_action( 'init', function() {
 				'couverty_prix_affichage'
 			)
 		);
-		delete_option( 'couverty_menu_updated_at' );
-		$sync = new Couverty_Sync();
-		$sync->sync( true );
 	}
+
+	// Force the next sync to be a full one, off the request thread.
+	delete_option( 'couverty_menu_updated_at' );
+	Couverty_Sync::schedule_resync();
 }, 99 );
 
 // Auto-updates from GitHub Releases.
 if ( file_exists( COUVERTY_PLUGIN_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php' ) ) {
 	require_once COUVERTY_PLUGIN_DIR . 'vendor/plugin-update-checker/plugin-update-checker.php';
+
 	$couverty_update_checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
 		'https://github.com/Qodex1920/couverty-wordpress/',
 		__FILE__,
 		'couverty'
 	);
+
 	// Only download the couverty.zip asset (ignore other files attached to releases).
 	$couverty_update_checker->getVcsApi()->enableReleaseAssets( '/^couverty\.zip$/' );
-}
 
-
-// Plugin icon for updates page.
-add_filter( 'plugin_row_meta', function( $meta, $file ) {
-	if ( 'couverty/couverty.php' === $file || plugin_basename( __FILE__ ) === $file ) {
-		// Icon is handled by plugin-update-checker via addResultFilter below.
-	}
-	return $meta;
-}, 10, 2 );
-
-if ( isset( $couverty_update_checker ) ) {
+	// Plugin icons shown on the updates screen.
 	$couverty_update_checker->addResultFilter( function( $info ) {
 		$info->icons = array(
 			'1x'      => COUVERTY_PLUGIN_URL . 'assets/images/icon-128x128.png',

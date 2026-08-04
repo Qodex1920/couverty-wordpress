@@ -25,38 +25,27 @@ class Couverty_Shortcodes {
 	public function render_menu( $atts = [] ) {
 		$atts = shortcode_atts(
 			[
-				'layout' => 'list',
-				'show_prices' => true,
-				'show_images' => true,
+				'layout'         => 'list',
+				'show_prices'    => true,
+				'show_images'    => true,
 				'show_allergens' => true,
 			],
 			$atts,
 			'couverty_menu'
 		);
 
-		// Check if API is configured
 		if ( ! $this->is_api_configured() ) {
-			return $this->get_config_error_message();
+			return $this->config_error();
 		}
 
-		// Get API instance
-		$api = Couverty::get_instance()->get_api();
-		if ( ! $api ) {
-			return $this->get_api_error_message();
-		}
-
-		// Fetch menu data
+		$api      = Couverty::get_instance()->get_api();
 		$response = $api->get_menu( 'plats' );
+
 		if ( ! $response || ! isset( $response['plats']['categories'] ) ) {
-			return $this->get_no_data_error_message( 'Menu' );
+			return $this->data_error( $api, __( 'la carte des plats', 'couverty' ) );
 		}
 
-		// Render template
-		$data = [
-			'categories' => $response['plats']['categories'],
-		];
-
-		return $this->render_template( 'menu', $data, $atts );
+		return $this->render_template( 'menu', [ 'categories' => $response['plats']['categories'] ], $atts );
 	}
 
 	/**
@@ -68,37 +57,26 @@ class Couverty_Shortcodes {
 	public function render_boissons( $atts = [] ) {
 		$atts = shortcode_atts(
 			[
-				'layout' => 'list',
-				'show_prices' => true,
+				'layout'       => 'list',
+				'show_prices'  => true,
 				'show_details' => true,
 			],
 			$atts,
 			'couverty_boissons'
 		);
 
-		// Check if API is configured
 		if ( ! $this->is_api_configured() ) {
-			return $this->get_config_error_message();
+			return $this->config_error();
 		}
 
-		// Get API instance
-		$api = Couverty::get_instance()->get_api();
-		if ( ! $api ) {
-			return $this->get_api_error_message();
-		}
-
-		// Fetch boissons data
+		$api      = Couverty::get_instance()->get_api();
 		$response = $api->get_menu( 'boissons' );
+
 		if ( ! $response || ! isset( $response['boissons']['categories'] ) ) {
-			return $this->get_no_data_error_message( 'Boissons' );
+			return $this->data_error( $api, __( 'la carte des boissons', 'couverty' ) );
 		}
 
-		// Render template
-		$data = [
-			'categories' => $response['boissons']['categories'],
-		];
-
-		return $this->render_template( 'boissons', $data, $atts );
+		return $this->render_template( 'boissons', [ 'categories' => $response['boissons']['categories'] ], $atts );
 	}
 
 	/**
@@ -116,32 +94,18 @@ class Couverty_Shortcodes {
 			'couverty_menu_du_jour'
 		);
 
-		// Check if API is configured
 		if ( ! $this->is_api_configured() ) {
-			return $this->get_config_error_message();
+			return $this->config_error();
 		}
 
-		// Get API instance
-		$api = Couverty::get_instance()->get_api();
-		if ( ! $api ) {
-			return $this->get_api_error_message();
-		}
-
-		// Fetch menu data (all to get menuSemaine)
+		$api      = Couverty::get_instance()->get_api();
 		$response = $api->get_menu( 'all' );
-		if ( ! $response || ! isset( $response['menuSemaine'] ) ) {
-			return $this->get_no_data_error_message( 'Menu du jour' );
+
+		if ( ! $response || empty( $response['menuSemaine']['menus'] ) ) {
+			return $this->data_error( $api, __( 'le menu du jour', 'couverty' ) );
 		}
 
-		$menu_semaine = $response['menuSemaine'];
-		if ( ! isset( $menu_semaine['menus'] ) || empty( $menu_semaine['menus'] ) ) {
-			return $this->get_no_data_error_message( 'Menu du jour' );
-		}
-
-		// Render template
-		$data = $menu_semaine;
-
-		return $this->render_template( 'menu-du-jour', $data, $atts );
+		return $this->render_template( 'menu-du-jour', $response['menuSemaine'], $atts );
 	}
 
 	/**
@@ -153,20 +117,19 @@ class Couverty_Shortcodes {
 	public function render_reservation( $atts = [] ) {
 		$atts = shortcode_atts(
 			[
-				'height' => 600,
+				'height'     => 600,
 				'appearance' => 'card',
-				'radius' => 'lg',
+				'radius'     => 'lg',
 			],
 			$atts,
 			'couverty_reservation'
 		);
 
-		// Check if API is configured
 		if ( ! $this->is_api_configured() ) {
-			return $this->get_config_error_message();
+			return $this->config_error();
 		}
 
-		// Render template (no API call needed for reservation)
+		// No API call needed: the widget is an iframe.
 		return $this->render_template( 'reservation', [], $atts );
 	}
 
@@ -177,48 +140,81 @@ class Couverty_Shortcodes {
 	 */
 	private function is_api_configured() {
 		$settings = Couverty::get_settings();
-		return isset( $settings['api_key'] ) && ! empty( $settings['api_key'] ) &&
-			isset( $settings['slug'] ) && ! empty( $settings['slug'] );
+		return ! empty( $settings['api_key'] ) && ! empty( $settings['slug'] );
 	}
 
 	/**
-	 * Get configuration error message
+	 * Whether the current user can be shown technical details.
+	 *
+	 * @return bool
+	 */
+	private function can_see_details() {
+		return current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * Message shown when the plugin has not been connected yet.
 	 *
 	 * @return string HTML
 	 */
-	private function get_config_error_message() {
-		$message = esc_html__( 'Couverty plugin is not configured. Please add your API key and slug in the plugin settings.', 'couverty' );
-
-		if ( is_admin() ) {
-			$message = esc_html__( 'Couverty plugin is not configured. Please add your API key and slug in the plugin settings.', 'couverty' );
+	private function config_error() {
+		if ( ! $this->can_see_details() ) {
+			// Nothing actionable for a visitor — render nothing at all.
+			return '';
 		}
 
-		return '<div class="couverty-error">' . $message . '</div>';
-	}
-
-	/**
-	 * Get API error message
-	 *
-	 * @return string HTML
-	 */
-	private function get_api_error_message() {
-		$message = esc_html__( 'Unable to initialize Couverty API. Please check your settings.', 'couverty' );
-		return '<div class="couverty-error">' . $message . '</div>';
-	}
-
-	/**
-	 * Get no data error message
-	 *
-	 * @param string $type Data type (e.g. "Menu", "Boissons")
-	 * @return string HTML
-	 */
-	private function get_no_data_error_message( $type = 'Data' ) {
-		$message = sprintf(
-			/* translators: %s: Data type */
-			esc_html__( 'No %s data available. Please check your Couverty settings.', 'couverty' ),
-			esc_html( $type )
+		return $this->notice(
+			__( 'Couverty n\'est pas encore connecté.', 'couverty' ),
+			__( 'Ajoutez votre clé API dans Réglages → Couverty, puis testez la connexion.', 'couverty' )
 		);
-		return '<div class="couverty-error">' . $message . '</div>';
+	}
+
+	/**
+	 * Message shown when the API did not return usable data.
+	 *
+	 * @param Couverty_API $api   API client, holding the last error.
+	 * @param string       $label What was being fetched, e.g. "la carte des plats".
+	 * @return string HTML
+	 */
+	private function data_error( $api, $label ) {
+		if ( ! $this->can_see_details() ) {
+			return '';
+		}
+
+		$detail = $api->get_last_error_message();
+
+		if ( ! $detail ) {
+			$detail = sprintf(
+				/* translators: %s: what was being fetched, e.g. "la carte des plats" */
+				__( 'Aucune donnée disponible pour %s. Vérifiez que le contenu est publié dans Couverty.', 'couverty' ),
+				$label
+			);
+		}
+
+		return $this->notice(
+			sprintf(
+				/* translators: %s: what was being fetched, e.g. "la carte des plats" */
+				__( 'Couverty n\'a pas pu charger %s.', 'couverty' ),
+				$label
+			),
+			$detail
+		);
+	}
+
+	/**
+	 * Build an admin-only inline notice.
+	 *
+	 * @param string $title  Short headline.
+	 * @param string $detail Actionable detail.
+	 * @return string HTML
+	 */
+	private function notice( $title, $detail ) {
+		return sprintf(
+			'<div class="couverty-error"><strong>%s</strong><br>%s<br><em>%s</em></div>',
+			esc_html( $title ),
+			esc_html( $detail ),
+			esc_html__( 'Ce message n\'est visible que par les administrateurs du site.', 'couverty' )
+		);
 	}
 
 	/**
@@ -233,7 +229,7 @@ class Couverty_Shortcodes {
 		$template_file = COUVERTY_PLUGIN_DIR . 'templates/' . $template . '.php';
 
 		if ( ! file_exists( $template_file ) ) {
-			return '<div class="couverty-error">' . esc_html__( 'Template not found.', 'couverty' ) . '</div>';
+			return '';
 		}
 
 		ob_start();

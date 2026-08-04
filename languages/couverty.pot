@@ -1,0 +1,1026 @@
+# Copyright (C) 2026 Couverty
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Couverty 1.8.0\n"
+"Report-Msgid-Bugs-To: https://couverty.ch\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-04T15:42:30+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: couverty\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: couverty.php
+#: includes/class-couverty-admin.php:426
+#: includes/class-couverty-blocks.php:55
+msgid "Couverty"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: couverty.php
+msgid "https://couverty.ch"
+msgstr ""
+
+#. Description of the plugin
+#: couverty.php
+msgid "Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty"
+msgstr ""
+
+#: couverty.php:30
+msgid "Couverty requires PHP 7.4 or higher."
+msgstr ""
+
+#: couverty.php:40
+msgid "Couverty requires WordPress 6.0 or higher."
+msgstr ""
+
+#: includes/class-couverty-admin.php:17
+msgid "Réglages"
+msgstr ""
+
+#: includes/class-couverty-admin.php:18
+msgid "Intégration"
+msgstr ""
+
+#: includes/class-couverty-admin.php:70
+msgid "Connexion"
+msgstr ""
+
+#: includes/class-couverty-admin.php:78
+msgid "Clé API"
+msgstr ""
+
+#: includes/class-couverty-admin.php:87
+msgid "Identifiant du restaurant"
+msgstr ""
+
+#: includes/class-couverty-admin.php:96
+msgid "Cache"
+msgstr ""
+
+#: includes/class-couverty-admin.php:103
+msgid "Durée du cache"
+msgstr ""
+
+#: includes/class-couverty-admin.php:112
+msgid "Bouton flottant de réservation"
+msgstr ""
+
+#: includes/class-couverty-admin.php:119
+msgid "Activer le bouton"
+msgstr ""
+
+#: includes/class-couverty-admin.php:127
+msgid "Texte du bouton"
+msgstr ""
+
+#: includes/class-couverty-admin.php:202
+msgid "Test en cours…"
+msgstr ""
+
+#: includes/class-couverty-admin.php:203
+msgid "Synchronisation…"
+msgstr ""
+
+#: includes/class-couverty-admin.php:204
+msgid "Vidage…"
+msgstr ""
+
+#: includes/class-couverty-admin.php:205
+msgid "Connexion réussie"
+msgstr ""
+
+#. translators: %s: restaurant name
+#: includes/class-couverty-admin.php:207
+#: includes/class-couverty-admin.php:532
+#, php-format
+msgid "Connecté à %s"
+msgstr ""
+
+#: includes/class-couverty-admin.php:208
+msgid "Impossible de contacter votre site WordPress. Réessayez."
+msgstr ""
+
+#: includes/class-couverty-admin.php:209
+msgid "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en arrière-plan — rechargez la page dans une minute."
+msgstr ""
+
+#: includes/class-couverty-admin.php:210
+msgid "copié"
+msgstr ""
+
+#: includes/class-couverty-admin.php:211
+#: includes/class-couverty-admin.php:305
+msgid "copier"
+msgstr ""
+
+#: includes/class-couverty-admin.php:212
+msgid "plats"
+msgstr ""
+
+#: includes/class-couverty-admin.php:213
+msgid "boissons"
+msgstr ""
+
+#: includes/class-couverty-admin.php:214
+msgid "menus du jour"
+msgstr ""
+
+#: includes/class-couverty-admin.php:215
+msgid "événements"
+msgstr ""
+
+#: includes/class-couverty-admin.php:229
+#: includes/class-couverty-admin.php:237
+#: includes/class-couverty-admin.php:243
+#: includes/class-couverty-sync.php:170
+#: includes/class-couverty-sync.php:180
+#: includes/class-couverty-sync.php:193
+msgid "Prix"
+msgstr ""
+
+#: includes/class-couverty-admin.php:230
+#: includes/class-couverty-admin.php:252
+#: includes/class-couverty-sync.php:171
+#: includes/class-couverty-sync.php:199
+msgid "Image URL"
+msgstr ""
+
+#: includes/class-couverty-admin.php:231
+#: includes/class-couverty-sync.php:172
+#: templates/menu.php:100
+msgid "Végétarien"
+msgstr ""
+
+#: includes/class-couverty-admin.php:232
+#: includes/class-couverty-sync.php:173
+msgid "Végan"
+msgstr ""
+
+#: includes/class-couverty-admin.php:233
+#: includes/class-couverty-sync.php:174
+#: templates/menu.php:106
+msgid "Sans gluten"
+msgstr ""
+
+#: includes/class-couverty-admin.php:234
+#: includes/class-couverty-sync.php:175
+msgid "Allergènes"
+msgstr ""
+
+#: includes/class-couverty-admin.php:238
+#: includes/class-couverty-sync.php:181
+msgid "Volume"
+msgstr ""
+
+#: includes/class-couverty-admin.php:239
+#: includes/class-couverty-sync.php:182
+msgid "Région"
+msgstr ""
+
+#: includes/class-couverty-admin.php:240
+#: includes/class-couverty-sync.php:183
+msgid "Année"
+msgstr ""
+
+#: includes/class-couverty-admin.php:244
+#: includes/class-couverty-sync.php:189
+msgid "Jour"
+msgstr ""
+
+#: includes/class-couverty-admin.php:245
+#: includes/class-couverty-sync.php:190
+#: templates/menu-du-jour.php:41
+msgid "Entrée"
+msgstr ""
+
+#: includes/class-couverty-admin.php:246
+#: includes/class-couverty-sync.php:100
+#: includes/class-couverty-sync.php:191
+#: templates/menu-du-jour.php:42
+msgid "Plat"
+msgstr ""
+
+#: includes/class-couverty-admin.php:247
+#: includes/class-couverty-sync.php:192
+#: templates/menu-du-jour.php:43
+msgid "Dessert"
+msgstr ""
+
+#: includes/class-couverty-admin.php:250
+#: includes/class-couverty-sync.php:197
+msgid "Date de début"
+msgstr ""
+
+#: includes/class-couverty-admin.php:251
+#: includes/class-couverty-sync.php:198
+msgid "Date de fin"
+msgstr ""
+
+#: includes/class-couverty-admin.php:251
+msgid "ISO 8601, optionnel"
+msgstr ""
+
+#: includes/class-couverty-admin.php:253
+#: includes/class-couverty-sync.php:200
+msgid "Lien vers l'événement"
+msgstr ""
+
+#: includes/class-couverty-admin.php:253
+msgid "Page détail sur couverty.ch"
+msgstr ""
+
+#: includes/class-couverty-admin.php:265
+#: includes/class-couverty-sync.php:100
+msgid "Plats"
+msgstr ""
+
+#: includes/class-couverty-admin.php:266
+#: includes/class-couverty-admin.php:683
+#: includes/class-couverty-sync.php:101
+msgid "Boissons"
+msgstr ""
+
+#: includes/class-couverty-admin.php:267
+#: includes/class-couverty-admin.php:688
+#: includes/class-couverty-sync.php:102
+msgid "Menu du jour"
+msgstr ""
+
+#: includes/class-couverty-admin.php:268
+#: includes/class-couverty-sync.php:103
+msgid "Événements"
+msgstr ""
+
+#. translators: %s: the value that will be copied
+#: includes/class-couverty-admin.php:303
+#, php-format
+msgid "Copier %s"
+msgstr ""
+
+#: includes/class-couverty-admin.php:318
+msgid "Permissions insuffisantes."
+msgstr ""
+
+#: includes/class-couverty-admin.php:386
+msgid "Synchronisation échouée. Vérifiez votre clé API."
+msgstr ""
+
+#: includes/class-couverty-admin.php:391
+msgid "Données synchronisées."
+msgstr ""
+
+#: includes/class-couverty-admin.php:404
+msgid "Cache vidé."
+msgstr ""
+
+#: includes/class-couverty-admin.php:465
+msgid "Enregistrer les réglages"
+msgstr ""
+
+#: includes/class-couverty-admin.php:478
+msgid "Votre établissement n'est pas encore connecté."
+msgstr ""
+
+#: includes/class-couverty-admin.php:479
+msgid "Les shortcodes, champs et endpoints ci-dessous ne renverront rien tant que ce n'est pas fait."
+msgstr ""
+
+#: includes/class-couverty-admin.php:481
+msgid "Connecter maintenant"
+msgstr ""
+
+#: includes/class-couverty-admin.php:514
+msgid "Clé enregistrée, établissement pas encore identifié"
+msgstr ""
+
+#: includes/class-couverty-admin.php:515
+msgid "Cliquez sur « Connecter » ci-dessous pour lier votre établissement et récupérer vos données."
+msgstr ""
+
+#: includes/class-couverty-admin.php:519
+msgid "Pas encore connecté"
+msgstr ""
+
+#: includes/class-couverty-admin.php:520
+msgid "Collez votre clé API ci-dessous, puis cliquez sur « Connecter »."
+msgstr ""
+
+#: includes/class-couverty-admin.php:524
+msgid "Synchronisation interrompue"
+msgstr ""
+
+#: includes/class-couverty-admin.php:533
+msgid "Connecté"
+msgstr ""
+
+#: includes/class-couverty-admin.php:546
+msgid "Votre site continue d'afficher les données déjà synchronisées."
+msgstr ""
+
+#. translators: 1: plats count, 2: boissons count, 3: menus count, 4: events count
+#: includes/class-couverty-admin.php:553
+#, php-format
+msgid "%1$d plats · %2$d boissons · %3$d menus du jour · %4$d événements"
+msgstr ""
+
+#. translators: %s: human readable time difference, e.g. "5 mins"
+#: includes/class-couverty-admin.php:567
+#, php-format
+msgid "Dernière synchronisation il y a %s."
+msgstr ""
+
+#: includes/class-couverty-admin.php:572
+msgid "Jamais synchronisé."
+msgstr ""
+
+#: includes/class-couverty-admin.php:588
+msgid "Mettre à jour la clé API"
+msgstr ""
+
+#: includes/class-couverty-admin.php:591
+msgid "Réessayer"
+msgstr ""
+
+#: includes/class-couverty-admin.php:595
+msgid "Actualiser depuis Couverty"
+msgstr ""
+
+#: includes/class-couverty-admin.php:598
+msgid "Vider le cache"
+msgstr ""
+
+#: includes/class-couverty-admin.php:608
+msgid "Cause :"
+msgstr ""
+
+#: includes/class-couverty-admin.php:617
+msgid "WP-Cron est désactivé sur ce site : la synchronisation automatique dépend donc de la tâche planifiée configurée chez votre hébergeur. Sinon, utilisez le bouton « Synchroniser »."
+msgstr ""
+
+#: includes/class-couverty-admin.php:632
+msgid "Synchronisation des données"
+msgstr ""
+
+#: includes/class-couverty-admin.php:634
+msgid "Vos données Couverty sont copiées dans WordPress sous forme de types de contenu personnalisés, toutes les 30 minutes. Elles restent donc disponibles pour vos constructeurs de pages même si l'API est momentanément injoignable."
+msgstr ""
+
+#: includes/class-couverty-admin.php:641
+msgid "Type de contenu"
+msgstr ""
+
+#: includes/class-couverty-admin.php:642
+msgid "Champs"
+msgstr ""
+
+#: includes/class-couverty-admin.php:643
+msgid "Taxonomie"
+msgstr ""
+
+#: includes/class-couverty-admin.php:678
+msgid "Menu (carte des plats)"
+msgstr ""
+
+#: includes/class-couverty-admin.php:693
+msgid "Réservation (widget)"
+msgstr ""
+
+#: includes/class-couverty-admin.php:700
+msgid "Shortcodes & blocs"
+msgstr ""
+
+#: includes/class-couverty-admin.php:702
+msgid "Ces shortcodes fonctionnent dans n'importe quel éditeur, constructeur de pages ou template de thème. Les mêmes contenus sont disponibles en blocs dans la catégorie « Couverty » de l'éditeur WordPress."
+msgstr ""
+
+#: includes/class-couverty-admin.php:709
+msgid "Contenu"
+msgstr ""
+
+#: includes/class-couverty-admin.php:710
+msgid "Shortcode"
+msgstr ""
+
+#: includes/class-couverty-admin.php:711
+msgid "Options"
+msgstr ""
+
+#: includes/class-couverty-admin.php:737
+msgid "Données dynamiques (constructeurs de pages)"
+msgstr ""
+
+#: includes/class-couverty-admin.php:740
+msgid "En trois étapes :"
+msgstr ""
+
+#: includes/class-couverty-admin.php:742
+msgid "Créez une boucle de requête (Query Loop) et choisissez un type de contenu Couverty"
+msgstr ""
+
+#: includes/class-couverty-admin.php:743
+msgid "Dans la boucle, utilisez « Champ personnalisé » ou « Données dynamiques »"
+msgstr ""
+
+#: includes/class-couverty-admin.php:744
+msgid "Collez le nom du champ depuis les tableaux ci-dessous"
+msgstr ""
+
+#: includes/class-couverty-admin.php:756
+msgid "Champ"
+msgstr ""
+
+#: includes/class-couverty-admin.php:757
+msgid "Nom du champ"
+msgstr ""
+
+#: includes/class-couverty-admin.php:758
+msgid "Type"
+msgstr ""
+
+#: includes/class-couverty-admin.php:775
+msgid "Nom"
+msgstr ""
+
+#: includes/class-couverty-admin.php:776
+msgid "Titre de l'article (champ WordPress standard)"
+msgstr ""
+
+#: includes/class-couverty-admin.php:780
+msgid "Description"
+msgstr ""
+
+#: includes/class-couverty-admin.php:781
+msgid "Contenu de l'article (champ WordPress standard)"
+msgstr ""
+
+#: includes/class-couverty-admin.php:790
+msgid "Taxonomies (pour filtrer) :"
+msgstr ""
+
+#: includes/class-couverty-admin.php:792
+msgid "Catégories de plats"
+msgstr ""
+
+#: includes/class-couverty-admin.php:793
+msgid "Catégories de boissons"
+msgstr ""
+
+#: includes/class-couverty-admin.php:797
+msgid "Syntaxe par constructeur"
+msgstr ""
+
+#: includes/class-couverty-admin.php:803
+msgid "Dynamic Tags → Custom Field → nom du champ"
+msgstr ""
+
+#. translators: 1: generic syntax, 2: concrete example
+#: includes/class-couverty-admin.php:811
+#, php-format
+msgid "Syntaxe %1$s — par exemple %2$s"
+msgstr ""
+
+#: includes/class-couverty-admin.php:820
+msgid "Dynamic Content → Post Fields → Custom Fields → nom du champ"
+msgstr ""
+
+#: includes/class-couverty-admin.php:824
+msgid "Field Connections → Post Custom Field → nom du champ"
+msgstr ""
+
+#: includes/class-couverty-admin.php:828
+msgid "Blocs Couverty, ou bloc Boucle de requête filtré sur un type de contenu Couverty"
+msgstr ""
+
+#: includes/class-couverty-admin.php:847
+msgid "Plats par catégorie"
+msgstr ""
+
+#: includes/class-couverty-admin.php:848
+msgid "Boissons par catégorie"
+msgstr ""
+
+#: includes/class-couverty-admin.php:849
+msgid "Menu du jour / de la semaine"
+msgstr ""
+
+#: includes/class-couverty-admin.php:850
+msgid "Informations du restaurant"
+msgstr ""
+
+#: includes/class-couverty-admin.php:854
+msgid "API REST & fonctions PHP"
+msgstr ""
+
+#: includes/class-couverty-admin.php:856
+msgid "Pour les intégrations sur mesure : ces endpoints servent les données Couverty depuis votre propre site, en passant par le cache du plugin."
+msgstr ""
+
+#: includes/class-couverty-admin.php:863
+msgid "Endpoint"
+msgstr ""
+
+#: includes/class-couverty-admin.php:864
+msgid "Données"
+msgstr ""
+
+#: includes/class-couverty-admin.php:865
+msgid "Fonction PHP"
+msgstr ""
+
+#: includes/class-couverty-admin.php:881
+msgid "Exemple PHP"
+msgstr ""
+
+#: includes/class-couverty-admin.php:902
+msgid "La clé API relie ce site à votre établissement Couverty."
+msgstr ""
+
+#: includes/class-couverty-admin.php:922
+msgid "Laissez vide pour conserver la clé actuelle"
+msgstr ""
+
+#. translators: %s: masked API key preview
+#: includes/class-couverty-admin.php:930
+#, php-format
+msgid "Clé enregistrée : %s"
+msgstr ""
+
+#. translators: %s: link to the Couverty dashboard integrations page
+#: includes/class-couverty-admin.php:939
+#, php-format
+msgid "Créez-la dans %s."
+msgstr ""
+
+#: includes/class-couverty-admin.php:941
+msgid "votre tableau de bord Couverty → Intégrations"
+msgstr ""
+
+#: includes/class-couverty-admin.php:953
+msgid "Tester la connexion"
+msgstr ""
+
+#: includes/class-couverty-admin.php:953
+msgid "Connecter"
+msgstr ""
+
+#: includes/class-couverty-admin.php:977
+msgid "Rempli automatiquement à la connexion."
+msgstr ""
+
+#: includes/class-couverty-admin.php:985
+msgid "Durée pendant laquelle les données sont réutilisées sans rappeler l'API Couverty."
+msgstr ""
+
+#: includes/class-couverty-admin.php:995
+msgid "5 minutes"
+msgstr ""
+
+#: includes/class-couverty-admin.php:996
+msgid "10 minutes"
+msgstr ""
+
+#: includes/class-couverty-admin.php:997
+msgid "30 minutes"
+msgstr ""
+
+#: includes/class-couverty-admin.php:998
+msgid "1 heure"
+msgstr ""
+
+#: includes/class-couverty-admin.php:1015
+msgid "Affiche un bouton de réservation en bas à droite, sur toutes les pages du site."
+msgstr ""
+
+#: includes/class-couverty-admin.php:1031
+msgid "Afficher sur toutes les pages"
+msgstr ""
+
+#: includes/class-couverty-admin.php:1049
+msgid "Réserver"
+msgstr ""
+
+#: includes/class-couverty-api.php:68
+#: includes/class-couverty-sync.php:238
+msgid "Aucune clé API renseignée."
+msgstr ""
+
+#. translators: %s: underlying transport error message
+#: includes/class-couverty-api.php:92
+#, php-format
+msgid "Impossible de joindre Couverty : %s"
+msgstr ""
+
+#: includes/class-couverty-api.php:114
+msgid "Réponse inattendue de l'API Couverty."
+msgstr ""
+
+#: includes/class-couverty-api.php:135
+msgid "Clé API invalide, expirée ou révoquée. Générez-en une nouvelle depuis votre tableau de bord Couverty."
+msgstr ""
+
+#: includes/class-couverty-api.php:140
+msgid "Cette clé API n'a pas les permissions nécessaires (menu:read et restaurant:read)."
+msgstr ""
+
+#: includes/class-couverty-api.php:145
+msgid "Quota de requêtes dépassé. Augmentez la durée du cache ou attendez la prochaine heure."
+msgstr ""
+
+#: includes/class-couverty-api.php:150
+msgid "Ressource introuvable côté Couverty. Vérifiez que votre établissement est bien actif."
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/class-couverty-api.php:157
+#, php-format
+msgid "L'API Couverty a répondu avec une erreur (HTTP %d)."
+msgstr ""
+
+#: includes/class-couverty-rest.php:71
+msgid "Couverty plugin is not configured."
+msgstr ""
+
+#: includes/class-couverty-rest.php:150
+msgid "Couverty plugin is not configured. Add your API key in Settings > Couverty."
+msgstr ""
+
+#: includes/class-couverty-rest.php:157
+msgid "Unable to fetch data from Couverty API."
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:45
+msgid "la carte des plats"
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:76
+msgid "la carte des boissons"
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:105
+msgid "le menu du jour"
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:167
+msgid "Couverty n'est pas encore connecté."
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:168
+msgid "Ajoutez votre clé API dans Réglages → Couverty, puis testez la connexion."
+msgstr ""
+
+#. translators: %s: what was being fetched, e.g. "la carte des plats"
+#: includes/class-couverty-shortcodes.php:189
+#, php-format
+msgid "Aucune donnée disponible pour %s. Vérifiez que le contenu est publié dans Couverty."
+msgstr ""
+
+#. translators: %s: what was being fetched, e.g. "la carte des plats"
+#: includes/class-couverty-shortcodes.php:197
+#, php-format
+msgid "Couverty n'a pas pu charger %s."
+msgstr ""
+
+#: includes/class-couverty-shortcodes.php:216
+msgid "Ce message n'est visible que par les administrateurs du site."
+msgstr ""
+
+#: includes/class-couverty-sync.php:88
+msgid "Every 30 minutes"
+msgstr ""
+
+#: includes/class-couverty-sync.php:101
+msgid "Boisson"
+msgstr ""
+
+#: includes/class-couverty-sync.php:102
+msgid "Menus du jour"
+msgstr ""
+
+#: includes/class-couverty-sync.php:103
+msgid "Événement"
+msgstr ""
+
+#: includes/class-couverty-sync.php:106
+msgid "Categories plats"
+msgstr ""
+
+#: includes/class-couverty-sync.php:107
+msgid "Categories boissons"
+msgstr ""
+
+#: includes/class-couverty-sync.php:170
+msgid "Formatted price, e.g. CHF 18.- / CHF 28.-"
+msgstr ""
+
+#: includes/class-couverty-sync.php:180
+msgid "Formatted price, e.g. CHF 5.-"
+msgstr ""
+
+#: includes/class-couverty-sync.php:193
+msgid "Formatted price, e.g. CHF 18.-"
+msgstr ""
+
+#: includes/class-couverty-sync.php:197
+msgid "ISO 8601 datetime"
+msgstr ""
+
+#: includes/class-couverty-sync.php:198
+msgid "ISO 8601 datetime (optional)"
+msgstr ""
+
+#: includes/class-couverty-sync.php:200
+msgid "URL of the public event detail page"
+msgstr ""
+
+#: includes/class-couverty-sync.php:257
+msgid "Aucun changement détecté — synchronisation ignorée."
+msgstr ""
+
+#: includes/class-couverty-sync.php:271
+msgid "L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
+msgstr ""
+
+#: includes/class-couverty-sync.php:694
+msgid "Menu de la semaine"
+msgstr ""
+
+#: includes/class-couverty-sync.php:695
+#: templates/menu-du-jour.php:16
+msgid "Lundi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:696
+#: templates/menu-du-jour.php:17
+msgid "Mardi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:697
+#: templates/menu-du-jour.php:18
+msgid "Mercredi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:698
+#: templates/menu-du-jour.php:19
+msgid "Jeudi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:699
+#: templates/menu-du-jour.php:20
+msgid "Vendredi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:700
+#: templates/menu-du-jour.php:21
+msgid "Samedi"
+msgstr ""
+
+#: includes/class-couverty-sync.php:701
+#: templates/menu-du-jour.php:22
+msgid "Dimanche"
+msgstr ""
+
+#: includes/class-couverty.php:103
+msgid "Fermer"
+msgstr ""
+
+#: templates/menu-du-jour.php:15
+msgid "Semaine"
+msgstr ""
+
+#: templates/menu.php:75
+msgid "Voir la photo du plat"
+msgstr ""
+
+#: templates/menu.php:103
+msgid "Vegan"
+msgstr ""
+
+#. translators: %s: comma-separated allergen list
+#: templates/menu.php:115
+#, php-format
+msgid "Allergènes : %s"
+msgstr ""
+
+#: templates/reservation.php:43
+msgid "Réservation en ligne"
+msgstr ""
+
+#: blocks/boissons/index.js:24
+#: blocks/menu-du-jour/index.js:23
+#: blocks/menu/index.js:24
+msgid "Options d'affichage"
+msgstr ""
+
+#: blocks/boissons/index.js:26
+#: blocks/menu/index.js:26
+msgid "Disposition"
+msgstr ""
+
+#: blocks/boissons/index.js:29
+#: blocks/menu/index.js:29
+msgid "Liste"
+msgstr ""
+
+#: blocks/boissons/index.js:30
+#: blocks/menu/index.js:30
+msgid "Grille"
+msgstr ""
+
+#: blocks/boissons/index.js:37
+#: blocks/menu/index.js:37
+msgid "Afficher les prix"
+msgstr ""
+
+#: blocks/boissons/index.js:44
+msgid "Afficher les détails"
+msgstr ""
+
+#: blocks/menu-du-jour/index.js:25
+msgid "Afficher le prix"
+msgstr ""
+
+#: blocks/menu/index.js:44
+msgid "Afficher les images"
+msgstr ""
+
+#: blocks/menu/index.js:51
+msgid "Afficher les allergènes"
+msgstr ""
+
+#: blocks/reservation/index.js:23
+msgid "Paramètres"
+msgstr ""
+
+#: blocks/reservation/index.js:25
+msgid "Hauteur (px)"
+msgstr ""
+
+#: blocks/reservation/index.js:35
+msgid "Apparence"
+msgstr ""
+
+#: blocks/reservation/index.js:38
+msgid "Carte"
+msgstr ""
+
+#: blocks/reservation/index.js:39
+msgid "Verre"
+msgstr ""
+
+#: blocks/reservation/index.js:40
+msgid "Minimal"
+msgstr ""
+
+#: blocks/reservation/index.js:41
+msgid "Sombre"
+msgstr ""
+
+#: blocks/reservation/index.js:48
+msgid "Arrondi"
+msgstr ""
+
+#: blocks/reservation/index.js:51
+msgid "Aucun"
+msgstr ""
+
+#: blocks/reservation/index.js:52
+msgid "Petit"
+msgstr ""
+
+#: blocks/reservation/index.js:53
+msgid "Moyen"
+msgstr ""
+
+#: blocks/reservation/index.js:54
+msgid "Grand"
+msgstr ""
+
+#: blocks/reservation/index.js:66
+msgid "Réservation Couverty"
+msgstr ""
+
+#: blocks/reservation/index.js:67
+msgid "Le formulaire de réservation s'affiche sur le site public. Ajustez sa hauteur et son apparence dans les réglages du bloc."
+msgstr ""
+
+#: blocks/boissons/block.json
+msgctxt "block title"
+msgid "Couverty – Boissons"
+msgstr ""
+
+#: blocks/boissons/block.json
+msgctxt "block description"
+msgid "Affiche la carte des boissons de votre restaurant depuis Couverty."
+msgstr ""
+
+#: blocks/boissons/block.json
+msgctxt "block keyword"
+msgid "boissons"
+msgstr ""
+
+#: blocks/boissons/block.json
+msgctxt "block keyword"
+msgid "drinks"
+msgstr ""
+
+#: blocks/boissons/block.json
+#: blocks/menu/block.json
+msgctxt "block keyword"
+msgid "carte"
+msgstr ""
+
+#: blocks/boissons/block.json
+msgctxt "block keyword"
+msgid "vins"
+msgstr ""
+
+#: blocks/boissons/block.json
+#: blocks/menu-du-jour/block.json
+#: blocks/menu/block.json
+#: blocks/reservation/block.json
+msgctxt "block keyword"
+msgid "couverty"
+msgstr ""
+
+#: blocks/menu-du-jour/block.json
+msgctxt "block title"
+msgid "Couverty – Menu du jour"
+msgstr ""
+
+#: blocks/menu-du-jour/block.json
+msgctxt "block description"
+msgid "Affiche le menu du jour de votre restaurant depuis Couverty."
+msgstr ""
+
+#: blocks/menu-du-jour/block.json
+msgctxt "block keyword"
+msgid "menu du jour"
+msgstr ""
+
+#: blocks/menu-du-jour/block.json
+msgctxt "block keyword"
+msgid "plat du jour"
+msgstr ""
+
+#: blocks/menu-du-jour/block.json
+msgctxt "block keyword"
+msgid "daily"
+msgstr ""
+
+#: blocks/menu/block.json
+msgctxt "block title"
+msgid "Couverty – Menu"
+msgstr ""
+
+#: blocks/menu/block.json
+msgctxt "block description"
+msgid "Affiche la carte des plats de votre restaurant depuis Couverty."
+msgstr ""
+
+#: blocks/menu/block.json
+msgctxt "block keyword"
+msgid "menu"
+msgstr ""
+
+#: blocks/menu/block.json
+msgctxt "block keyword"
+msgid "restaurant"
+msgstr ""
+
+#: blocks/menu/block.json
+msgctxt "block keyword"
+msgid "plats"
+msgstr ""
+
+#: blocks/reservation/block.json
+msgctxt "block title"
+msgid "Couverty – Réservation"
+msgstr ""
+
+#: blocks/reservation/block.json
+msgctxt "block description"
+msgid "Affiche le widget de réservation de votre restaurant depuis Couverty."
+msgstr ""
+
+#: blocks/reservation/block.json
+msgctxt "block keyword"
+msgid "reservation"
+msgstr ""
+
+#: blocks/reservation/block.json
+msgctxt "block keyword"
+msgid "booking"
+msgstr ""
+
+#: blocks/reservation/block.json
+msgctxt "block keyword"
+msgid "réserver"
+msgstr ""

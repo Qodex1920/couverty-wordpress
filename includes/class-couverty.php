@@ -50,21 +50,86 @@ class Couverty {
 	 * Register hooks
 	 */
 	private function register_hooks() {
-		load_plugin_textdomain( 'couverty', false, dirname( plugin_basename( COUVERTY_PLUGIN_FILE ) ) . '/languages' );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_styles' ) );
-		add_action( 'wp_footer', array( $this, 'inject_floating_widget' ) );
-		add_action( 'wp_footer', array( $this, 'inject_lightbox_fix' ) );
-		new Couverty_Blocks();
-		new Couverty_Shortcodes();
+		// Translations must be loaded on `init`, not earlier: since WordPress 6.7
+		// loading them on `plugins_loaded` triggers a _load_textdomain_just_in_time notice.
+		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+
+		// Blocks delegate their rendering to the shortcode handler, so they share
+		// the same instance rather than re-registering shortcodes on every render.
+		$shortcodes = new Couverty_Shortcodes();
+
+		new Couverty_Blocks( $shortcodes );
 		new Couverty_REST();
 		new Couverty_Sync();
 	}
 
 	/**
-	 * Enqueue public styles
+	 * Load the plugin text domain.
 	 */
-	public function enqueue_public_styles() {
-		// Always load — CSS is needed for shortcodes, blocks, AND page builders using CPTs.
+	public function load_textdomain() {
+		load_plugin_textdomain(
+			'couverty',
+			false,
+			dirname( plugin_basename( COUVERTY_PLUGIN_FILE ) ) . '/languages'
+		);
+	}
+
+	/**
+	 * Enqueue public styles and scripts.
+	 */
+	public function enqueue_public_assets() {
+		$this->enqueue_public_styles();
+		$this->register_on_demand_scripts();
+		$this->enqueue_floating_widget();
+		$this->enqueue_lightbox_fix();
+	}
+
+	/**
+	 * Register (but do not enqueue) the scripts templates pull in on demand.
+	 *
+	 * A page with no dish images and no booking widget therefore ships no JS.
+	 */
+	private function register_on_demand_scripts() {
+		wp_register_script(
+			'couverty-lightbox',
+			COUVERTY_PLUGIN_URL . 'assets/js/couverty-lightbox.js',
+			array(),
+			COUVERTY_VERSION,
+			array( 'in_footer' => true )
+		);
+
+		wp_localize_script( 'couverty-lightbox', 'couvertyLightbox', array(
+			'closeLabel' => __( 'Fermer', 'couverty' ),
+		) );
+
+		wp_register_script(
+			'couverty-reservation',
+			COUVERTY_PLUGIN_URL . 'assets/js/couverty-reservation.js',
+			array(),
+			COUVERTY_VERSION,
+			array( 'in_footer' => true )
+		);
+	}
+
+	/**
+	 * Enqueue public styles.
+	 *
+	 * Loaded on every page by default: page builders such as Bricks and Elementor
+	 * store their layout outside `post_content`, so Couverty content cannot be
+	 * detected reliably. Sites that only use shortcodes or blocks can narrow this
+	 * down with the `couverty_enqueue_public_styles` filter.
+	 */
+	private function enqueue_public_styles() {
+		/**
+		 * Filter whether the public stylesheet should be loaded on the current request.
+		 *
+		 * @param bool $load Defaults to true.
+		 */
+		if ( ! apply_filters( 'couverty_enqueue_public_styles', true ) ) {
+			return;
+		}
+
 		wp_enqueue_style(
 			'couverty-public',
 			COUVERTY_PLUGIN_URL . 'assets/css/couverty-public.css',
@@ -74,33 +139,12 @@ class Couverty {
 	}
 
 	/**
-	 * Check if page contains Couverty shortcode or block
-	 *
-	 * @return bool
+	 * Enqueue the floating booking button script.
 	 */
-	private function has_couverty_content() {
-		global $post;
-
-		if ( ! $post ) {
-			return false;
-		}
-
-		return (
-			has_shortcode( $post->post_content, 'couverty_menu' ) ||
-			has_shortcode( $post->post_content, 'couverty_boissons' ) ||
-			has_shortcode( $post->post_content, 'couverty_menu_du_jour' ) ||
-			has_shortcode( $post->post_content, 'couverty_reservation' ) ||
-			strpos( $post->post_content, '<!-- wp:couverty' ) !== false
-		);
-	}
-
-	/**
-	 * Inject floating widget script in footer
-	 */
-	public function inject_floating_widget() {
+	private function enqueue_floating_widget() {
 		$settings = self::get_settings();
 
-		if ( ! isset( $settings['floating_enabled'] ) || ! $settings['floating_enabled'] ) {
+		if ( empty( $settings['floating_enabled'] ) ) {
 			return;
 		}
 
@@ -108,103 +152,52 @@ class Couverty {
 			return;
 		}
 
-		$base_url = esc_url( $settings['base_url'] );
-		$slug      = esc_attr( $settings['slug'] );
+		$args = array( 'slug' => $settings['slug'] );
 
-		?>
-		<script async src="<?php echo esc_url( "{$base_url}/widget-floating.js?slug={$slug}" ); ?>"></script>
-		<?php
+		if ( ! empty( $settings['floating_text'] ) ) {
+			$args['text'] = $settings['floating_text'];
+		}
+
+		// add_query_arg() URL-encodes the values itself.
+		$src = add_query_arg( $args, rtrim( $settings['base_url'], '/' ) . '/widget-floating.js' );
+
+		wp_enqueue_script(
+			'couverty-floating',
+			$src,
+			array(),
+			null, // Version is carried by the remote file itself.
+			array(
+				'strategy'  => 'async',
+				'in_footer' => true,
+			)
+		);
 	}
 
 	/**
-	 * Fix PhotoSwipe lightbox dimensions for external images (Bricks, etc.)
+	 * Enqueue the PhotoSwipe dimension fix.
 	 *
-	 * Bricks sets empty data-pswp-width/height for external image URLs,
-	 * causing PhotoSwipe to use viewport dimensions instead.
+	 * Bricks sets empty data-pswp-width/height for external image URLs, which makes
+	 * PhotoSwipe fall back to viewport dimensions. The script is a no-op on pages
+	 * without PhotoSwipe links, and can be disabled entirely with the
+	 * `couverty_enable_lightbox_fix` filter.
 	 */
-	public function inject_lightbox_fix() {
-		?>
-		<script>
-		(function() {
-			if (!document.querySelector('a[data-pswp-src]')) return;
+	private function enqueue_lightbox_fix() {
+		/**
+		 * Filter whether the PhotoSwipe dimension fix should be loaded.
+		 *
+		 * @param bool $enable Defaults to true.
+		 */
+		if ( ! apply_filters( 'couverty_enable_lightbox_fix', true ) ) {
+			return;
+		}
 
-			var cache = {};
-			var fixed = typeof WeakSet !== 'undefined' ? new WeakSet() : null;
-
-			function needsFix(link) {
-				if (fixed && fixed.has(link)) return false;
-				var w = link.getAttribute('data-pswp-width');
-				var h = link.getAttribute('data-pswp-height');
-				return !w || !h || w === '' || h === '' || w === '0' || h === '0';
-			}
-
-			function applyDims(link, w, h) {
-				link.setAttribute('data-pswp-width', w);
-				link.setAttribute('data-pswp-height', h);
-				if (fixed) fixed.add(link);
-			}
-
-			function fixLink(link, cb) {
-				var src = link.getAttribute('data-pswp-src');
-				if (!src) return cb && cb();
-
-				if (cache[src]) {
-					applyDims(link, cache[src].w, cache[src].h);
-					return cb && cb();
-				}
-
-				var img = new Image();
-				img.onload = function() {
-					cache[src] = { w: this.naturalWidth, h: this.naturalHeight };
-					applyDims(link, this.naturalWidth, this.naturalHeight);
-					if (cb) cb();
-				};
-				img.onerror = function() {
-					if (cb) cb();
-				};
-				img.src = src;
-			}
-
-			function fixAll() {
-				document.querySelectorAll('a[data-pswp-src]').forEach(function(link) {
-					if (needsFix(link)) fixLink(link);
-				});
-			}
-
-			/* Initial pass */
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', fixAll);
-			} else {
-				fixAll();
-			}
-
-			/* Watch for dynamically added content, auto-disconnect after 30s */
-			if (typeof MutationObserver !== 'undefined') {
-				var timer;
-				var obs = new MutationObserver(function() {
-					clearTimeout(timer);
-					timer = setTimeout(fixAll, 200);
-				});
-				obs.observe(document.body || document.documentElement, { childList: true, subtree: true });
-				setTimeout(function() { obs.disconnect(); }, 30000);
-			}
-
-			/* Click safety net: block only if dimensions missing, load then re-click */
-			document.addEventListener('click', function(e) {
-				var link = e.target.closest('a[data-pswp-src]');
-				if (!link || !needsFix(link)) return;
-
-				e.preventDefault();
-				e.stopPropagation();
-
-				fixLink(link, function() {
-					if (fixed) fixed.add(link);
-					link.click();
-				});
-			}, true);
-		})();
-		</script>
-		<?php
+		wp_enqueue_script(
+			'couverty-lightbox-fix',
+			COUVERTY_PLUGIN_URL . 'assets/js/couverty-lightbox-fix.js',
+			array(),
+			COUVERTY_VERSION,
+			array( 'in_footer' => true )
+		);
 	}
 
 	/**
@@ -214,10 +207,19 @@ class Couverty {
 	 */
 	public function get_api() {
 		if ( is_null( $this->api ) ) {
-			$settings   = self::get_settings();
-			$this->api  = new Couverty_API( $settings );
+			$this->api = new Couverty_API( self::get_settings() );
 		}
 		return $this->api;
+	}
+
+	/**
+	 * Drop the memoized API client.
+	 *
+	 * Call this after saving settings so the next get_api() picks up the new
+	 * key instead of the one captured earlier in the request.
+	 */
+	public function reset_api() {
+		$this->api = null;
 	}
 
 	/**

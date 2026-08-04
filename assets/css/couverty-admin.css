@@ -1,71 +1,99 @@
 /* Couverty Admin Styles */
 
-#couverty-test-connection,
-#couverty-clear-cache {
-	margin-left: 10px;
+/* ─── Status card ─────────────────────────────────────────── */
+
+.couverty-status {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 16px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left-width: 4px;
+	border-radius: 4px;
+	padding: 16px 20px;
+	margin: 16px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 }
 
+.couverty-status--connected {
+	border-left-color: #00a32a;
+}
+
+.couverty-status--warning {
+	border-left-color: #dba617;
+}
+
+.couverty-status--error {
+	border-left-color: #d63638;
+}
+
+.couverty-status__main {
+	flex: 1 1 260px;
+	min-width: 0;
+}
+
+.couverty-status__title {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 0 0 4px;
+}
+
+.couverty-status__meta {
+	color: #646970;
+	font-size: 13px;
+	margin: 0;
+}
+
+.couverty-status__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.couverty-status-indicator {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-right: 8px;
+	vertical-align: baseline;
+}
+
+.couverty-status-indicator.connected {
+	background-color: #00a32a;
+}
+
+.couverty-status-indicator.disconnected {
+	background-color: #d63638;
+}
+
+.couverty-status-indicator.pending {
+	background-color: #dba617;
+}
+
+/* ─── Async feedback ──────────────────────────────────────── */
+
 .couverty-test-result {
-	margin-top: 20px;
-	padding: 15px;
+	margin-top: 16px;
+	padding: 12px 16px;
 	border-radius: 4px;
 	border-left: 4px solid;
 }
 
 .couverty-test-result.success {
 	background-color: #ecf7ec;
-	border-color: #46b450;
-	color: #155724;
-}
-
-.couverty-test-result.success:before {
-	content: "✓ ";
-	font-weight: bold;
+	border-color: #00a32a;
+	color: #14401d;
 }
 
 .couverty-test-result.error {
-	background-color: #fef5f5;
-	border-color: #dc3545;
-	color: #721c24;
+	background-color: #fcf0f1;
+	border-color: #d63638;
+	color: #6b1b1d;
 }
 
-.couverty-test-result.error:before {
-	content: "✕ ";
-	font-weight: bold;
-}
-
-.couverty-status-indicator {
-	display: inline-block;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	margin-right: 8px;
-	vertical-align: middle;
-}
-
-.couverty-status-indicator.connected {
-	background-color: #46b450;
-}
-
-.couverty-status-indicator.disconnected {
-	background-color: #dc3545;
-}
-
-.form-table th {
-	font-weight: 600;
-}
-
-.couverty-settings-section {
-	margin-top: 25px;
-	padding: 15px;
-	background-color: #f5f5f5;
-	border-radius: 4px;
-}
-
-.couverty-settings-section h3 {
-	margin-top: 0;
-	color: #333;
-}
+/* ─── Sections ────────────────────────────────────────────── */
 
 .couverty-admin-section {
 	background: #fff;
@@ -73,16 +101,180 @@
 	border-radius: 4px;
 	padding: 20px 24px;
 	margin-top: 20px;
-	box-shadow: 0 1px 1px rgba(0,0,0,.04);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 }
 
 .couverty-admin-section h2 {
-	margin-top: 0;
+	margin: 32px 0 0;
 	padding-bottom: 12px;
 	border-bottom: 1px solid #e0e0e0;
-	font-size: 1.15em;
+	font-size: 1.4em;
+}
+
+.couverty-admin-section h2:first-child,
+.couverty-admin-section form h2:first-of-type {
+	margin-top: 0;
+}
+
+/* Must stay above the 14px of a table header, or sub-sections read as smaller
+   than the columns they contain. */
+.couverty-admin-section h3 {
+	margin: 28px 0 8px;
+	font-size: 1.12em;
+}
+
+.couverty-admin-section h3:first-of-type {
+	margin-top: 8px;
 }
 
 .couverty-admin-section + .couverty-admin-section {
 	margin-top: 16px;
+}
+
+.couverty-admin-section .description {
+	margin-bottom: 16px;
+}
+
+.couverty-admin-section .form-table th {
+	font-weight: 600;
+}
+
+/* ─── Callouts ────────────────────────────────────────────── */
+
+.couverty-callout {
+	border-left: 4px solid #8c8f94;
+	background: #f6f7f7;
+	padding: 12px 16px;
+	margin: 16px 0;
+}
+
+.couverty-callout--info {
+	border-left-color: #2271b1;
+	background: #f0f6fc;
+}
+
+.couverty-callout--warning {
+	border-left-color: #dba617;
+	background: #fcf9e8;
+}
+
+.couverty-callout ol,
+.couverty-callout ul {
+	margin: 8px 0 0;
+	padding-left: 20px;
+}
+
+.couverty-callout p:first-child {
+	margin-top: 0;
+}
+
+.couverty-callout p:last-child {
+	margin-bottom: 0;
+}
+
+.couverty-callout pre {
+	overflow-x: auto;
+	margin-bottom: 0;
+}
+
+/* ─── Copy-to-clipboard ───────────────────────────────────── */
+
+.couverty-copy {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	padding: 6px 10px;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	line-height: 1.6;
+	min-height: 34px;
+	cursor: pointer;
+	color: #1d2327;
+	max-width: 100%;
+	text-align: left;
+}
+
+.couverty-copy:hover {
+	background: #fff;
+	border-color: #2271b1;
+	color: #2271b1;
+}
+
+.couverty-copy:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 1px;
+}
+
+/* Comfortable tap targets on the tablets these docs are actually read on. */
+@media (pointer: coarse) {
+	.couverty-copy {
+		min-height: 44px;
+	}
+
+	.couverty-status__actions .button {
+		min-height: 44px;
+		display: inline-flex;
+		align-items: center;
+	}
+}
+
+.couverty-copy__value {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.couverty-copy__hint {
+	color: #646970;
+	font-family: inherit;
+	font-size: 11px;
+	flex: none;
+}
+
+.couverty-copy.is-copied .couverty-copy__hint {
+	color: #00a32a;
+}
+
+/* ─── Tables ──────────────────────────────────────────────── */
+
+/* Long endpoints and PHP signatures are unbreakable tokens: without this the
+   table widens past the viewport instead of scrolling inside its own card. */
+.couverty-table-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.couverty-table {
+	min-width: 480px;
+}
+
+.couverty-table code {
+	font-size: 12px;
+}
+
+.couverty-table .couverty-hint {
+	display: block;
+	color: #646970;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.couverty-table .couverty-type {
+	color: #646970;
+}
+
+/* ─── Fields ──────────────────────────────────────────────── */
+
+.couverty-field-actions {
+	margin-top: 8px;
+}
+
+.couverty-key-preview {
+	font-family: Consolas, Monaco, monospace;
+	background: #f0f0f1;
+	border-radius: 3px;
+	padding: 2px 6px;
 }

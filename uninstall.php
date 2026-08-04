@@ -22,7 +22,7 @@ global $wpdb;
 $wpdb->query(
 	$wpdb->prepare(
 		"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
-		'%\_transient\_couverty\_%',
-		'%\_transient\_timeout\_couverty\_%'
+		$wpdb->esc_like( '_transient_couverty_' ) . '%',
+		$wpdb->esc_like( '_transient_timeout_couverty_' ) . '%'
 	)
 );
