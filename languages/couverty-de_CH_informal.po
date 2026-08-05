@@ -2,10 +2,10 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Couverty 1.9.0\n"
+"Project-Id-Version: Couverty 1.9.1\n"
 "Report-Msgid-Bugs-To: https://couverty.ch\n"
-"POT-Creation-Date: 2026-08-05T06:16:02+00:00\n"
-"PO-Revision-Date: 2026-08-05 06:16+0000\n"
+"POT-Creation-Date: 2026-08-05T06:46:39+00:00\n"
+"PO-Revision-Date: 2026-08-05 06:46+0000\n"
 "Last-Translator: Couverty\n"
 "Language-Team: Deutsch (Schweiz)\n"
 "Language: de_CH\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #. Author of the plugin
 #: couverty.php includes/class-couverty-admin.php:457
-#: includes/class-couverty-blocks.php:55 includes/class-couverty-pages.php:169
+#: includes/class-couverty-blocks.php:55 includes/class-couverty-pages.php:335
 msgid "Couverty"
 msgstr "Couverty"
 
@@ -238,8 +238,7 @@ msgid "Boissons"
 msgstr "Getränke"
 
 #: includes/class-couverty-admin.php:269 includes/class-couverty-admin.php:792
-#: includes/class-couverty-pages.php:41 includes/class-couverty-pages.php:42
-#: includes/class-couverty-sync.php:102
+#: includes/class-couverty-pages.php:74 includes/class-couverty-sync.php:102
 msgid "Menu du jour"
 msgstr "Tagesmenü"
 
@@ -768,33 +767,73 @@ msgstr ""
 msgid "L'API Couverty a répondu avec une erreur (HTTP %d)."
 msgstr "Die Couverty-API hat mit einem Fehler geantwortet (HTTP %d)."
 
-#: includes/class-couverty-pages.php:34 includes/class-couverty-pages.php:35
+#: includes/class-couverty-pages.php:65
 msgid "Notre carte"
 msgstr "Unsere Speisekarte"
 
-#: includes/class-couverty-pages.php:38
+#: includes/class-couverty-pages.php:66
 msgid "La carte des plats, par catégorie."
 msgstr "Die Speisekarte, nach Kategorien."
 
-#: includes/class-couverty-pages.php:45
+#: includes/class-couverty-pages.php:67
+msgid ""
+"Une cuisine de saison, préparée chaque jour avec des produits que nous "
+"choisissons nous-mêmes. La carte évolue au fil des arrivages."
+msgstr ""
+"Saisonale Küche, täglich frisch zubereitet mit Produkten, die wir selbst "
+"aussuchen. Die Karte wechselt mit den Lieferungen."
+
+#: includes/class-couverty-pages.php:75
 msgid "Le menu du jour ou de la semaine."
 msgstr "Das Tages- oder Wochenmenü."
 
-#: includes/class-couverty-pages.php:48 includes/class-couverty-pages.php:49
+#: includes/class-couverty-pages.php:76
+msgid ""
+"Servi du lundi au vendredi, à midi. Entrée, plat et dessert composés le "
+"matin même selon le marché."
+msgstr ""
+"Montag bis Freitag über Mittag. Vorspeise, Hauptgang und Dessert werden am "
+"selben Morgen nach Marktlage zusammengestellt."
+
+#: includes/class-couverty-pages.php:83
 msgid "Nos boissons"
 msgstr "Unsere Getränke"
 
-#: includes/class-couverty-pages.php:52
+#: includes/class-couverty-pages.php:84
 msgid "La carte des boissons."
 msgstr "Die Getränkekarte."
 
-#: includes/class-couverty-pages.php:55 includes/class-couverty-pages.php:56
+#: includes/class-couverty-pages.php:85
+msgid ""
+"Une sélection courte, travaillée avec des vignerons de la région, complétée "
+"de quelques belles bouteilles à découvrir."
+msgstr ""
+"Eine kurze Auswahl, zusammen mit Winzern aus der Region erarbeitet, ergänzt "
+"um einige schöne Flaschen zum Entdecken."
+
+#: includes/class-couverty-pages.php:92 includes/class-couverty-pages.php:147
 msgid "Réserver une table"
 msgstr "Tisch reservieren"
 
-#: includes/class-couverty-pages.php:59
+#: includes/class-couverty-pages.php:93
 msgid "Le formulaire de réservation en ligne."
 msgstr "Das Online-Reservationsformular."
+
+#: includes/class-couverty-pages.php:94
+msgid ""
+"Choisissez votre date et le nombre de convives : vous recevez la "
+"confirmation par e-mail dans la foulée."
+msgstr ""
+"Wählen Sie Datum und Anzahl Gäste — die Bestätigung erhalten Sie gleich "
+"darauf per E-Mail."
+
+#: includes/class-couverty-pages.php:132
+msgid "Envie de passer à table ?"
+msgstr "Lust auf einen Tisch bei uns?"
+
+#: includes/class-couverty-pages.php:138
+msgid "Réservez en quelques secondes, sans créer de compte."
+msgstr "In wenigen Sekunden reserviert, ohne Konto."
 
 #: includes/class-couverty-rest.php:71
 msgid "Couverty plugin is not configured."

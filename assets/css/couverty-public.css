@@ -7,7 +7,10 @@
 .couverty-reservation {
 	--couverty-font: inherit;
 	--couverty-text: #1a1a1a;
-	--couverty-text-muted: #9a8b78;
+	/* 4.94:1 sur blanc. L'ancienne valeur (#9a8b78) tombait à 3.31:1, sous le
+	   seuil WCAG AA — y compris pour la ligne des allergènes, qui est une
+	   information de sécurité alimentaire. */
+	--couverty-text-muted: #7d6e5b;
 	--couverty-bg: transparent;
 	--couverty-border: #d4c5b4;
 	--couverty-accent: #8b1a2b;
@@ -543,5 +546,152 @@
 		width: 2rem;
 		height: 2rem;
 		font-size: 1.5rem;
+	}
+}
+
+/* ═══════════════════════════════
+   PAGE COMPOSITION
+
+   Applied to the starter pages the plugin can create. Nothing here sets a
+   font or a brand colour: the page borrows both from the theme, and the
+   plugin only contributes rhythm and measure. Existing rules above are
+   untouched — sites already live must render exactly as before.
+   ═══════════════════════════════ */
+
+/* One interval between the parts of a page, so the sections read as a set
+   rather than as stacked blocks. Block themes set their own vertical rhythm on
+   direct children of the content, hence the matching specificity. */
+:where(.entry-content, .wp-block-post-content) > .couverty-page__intro,
+:where(.entry-content, .wp-block-post-content) > .couverty-page__carte,
+:where(.entry-content, .wp-block-post-content) > .couverty-page__cta,
+.couverty-page__intro,
+.couverty-page__carte,
+.couverty-page__cta {
+	margin-block-start: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* The lead sits on the same measure as the menu below it, so the page has one
+   left edge rather than two. */
+.couverty-page__intro {
+	margin-inline: 0;
+}
+
+/* A single lead paragraph: wider than body copy, held to a readable measure. */
+.couverty-page__intro {
+	max-width: 58ch;
+	font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
+	line-height: 1.6;
+	opacity: 0.85;
+}
+
+/* The invitation closing a menu. Separated by a rule rather than a filled
+   panel, so it inherits whatever background the theme gives the page. */
+.couverty-page__cta {
+	border-top: 1px solid var(--couverty-border, currentColor);
+	padding-top: clamp(2rem, 4vw, 3rem);
+	text-align: center;
+}
+
+.couverty-page__cta > * + * {
+	margin-top: 0.75rem;
+}
+
+.couverty-page__cta .wp-block-buttons {
+	justify-content: center;
+	margin-top: 1.75rem;
+}
+
+/* More room above a heading than below it, throughout. */
+.couverty-menu .couverty-category + .couverty-category,
+.couverty-boissons .couverty-category + .couverty-category {
+	margin-top: clamp(2rem, 4vw, 3.25rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.couverty-page__cta .wp-block-button__link {
+		transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.couverty-page__cta .wp-block-button__link:hover {
+		transform: translateY(-2px);
+	}
+}
+
+/* ═══════════════════════════════
+   MENU INSIDE A COUVERTY PAGE
+
+   Only applies inside the pages the plugin creates, never to a shortcode
+   dropped into an existing layout: sites already live keep their current
+   density to the pixel.
+   ═══════════════════════════════ */
+
+/* A printed menu breathes. Dishes get room to be read one at a time. */
+.couverty-page__carte .couverty-plat,
+.couverty-page__carte .couverty-boisson {
+	padding-block: 1.25rem;
+}
+
+.couverty-page__carte .couverty-category__items > * + *,
+/* The drinks list ships with border-top:none at a higher specificity, so this
+   selector has to match it to bring the rule back inside a Couverty page. */
+.couverty-page__carte .couverty-boissons--list .couverty-boisson + .couverty-boisson {
+	border-top: 1px solid color-mix(in srgb, var(--couverty-border) 45%, transparent);
+}
+
+/* Lead the eye from the dish to its price across the empty middle, the way a
+   printed card does. The rule sits between the two, never under the text. */
+.couverty-page__carte .couverty-plat__header::after,
+.couverty-page__carte .couverty-boisson__header::after {
+	content: "";
+	order: 1;
+	flex: 1 1 2rem;
+	min-width: 1.5rem;
+	/* Sits on the first line's baseline, so a dish name that wraps to two lines
+	   keeps its leader beside the price rather than floating between lines. */
+	align-self: flex-start;
+	margin-block-start: 0.72em;
+	border-bottom: 1px dotted color-mix(in srgb, var(--couverty-border) 80%, transparent);
+}
+
+.couverty-page__carte .couverty-plat__name-wrapper,
+.couverty-page__carte .couverty-boisson__name {
+	flex: 0 1 auto;
+	order: 0;
+}
+
+.couverty-page__carte .couverty-plat__price,
+.couverty-page__carte .couverty-boisson__price {
+	order: 2;
+}
+
+/* The description belongs to the dish, not to the row: it starts under the
+   name and stops well before the price column. */
+.couverty-page__carte .couverty-plat__description,
+.couverty-page__carte .couverty-boisson__description {
+	max-width: 46ch;
+}
+
+@supports not (color: color-mix(in srgb, red 50%, transparent)) {
+	.couverty-page__carte .couverty-category__items > * + * {
+		border-top-color: var(--couverty-border);
+	}
+
+	.couverty-page__carte .couverty-plat__header::after,
+	.couverty-page__carte .couverty-boisson__header::after {
+		border-bottom-color: var(--couverty-border);
+	}
+}
+
+/* Under 480px the header stacks: a leader line between two stacked lines is
+   just a floating dash, so it goes away and the price sits under its dish. */
+@media (max-width: 480px) {
+	.couverty-page__carte .couverty-plat__header::after,
+	.couverty-page__carte .couverty-boisson__header::after {
+		display: none;
+	}
+
+	.couverty-page__carte .couverty-plat,
+	.couverty-page__carte .couverty-boisson {
+		padding-block: 1rem;
 	}
 }

@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,12 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.9.1 =
+* Les pages créées laissent le thème afficher le titre et l'image d'ouverture — plus de titre en double
+* Carte mise en page comme une carte imprimée : plats aérés, filets de séparation, ligne de conduite jusqu'au prix
+* Le bouton de fin de page pointe vers votre vraie page de réservation
+* Meilleure lisibilité des descriptions et des allergènes : le gris secondaire passe le seuil de contraste WCAG AA
 
 = 1.9.0 =
 * Nouveau : créez en un clic les pages Carte, Menu du jour, Boissons et Réservation, prêtes à publier
