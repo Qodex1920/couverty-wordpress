@@ -698,6 +698,11 @@ class Couverty_Admin {
 										<?php if ( $page['edit_url'] ) : ?>
 											— <a href="<?php echo esc_url( $page['edit_url'] ); ?>"><?php esc_html_e( 'Modifier', 'couverty' ); ?></a>
 										<?php endif; ?>
+										<?php if ( ! empty( $page['needs_image'] ) ) : ?>
+											<span class="couverty-hint">
+												<?php esc_html_e( 'Ajoutez une image mise en avant : elle devient le bandeau d\'ouverture.', 'couverty' ); ?>
+											</span>
+										<?php endif; ?>
 									<?php endif; ?>
 								</td>
 							</tr>

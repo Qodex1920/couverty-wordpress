@@ -41,8 +41,11 @@ class Couverty_Pages {
 	/**
 	 * Placeholder swapped for the real booking page permalink once every page
 	 * exists, so the closing button actually leads somewhere.
+	 *
+	 * Shaped like a URL on purpose: esc_url() prefixes "http://" to any string
+	 * without a scheme, which would leave "http://http://…" after replacement.
 	 */
-	const BOOKING_URL_TOKEN = '%%couverty_booking_url%%';
+	const BOOKING_URL_TOKEN = 'https://couverty.invalid/booking-page';
 
 	/**
 	 * Constructor

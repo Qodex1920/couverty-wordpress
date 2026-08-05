@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Couverty 1.9.1\n"
+"Project-Id-Version: Couverty 1.9.2\n"
 "Report-Msgid-Bugs-To: https://couverty.ch\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-05T06:46:39+00:00\n"
+"POT-Creation-Date: 2026-08-05T07:05:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: couverty\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: couverty.php
 #: includes/class-couverty-admin.php:457
 #: includes/class-couverty-blocks.php:55
-#: includes/class-couverty-pages.php:335
+#: includes/class-couverty-pages.php:338
 msgid "Couverty"
 msgstr ""
 
@@ -248,14 +248,14 @@ msgid "Plats"
 msgstr ""
 
 #: includes/class-couverty-admin.php:268
-#: includes/class-couverty-admin.php:787
+#: includes/class-couverty-admin.php:792
 #: includes/class-couverty-sync.php:101
 msgid "Boissons"
 msgstr ""
 
 #: includes/class-couverty-admin.php:269
-#: includes/class-couverty-admin.php:792
-#: includes/class-couverty-pages.php:74
+#: includes/class-couverty-admin.php:797
+#: includes/class-couverty-pages.php:77
 #: includes/class-couverty-sync.php:102
 msgid "Menu du jour"
 msgstr ""
@@ -400,7 +400,7 @@ msgid "Page"
 msgstr ""
 
 #: includes/class-couverty-admin.php:678
-#: includes/class-couverty-admin.php:813
+#: includes/class-couverty-admin.php:818
 msgid "Contenu"
 msgstr ""
 
@@ -424,253 +424,257 @@ msgstr ""
 msgid "Modifier"
 msgstr ""
 
+#: includes/class-couverty-admin.php:703
+msgid "Ajoutez une image mise en avant : elle devient le bandeau d'ouverture."
+msgstr ""
+
 #. translators: %d: number of pages that will be created
-#: includes/class-couverty-admin.php:715
+#: includes/class-couverty-admin.php:720
 #, php-format
 msgid "Créer %d page manquante"
 msgid_plural "Créer %d pages manquantes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-couverty-admin.php:721
+#: includes/class-couverty-admin.php:726
 msgid "Toutes les pages existent. Vous pouvez aussi insérer ces mises en page dans n'importe quelle page depuis l'éditeur : cherchez « Couverty » dans les compositions."
 msgstr ""
 
-#: includes/class-couverty-admin.php:736
+#: includes/class-couverty-admin.php:741
 msgid "Synchronisation des données"
 msgstr ""
 
-#: includes/class-couverty-admin.php:738
+#: includes/class-couverty-admin.php:743
 msgid "Vos données Couverty sont copiées dans WordPress sous forme de types de contenu personnalisés, toutes les 30 minutes. Elles restent donc disponibles pour vos constructeurs de pages même si l'API est momentanément injoignable."
 msgstr ""
 
-#: includes/class-couverty-admin.php:745
+#: includes/class-couverty-admin.php:750
 msgid "Type de contenu"
 msgstr ""
 
-#: includes/class-couverty-admin.php:746
+#: includes/class-couverty-admin.php:751
 msgid "Champs"
 msgstr ""
 
-#: includes/class-couverty-admin.php:747
+#: includes/class-couverty-admin.php:752
 msgid "Taxonomie"
 msgstr ""
 
-#: includes/class-couverty-admin.php:782
+#: includes/class-couverty-admin.php:787
 msgid "Menu (carte des plats)"
 msgstr ""
 
-#: includes/class-couverty-admin.php:797
+#: includes/class-couverty-admin.php:802
 msgid "Réservation (widget)"
 msgstr ""
 
-#: includes/class-couverty-admin.php:804
+#: includes/class-couverty-admin.php:809
 msgid "Shortcodes & blocs"
 msgstr ""
 
-#: includes/class-couverty-admin.php:806
+#: includes/class-couverty-admin.php:811
 msgid "Ces shortcodes fonctionnent dans n'importe quel éditeur, constructeur de pages ou template de thème. Les mêmes contenus sont disponibles en blocs dans la catégorie « Couverty » de l'éditeur WordPress."
 msgstr ""
 
-#: includes/class-couverty-admin.php:814
+#: includes/class-couverty-admin.php:819
 msgid "Shortcode"
 msgstr ""
 
-#: includes/class-couverty-admin.php:815
+#: includes/class-couverty-admin.php:820
 msgid "Options"
 msgstr ""
 
-#: includes/class-couverty-admin.php:841
+#: includes/class-couverty-admin.php:846
 msgid "Données dynamiques (constructeurs de pages)"
 msgstr ""
 
-#: includes/class-couverty-admin.php:844
+#: includes/class-couverty-admin.php:849
 msgid "En trois étapes :"
 msgstr ""
 
-#: includes/class-couverty-admin.php:846
+#: includes/class-couverty-admin.php:851
 msgid "Créez une boucle de requête (Query Loop) et choisissez un type de contenu Couverty"
 msgstr ""
 
-#: includes/class-couverty-admin.php:847
+#: includes/class-couverty-admin.php:852
 msgid "Dans la boucle, utilisez « Champ personnalisé » ou « Données dynamiques »"
 msgstr ""
 
-#: includes/class-couverty-admin.php:848
+#: includes/class-couverty-admin.php:853
 msgid "Collez le nom du champ depuis les tableaux ci-dessous"
 msgstr ""
 
-#: includes/class-couverty-admin.php:860
+#: includes/class-couverty-admin.php:865
 msgid "Champ"
 msgstr ""
 
-#: includes/class-couverty-admin.php:861
+#: includes/class-couverty-admin.php:866
 msgid "Nom du champ"
 msgstr ""
 
-#: includes/class-couverty-admin.php:862
+#: includes/class-couverty-admin.php:867
 msgid "Type"
 msgstr ""
 
-#: includes/class-couverty-admin.php:879
+#: includes/class-couverty-admin.php:884
 msgid "Nom"
 msgstr ""
 
-#: includes/class-couverty-admin.php:880
+#: includes/class-couverty-admin.php:885
 msgid "Titre de l'article (champ WordPress standard)"
 msgstr ""
 
-#: includes/class-couverty-admin.php:884
+#: includes/class-couverty-admin.php:889
 msgid "Description"
 msgstr ""
 
-#: includes/class-couverty-admin.php:885
+#: includes/class-couverty-admin.php:890
 msgid "Contenu de l'article (champ WordPress standard)"
 msgstr ""
 
-#: includes/class-couverty-admin.php:894
+#: includes/class-couverty-admin.php:899
 msgid "Taxonomies (pour filtrer) :"
 msgstr ""
 
-#: includes/class-couverty-admin.php:896
+#: includes/class-couverty-admin.php:901
 msgid "Catégories de plats"
 msgstr ""
 
-#: includes/class-couverty-admin.php:897
+#: includes/class-couverty-admin.php:902
 msgid "Catégories de boissons"
 msgstr ""
 
-#: includes/class-couverty-admin.php:901
+#: includes/class-couverty-admin.php:906
 msgid "Syntaxe par constructeur"
 msgstr ""
 
-#: includes/class-couverty-admin.php:907
+#: includes/class-couverty-admin.php:912
 msgid "Dynamic Tags → Custom Field → nom du champ"
 msgstr ""
 
 #. translators: 1: generic syntax, 2: concrete example
-#: includes/class-couverty-admin.php:915
+#: includes/class-couverty-admin.php:920
 #, php-format
 msgid "Syntaxe %1$s — par exemple %2$s"
 msgstr ""
 
-#: includes/class-couverty-admin.php:924
+#: includes/class-couverty-admin.php:929
 msgid "Dynamic Content → Post Fields → Custom Fields → nom du champ"
 msgstr ""
 
-#: includes/class-couverty-admin.php:928
+#: includes/class-couverty-admin.php:933
 msgid "Field Connections → Post Custom Field → nom du champ"
 msgstr ""
 
-#: includes/class-couverty-admin.php:932
+#: includes/class-couverty-admin.php:937
 msgid "Blocs Couverty, ou bloc Boucle de requête filtré sur un type de contenu Couverty"
 msgstr ""
 
-#: includes/class-couverty-admin.php:951
+#: includes/class-couverty-admin.php:956
 msgid "Plats par catégorie"
 msgstr ""
 
-#: includes/class-couverty-admin.php:952
+#: includes/class-couverty-admin.php:957
 msgid "Boissons par catégorie"
 msgstr ""
 
-#: includes/class-couverty-admin.php:953
+#: includes/class-couverty-admin.php:958
 msgid "Menu du jour / de la semaine"
 msgstr ""
 
-#: includes/class-couverty-admin.php:954
+#: includes/class-couverty-admin.php:959
 msgid "Informations du restaurant"
 msgstr ""
 
-#: includes/class-couverty-admin.php:958
+#: includes/class-couverty-admin.php:963
 msgid "API REST & fonctions PHP"
 msgstr ""
 
-#: includes/class-couverty-admin.php:960
+#: includes/class-couverty-admin.php:965
 msgid "Pour les intégrations sur mesure : ces endpoints servent les données Couverty depuis votre propre site, en passant par le cache du plugin."
 msgstr ""
 
-#: includes/class-couverty-admin.php:967
+#: includes/class-couverty-admin.php:972
 msgid "Endpoint"
 msgstr ""
 
-#: includes/class-couverty-admin.php:968
+#: includes/class-couverty-admin.php:973
 msgid "Données"
 msgstr ""
 
-#: includes/class-couverty-admin.php:969
+#: includes/class-couverty-admin.php:974
 msgid "Fonction PHP"
 msgstr ""
 
-#: includes/class-couverty-admin.php:985
+#: includes/class-couverty-admin.php:990
 msgid "Exemple PHP"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1006
+#: includes/class-couverty-admin.php:1011
 msgid "La clé API relie ce site à votre établissement Couverty."
 msgstr ""
 
-#: includes/class-couverty-admin.php:1026
+#: includes/class-couverty-admin.php:1031
 msgid "Laissez vide pour conserver la clé actuelle"
 msgstr ""
 
 #. translators: %s: masked API key preview
-#: includes/class-couverty-admin.php:1034
+#: includes/class-couverty-admin.php:1039
 #, php-format
 msgid "Clé enregistrée : %s"
 msgstr ""
 
 #. translators: %s: link to the Couverty dashboard integrations page
-#: includes/class-couverty-admin.php:1043
+#: includes/class-couverty-admin.php:1048
 #, php-format
 msgid "Créez-la dans %s."
 msgstr ""
 
-#: includes/class-couverty-admin.php:1045
+#: includes/class-couverty-admin.php:1050
 msgid "votre tableau de bord Couverty → Intégrations"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1057
+#: includes/class-couverty-admin.php:1062
 msgid "Tester la connexion"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1057
+#: includes/class-couverty-admin.php:1062
 msgid "Connecter"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1081
+#: includes/class-couverty-admin.php:1086
 msgid "Rempli automatiquement à la connexion."
 msgstr ""
 
-#: includes/class-couverty-admin.php:1089
+#: includes/class-couverty-admin.php:1094
 msgid "Durée pendant laquelle les données sont réutilisées sans rappeler l'API Couverty."
 msgstr ""
 
-#: includes/class-couverty-admin.php:1099
+#: includes/class-couverty-admin.php:1104
 msgid "5 minutes"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1100
+#: includes/class-couverty-admin.php:1105
 msgid "10 minutes"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1101
+#: includes/class-couverty-admin.php:1106
 msgid "30 minutes"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1102
+#: includes/class-couverty-admin.php:1107
 msgid "1 heure"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1119
+#: includes/class-couverty-admin.php:1124
 msgid "Affiche un bouton de réservation en bas à droite, sur toutes les pages du site."
 msgstr ""
 
-#: includes/class-couverty-admin.php:1135
+#: includes/class-couverty-admin.php:1140
 msgid "Afficher sur toutes les pages"
 msgstr ""
 
-#: includes/class-couverty-admin.php:1153
+#: includes/class-couverty-admin.php:1158
 msgid "Réserver"
 msgstr ""
 
@@ -711,56 +715,56 @@ msgstr ""
 msgid "L'API Couverty a répondu avec une erreur (HTTP %d)."
 msgstr ""
 
-#: includes/class-couverty-pages.php:65
+#: includes/class-couverty-pages.php:68
 msgid "Notre carte"
 msgstr ""
 
-#: includes/class-couverty-pages.php:66
+#: includes/class-couverty-pages.php:69
 msgid "La carte des plats, par catégorie."
 msgstr ""
 
-#: includes/class-couverty-pages.php:67
+#: includes/class-couverty-pages.php:70
 msgid "Une cuisine de saison, préparée chaque jour avec des produits que nous choisissons nous-mêmes. La carte évolue au fil des arrivages."
 msgstr ""
 
-#: includes/class-couverty-pages.php:75
+#: includes/class-couverty-pages.php:78
 msgid "Le menu du jour ou de la semaine."
 msgstr ""
 
-#: includes/class-couverty-pages.php:76
+#: includes/class-couverty-pages.php:79
 msgid "Servi du lundi au vendredi, à midi. Entrée, plat et dessert composés le matin même selon le marché."
 msgstr ""
 
-#: includes/class-couverty-pages.php:83
+#: includes/class-couverty-pages.php:86
 msgid "Nos boissons"
 msgstr ""
 
-#: includes/class-couverty-pages.php:84
+#: includes/class-couverty-pages.php:87
 msgid "La carte des boissons."
 msgstr ""
 
-#: includes/class-couverty-pages.php:85
+#: includes/class-couverty-pages.php:88
 msgid "Une sélection courte, travaillée avec des vignerons de la région, complétée de quelques belles bouteilles à découvrir."
 msgstr ""
 
-#: includes/class-couverty-pages.php:92
-#: includes/class-couverty-pages.php:147
+#: includes/class-couverty-pages.php:95
+#: includes/class-couverty-pages.php:150
 msgid "Réserver une table"
 msgstr ""
 
-#: includes/class-couverty-pages.php:93
+#: includes/class-couverty-pages.php:96
 msgid "Le formulaire de réservation en ligne."
 msgstr ""
 
-#: includes/class-couverty-pages.php:94
+#: includes/class-couverty-pages.php:97
 msgid "Choisissez votre date et le nombre de convives : vous recevez la confirmation par e-mail dans la foulée."
 msgstr ""
 
-#: includes/class-couverty-pages.php:132
+#: includes/class-couverty-pages.php:135
 msgid "Envie de passer à table ?"
 msgstr ""
 
-#: includes/class-couverty-pages.php:138
+#: includes/class-couverty-pages.php:141
 msgid "Réservez en quelques secondes, sans créer de compte."
 msgstr ""
 

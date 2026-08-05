@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,13 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.9.2 =
+* Correction : le bouton « Réserver une table » en bas des pages créées ne menait nulle part
+* Menu du jour mis en page comme le reste de la carte, sans encadrés
+* Sur mobile, le prix ne concurrence plus le nom du plat
+* L'accroche est alignée avec le titre, et le filet avant l'invitation retrouve sa couleur
+* Les réglages signalent les pages auxquelles il manque une image mise en avant
 
 = 1.9.1 =
 * Les pages créées laissent le thème afficher le titre et l'image d'ouverture — plus de titre en double

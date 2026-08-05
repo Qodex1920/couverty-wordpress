@@ -558,6 +558,16 @@
    untouched — sites already live must render exactly as before.
    ═══════════════════════════════ */
 
+/* Page containers need the tokens too: they sit above .couverty-menu, not
+   inside it, so a var() fallback would resolve to currentColor. */
+.couverty-page__intro,
+.couverty-page__carte,
+.couverty-page__cta {
+	--couverty-text-muted: #7d6e5b;
+	--couverty-border: #d4c5b4;
+	--couverty-accent: #8b1a2b;
+}
+
 /* One interval between the parts of a page, so the sections read as a set
    rather than as stacked blocks. Block themes set their own vertical rhythm on
    direct children of the content, hence the matching specificity. */
@@ -570,18 +580,23 @@
 	margin-block-start: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-/* The lead sits on the same measure as the menu below it, so the page has one
-   left edge rather than two. */
-.couverty-page__intro {
-	margin-inline: 0;
+/* More air before the invitation than between reading blocks. */
+:where(.entry-content, .wp-block-post-content) > .couverty-page__cta,
+.couverty-page__cta {
+	margin-block-start: clamp(3.5rem, 9vw, 6.5rem);
 }
 
-/* A single lead paragraph: wider than body copy, held to a readable measure. */
+
+/* A single lead paragraph, set slightly larger than body copy.
+
+   No max-width: WordPress forces margin-inline:auto on the children of a
+   constrained layout, so any narrower measure centres itself and the page ends
+   up with two left edges. The head of the page is composed by scale and space,
+   not by a measure the layout will not let us align. */
 .couverty-page__intro {
-	max-width: 58ch;
 	font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
 	line-height: 1.6;
-	opacity: 0.85;
+	text-wrap: pretty;
 }
 
 /* The invitation closing a menu. Separated by a rule rather than a filled
@@ -649,7 +664,7 @@
 	/* Sits on the first line's baseline, so a dish name that wraps to two lines
 	   keeps its leader beside the price rather than floating between lines. */
 	align-self: flex-start;
-	margin-block-start: 0.72em;
+	margin-block-start: 0.72rem;
 	border-bottom: 1px dotted color-mix(in srgb, var(--couverty-border) 80%, transparent);
 }
 
@@ -667,7 +682,7 @@
 /* The description belongs to the dish, not to the row: it starts under the
    name and stops well before the price column. */
 .couverty-page__carte .couverty-plat__description,
-.couverty-page__carte .couverty-boisson__description {
+.couverty-page__carte .couverty-boisson__details {
 	max-width: 46ch;
 }
 
@@ -682,9 +697,27 @@
 	}
 }
 
-/* Under 480px the header stacks: a leader line between two stacked lines is
-   just a floating dash, so it goes away and the price sits under its dish. */
+/* Under 480px the base stylesheet stacks the header and turns the price the
+   same accent red as the dish, at nearly the same weight — the price then
+   reads as loud as what it prices. Inside a Couverty page the row is kept,
+   with the price subordinate. */
 @media (max-width: 480px) {
+	.couverty-page__carte .couverty-plat__header,
+	.couverty-page__carte .couverty-boisson__header {
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.25rem 0.75rem;
+	}
+
+	.couverty-page__carte .couverty-plat__price,
+	.couverty-page__carte .couverty-boisson__price {
+		color: var(--couverty-text);
+		font-weight: 500;
+		font-size: 0.9375rem;
+	}
+
+	/* A leader between two stacked lines is just a floating dash. */
 	.couverty-page__carte .couverty-plat__header::after,
 	.couverty-page__carte .couverty-boisson__header::after {
 		display: none;
@@ -693,5 +726,36 @@
 	.couverty-page__carte .couverty-plat,
 	.couverty-page__carte .couverty-boisson {
 		padding-block: 1rem;
+	}
+}
+
+/* ═══════════════════════════════
+   DAILY MENU INSIDE A COUVERTY PAGE
+
+   The base stylesheet frames each day in a rounded card. Stacked five deep
+   that is exactly the grid-of-cards a menu should not be, so inside a page
+   the frames give way to the same rules that separate dishes.
+   ═══════════════════════════════ */
+
+.couverty-page__carte .couverty-menu-jour {
+	border: 0;
+	border-radius: 0;
+	padding: 1.5rem 0;
+	background: transparent;
+}
+
+.couverty-page__carte .couverty-menu-jour + .couverty-menu-jour {
+	border-top: 1px solid color-mix(in srgb, var(--couverty-border) 45%, transparent);
+}
+
+/* The current day keeps its emphasis, carried by a rule rather than a frame. */
+.couverty-page__carte .couverty-menu-jour--today {
+	border-left: 2px solid var(--couverty-accent);
+	padding-left: 1.25rem;
+}
+
+@supports not (color: color-mix(in srgb, red 50%, transparent)) {
+	.couverty-page__carte .couverty-menu-jour + .couverty-menu-jour {
+		border-top-color: var(--couverty-border);
 	}
 }
