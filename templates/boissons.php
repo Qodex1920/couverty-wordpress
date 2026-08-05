@@ -53,18 +53,12 @@ $categories = isset( $data['categories'] ) ? $data['categories'] : [];
 							<div class="couverty-boisson__details">
 								<?php
 								$details = [];
-								if ( isset( $boisson['volume'] ) && $boisson['volume'] ) {
-									$details[] = esc_html( $boisson['volume'] );
+								foreach ( [ 'volume', 'region', 'annee' ] as $key ) {
+									if ( ! empty( $boisson[ $key ] ) ) {
+										$details[] = (string) $boisson[ $key ];
+									}
 								}
-								if ( isset( $boisson['region'] ) && $boisson['region'] ) {
-									$details[] = esc_html( $boisson['region'] );
-								}
-								if ( isset( $boisson['annee'] ) && $boisson['annee'] ) {
-									$details[] = esc_html( (string) $boisson['annee'] );
-								}
-								if ( ! empty( $details ) ) {
-									echo implode( ' · ', $details );
-								}
+								echo esc_html( implode( ' · ', $details ) );
 								?>
 							</div>
 						<?php endif; ?>

@@ -1,10 +1,10 @@
-=== Couverty - Menu & Réservation ===
+=== Couverty ===
 Contributors: couverty
 Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.8.1
+Stable tag: 1.8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,10 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.8.2 =
+* Protection contre l'accès direct ajoutée aux fichiers d'assets des blocs
+* Échappement consolidé sur les détails des boissons (volume, région, année)
 
 = 1.8.1 =
 * Plugin traduit en allemand et en italien — interface d'administration, blocs de l'éditeur et messages d'erreur
