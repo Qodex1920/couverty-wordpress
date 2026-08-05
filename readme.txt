@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,11 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.8.1 =
+* Plugin traduit en allemand et en italien — interface d'administration, blocs de l'éditeur et messages d'erreur
+* Allemand en orthographe suisse (« ss » et non « ß ») ; variantes de_CH, de_CH_informal et de_DE fournies
+* L'interface suit désormais la langue du site WordPress, sans réglage supplémentaire
 
 = 1.8.0 =
 * Cache d'échec : une API injoignable ne déclenche plus un appel bloquant à chaque page vue

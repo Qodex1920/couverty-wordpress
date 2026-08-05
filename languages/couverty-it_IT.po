@@ -2,1025 +2,1068 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Couverty 1.8.1\n"
+"Project-Id-Version: Couverty 1.8.0\n"
 "Report-Msgid-Bugs-To: https://couverty.ch\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-08-05T05:49:16+00:00\n"
+"PO-Revision-Date: 2026-08-05 05:47+0000\n"
+"Last-Translator: Couverty\n"
+"Language-Team: Italiano\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-05T05:49:25+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: couverty\n"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
-#: couverty.php
-#: includes/class-couverty-admin.php:426
+#: couverty.php includes/class-couverty-admin.php:426
 #: includes/class-couverty-blocks.php:55
 msgid "Couverty"
-msgstr ""
+msgstr "Couverty"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: couverty.php
 msgid "https://couverty.ch"
-msgstr ""
+msgstr "https://couverty.ch"
 
 #. Description of the plugin
 #: couverty.php
-msgid "Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty"
+msgid ""
+"Intégrez facilement le menu et les réservations de votre restaurant depuis "
+"Couverty"
 msgstr ""
+"Integrate facilmente il menu e le prenotazioni del vostro ristorante da "
+"Couverty"
 
 #: couverty.php:30
 msgid "Couverty requires PHP 7.4 or higher."
-msgstr ""
+msgstr "Couverty richiede PHP 7.4 o superiore."
 
 #: couverty.php:40
 msgid "Couverty requires WordPress 6.0 or higher."
-msgstr ""
+msgstr "Couverty richiede WordPress 6.0 o superiore."
 
 #: includes/class-couverty-admin.php:17
 msgid "Réglages"
-msgstr ""
+msgstr "Impostazioni"
 
 #: includes/class-couverty-admin.php:18
 msgid "Intégration"
-msgstr ""
+msgstr "Integrazione"
 
 #: includes/class-couverty-admin.php:70
 msgid "Connexion"
-msgstr ""
+msgstr "Connessione"
 
 #: includes/class-couverty-admin.php:78
 msgid "Clé API"
-msgstr ""
+msgstr "Chiave API"
 
 #: includes/class-couverty-admin.php:87
 msgid "Identifiant du restaurant"
-msgstr ""
+msgstr "Identificativo del ristorante"
 
 #: includes/class-couverty-admin.php:96
 msgid "Cache"
-msgstr ""
+msgstr "Cache"
 
 #: includes/class-couverty-admin.php:103
 msgid "Durée du cache"
-msgstr ""
+msgstr "Durata della cache"
 
 #: includes/class-couverty-admin.php:112
 msgid "Bouton flottant de réservation"
-msgstr ""
+msgstr "Pulsante di prenotazione fluttuante"
 
 #: includes/class-couverty-admin.php:119
 msgid "Activer le bouton"
-msgstr ""
+msgstr "Attivare il pulsante"
 
 #: includes/class-couverty-admin.php:127
 msgid "Texte du bouton"
-msgstr ""
+msgstr "Testo del pulsante"
 
 #: includes/class-couverty-admin.php:202
 msgid "Test en cours…"
-msgstr ""
+msgstr "Test in corso…"
 
 #: includes/class-couverty-admin.php:203
 msgid "Synchronisation…"
-msgstr ""
+msgstr "Sincronizzazione…"
 
 #: includes/class-couverty-admin.php:204
 msgid "Vidage…"
-msgstr ""
+msgstr "Svuotamento…"
 
 #: includes/class-couverty-admin.php:205
 msgid "Connexion réussie"
-msgstr ""
+msgstr "Connessione riuscita"
 
 #. translators: %s: restaurant name
-#: includes/class-couverty-admin.php:207
-#: includes/class-couverty-admin.php:532
+#: includes/class-couverty-admin.php:207 includes/class-couverty-admin.php:532
 #, php-format
 msgid "Connecté à %s"
-msgstr ""
+msgstr "Connesso a %s"
 
 #: includes/class-couverty-admin.php:208
 msgid "Impossible de contacter votre site WordPress. Réessayez."
-msgstr ""
+msgstr "Impossibile contattare il vostro sito WordPress. Riprovare."
 
 #: includes/class-couverty-admin.php:209
-msgid "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en arrière-plan — rechargez la page dans une minute."
+msgid ""
+"La synchronisation a dépassé le délai d'attente. Elle continue peut-être en "
+"arrière-plan — rechargez la page dans une minute."
 msgstr ""
+"La sincronizzazione ha superato il tempo massimo. Potrebbe continuare in "
+"background — ricaricare la pagina fra un minuto."
 
 #: includes/class-couverty-admin.php:210
 msgid "copié"
-msgstr ""
+msgstr "copiato"
 
-#: includes/class-couverty-admin.php:211
-#: includes/class-couverty-admin.php:305
+#: includes/class-couverty-admin.php:211 includes/class-couverty-admin.php:305
 msgid "copier"
-msgstr ""
+msgstr "copia"
 
 #: includes/class-couverty-admin.php:212
 msgid "plats"
-msgstr ""
+msgstr "piatti"
 
 #: includes/class-couverty-admin.php:213
 msgid "boissons"
-msgstr ""
+msgstr "bevande"
 
 #: includes/class-couverty-admin.php:214
 msgid "menus du jour"
-msgstr ""
+msgstr "menu del giorno"
 
 #: includes/class-couverty-admin.php:215
 msgid "événements"
-msgstr ""
+msgstr "eventi"
 
-#: includes/class-couverty-admin.php:229
-#: includes/class-couverty-admin.php:237
-#: includes/class-couverty-admin.php:243
-#: includes/class-couverty-sync.php:170
-#: includes/class-couverty-sync.php:180
-#: includes/class-couverty-sync.php:193
+#: includes/class-couverty-admin.php:229 includes/class-couverty-admin.php:237
+#: includes/class-couverty-admin.php:243 includes/class-couverty-sync.php:170
+#: includes/class-couverty-sync.php:180 includes/class-couverty-sync.php:193
 msgid "Prix"
-msgstr ""
+msgstr "Prezzo"
 
-#: includes/class-couverty-admin.php:230
-#: includes/class-couverty-admin.php:252
-#: includes/class-couverty-sync.php:171
-#: includes/class-couverty-sync.php:199
+#: includes/class-couverty-admin.php:230 includes/class-couverty-admin.php:252
+#: includes/class-couverty-sync.php:171 includes/class-couverty-sync.php:199
 msgid "Image URL"
-msgstr ""
+msgstr "URL immagine"
 
-#: includes/class-couverty-admin.php:231
-#: includes/class-couverty-sync.php:172
+#: includes/class-couverty-admin.php:231 includes/class-couverty-sync.php:172
 #: templates/menu.php:100
 msgid "Végétarien"
-msgstr ""
+msgstr "Vegetariano"
 
-#: includes/class-couverty-admin.php:232
-#: includes/class-couverty-sync.php:173
+#: includes/class-couverty-admin.php:232 includes/class-couverty-sync.php:173
 msgid "Végan"
-msgstr ""
+msgstr "Vegano"
 
-#: includes/class-couverty-admin.php:233
-#: includes/class-couverty-sync.php:174
+#: includes/class-couverty-admin.php:233 includes/class-couverty-sync.php:174
 #: templates/menu.php:106
 msgid "Sans gluten"
-msgstr ""
+msgstr "Senza glutine"
 
-#: includes/class-couverty-admin.php:234
-#: includes/class-couverty-sync.php:175
+#: includes/class-couverty-admin.php:234 includes/class-couverty-sync.php:175
 msgid "Allergènes"
-msgstr ""
+msgstr "Allergeni"
 
-#: includes/class-couverty-admin.php:238
-#: includes/class-couverty-sync.php:181
+#: includes/class-couverty-admin.php:238 includes/class-couverty-sync.php:181
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
-#: includes/class-couverty-admin.php:239
-#: includes/class-couverty-sync.php:182
+#: includes/class-couverty-admin.php:239 includes/class-couverty-sync.php:182
 msgid "Région"
-msgstr ""
+msgstr "Regione"
 
-#: includes/class-couverty-admin.php:240
-#: includes/class-couverty-sync.php:183
+#: includes/class-couverty-admin.php:240 includes/class-couverty-sync.php:183
 msgid "Année"
-msgstr ""
+msgstr "Annata"
 
-#: includes/class-couverty-admin.php:244
-#: includes/class-couverty-sync.php:189
+#: includes/class-couverty-admin.php:244 includes/class-couverty-sync.php:189
 msgid "Jour"
-msgstr ""
+msgstr "Giorno"
 
-#: includes/class-couverty-admin.php:245
-#: includes/class-couverty-sync.php:190
+#: includes/class-couverty-admin.php:245 includes/class-couverty-sync.php:190
 #: templates/menu-du-jour.php:41
 msgid "Entrée"
-msgstr ""
+msgstr "Antipasto"
 
-#: includes/class-couverty-admin.php:246
-#: includes/class-couverty-sync.php:100
-#: includes/class-couverty-sync.php:191
-#: templates/menu-du-jour.php:42
+#: includes/class-couverty-admin.php:246 includes/class-couverty-sync.php:100
+#: includes/class-couverty-sync.php:191 templates/menu-du-jour.php:42
 msgid "Plat"
-msgstr ""
+msgstr "Piatto principale"
 
-#: includes/class-couverty-admin.php:247
-#: includes/class-couverty-sync.php:192
+#: includes/class-couverty-admin.php:247 includes/class-couverty-sync.php:192
 #: templates/menu-du-jour.php:43
 msgid "Dessert"
-msgstr ""
+msgstr "Dessert"
 
-#: includes/class-couverty-admin.php:250
-#: includes/class-couverty-sync.php:197
+#: includes/class-couverty-admin.php:250 includes/class-couverty-sync.php:197
 msgid "Date de début"
-msgstr ""
+msgstr "Data di inizio"
 
-#: includes/class-couverty-admin.php:251
-#: includes/class-couverty-sync.php:198
+#: includes/class-couverty-admin.php:251 includes/class-couverty-sync.php:198
 msgid "Date de fin"
-msgstr ""
+msgstr "Data di fine"
 
 #: includes/class-couverty-admin.php:251
 msgid "ISO 8601, optionnel"
-msgstr ""
+msgstr "ISO 8601, facoltativo"
 
-#: includes/class-couverty-admin.php:253
-#: includes/class-couverty-sync.php:200
+#: includes/class-couverty-admin.php:253 includes/class-couverty-sync.php:200
 msgid "Lien vers l'événement"
-msgstr ""
+msgstr "Link all'evento"
 
 #: includes/class-couverty-admin.php:253
 msgid "Page détail sur couverty.ch"
-msgstr ""
+msgstr "Pagina di dettaglio su couverty.ch"
 
-#: includes/class-couverty-admin.php:265
-#: includes/class-couverty-sync.php:100
+#: includes/class-couverty-admin.php:265 includes/class-couverty-sync.php:100
 msgid "Plats"
-msgstr ""
+msgstr "Piatti"
 
-#: includes/class-couverty-admin.php:266
-#: includes/class-couverty-admin.php:683
+#: includes/class-couverty-admin.php:266 includes/class-couverty-admin.php:683
 #: includes/class-couverty-sync.php:101
 msgid "Boissons"
-msgstr ""
+msgstr "Bevande"
 
-#: includes/class-couverty-admin.php:267
-#: includes/class-couverty-admin.php:688
+#: includes/class-couverty-admin.php:267 includes/class-couverty-admin.php:688
 #: includes/class-couverty-sync.php:102
 msgid "Menu du jour"
-msgstr ""
+msgstr "Menu del giorno"
 
-#: includes/class-couverty-admin.php:268
-#: includes/class-couverty-sync.php:103
+#: includes/class-couverty-admin.php:268 includes/class-couverty-sync.php:103
 msgid "Événements"
-msgstr ""
+msgstr "Eventi"
 
 #. translators: %s: the value that will be copied
 #: includes/class-couverty-admin.php:303
 #, php-format
 msgid "Copier %s"
-msgstr ""
+msgstr "Copia %s"
 
 #: includes/class-couverty-admin.php:318
 msgid "Permissions insuffisantes."
-msgstr ""
+msgstr "Permessi insufficienti."
 
 #: includes/class-couverty-admin.php:386
 msgid "Synchronisation échouée. Vérifiez votre clé API."
-msgstr ""
+msgstr "Sincronizzazione non riuscita. Verificate la vostra chiave API."
 
 #: includes/class-couverty-admin.php:391
 msgid "Données synchronisées."
-msgstr ""
+msgstr "Dati sincronizzati."
 
 #: includes/class-couverty-admin.php:404
 msgid "Cache vidé."
-msgstr ""
+msgstr "Cache svuotata."
 
 #: includes/class-couverty-admin.php:465
 msgid "Enregistrer les réglages"
-msgstr ""
+msgstr "Salva le impostazioni"
 
 #: includes/class-couverty-admin.php:478
 msgid "Votre établissement n'est pas encore connecté."
-msgstr ""
+msgstr "Il vostro esercizio non è ancora connesso."
 
 #: includes/class-couverty-admin.php:479
-msgid "Les shortcodes, champs et endpoints ci-dessous ne renverront rien tant que ce n'est pas fait."
+msgid ""
+"Les shortcodes, champs et endpoints ci-dessous ne renverront rien tant que "
+"ce n'est pas fait."
 msgstr ""
+"Gli shortcode, i campi e gli endpoint qui sotto non restituiranno nulla "
+"finché non sarà fatto."
 
 #: includes/class-couverty-admin.php:481
 msgid "Connecter maintenant"
-msgstr ""
+msgstr "Connetti ora"
 
 #: includes/class-couverty-admin.php:514
 msgid "Clé enregistrée, établissement pas encore identifié"
-msgstr ""
+msgstr "Chiave salvata, esercizio non ancora identificato"
 
 #: includes/class-couverty-admin.php:515
-msgid "Cliquez sur « Connecter » ci-dessous pour lier votre établissement et récupérer vos données."
+msgid ""
+"Cliquez sur « Connecter » ci-dessous pour lier votre établissement et "
+"récupérer vos données."
 msgstr ""
+"Cliccate su « Connetti » qui sotto per collegare il vostro esercizio e "
+"recuperare i dati."
 
 #: includes/class-couverty-admin.php:519
 msgid "Pas encore connecté"
-msgstr ""
+msgstr "Non ancora connesso"
 
 #: includes/class-couverty-admin.php:520
 msgid "Collez votre clé API ci-dessous, puis cliquez sur « Connecter »."
 msgstr ""
+"Incollate qui sotto la vostra chiave API, poi cliccate su « Connetti »."
 
 #: includes/class-couverty-admin.php:524
 msgid "Synchronisation interrompue"
-msgstr ""
+msgstr "Sincronizzazione interrotta"
 
 #: includes/class-couverty-admin.php:533
 msgid "Connecté"
-msgstr ""
+msgstr "Connesso"
 
 #: includes/class-couverty-admin.php:546
 msgid "Votre site continue d'afficher les données déjà synchronisées."
-msgstr ""
+msgstr "Il vostro sito continua a mostrare i dati già sincronizzati."
 
 #. translators: 1: plats count, 2: boissons count, 3: menus count, 4: events count
 #: includes/class-couverty-admin.php:553
 #, php-format
 msgid "%1$d plats · %2$d boissons · %3$d menus du jour · %4$d événements"
-msgstr ""
+msgstr "%1$d piatti · %2$d bevande · %3$d menu del giorno · %4$d eventi"
 
 #. translators: %s: human readable time difference, e.g. "5 mins"
 #: includes/class-couverty-admin.php:567
 #, php-format
 msgid "Dernière synchronisation il y a %s."
-msgstr ""
+msgstr "Ultima sincronizzazione %s fa."
 
 #: includes/class-couverty-admin.php:572
 msgid "Jamais synchronisé."
-msgstr ""
+msgstr "Mai sincronizzato."
 
 #: includes/class-couverty-admin.php:588
 msgid "Mettre à jour la clé API"
-msgstr ""
+msgstr "Aggiorna la chiave API"
 
 #: includes/class-couverty-admin.php:591
 msgid "Réessayer"
-msgstr ""
+msgstr "Riprova"
 
 #: includes/class-couverty-admin.php:595
 msgid "Actualiser depuis Couverty"
-msgstr ""
+msgstr "Aggiorna da Couverty"
 
 #: includes/class-couverty-admin.php:598
 msgid "Vider le cache"
-msgstr ""
+msgstr "Svuota la cache"
 
 #: includes/class-couverty-admin.php:608
 msgid "Cause :"
-msgstr ""
+msgstr "Causa:"
 
 #: includes/class-couverty-admin.php:617
-msgid "WP-Cron est désactivé sur ce site : la synchronisation automatique dépend donc de la tâche planifiée configurée chez votre hébergeur. Sinon, utilisez le bouton « Synchroniser »."
+msgid ""
+"WP-Cron est désactivé sur ce site : la synchronisation automatique dépend "
+"donc de la tâche planifiée configurée chez votre hébergeur. Sinon, utilisez "
+"le bouton « Synchroniser »."
 msgstr ""
+"WP-Cron è disattivato su questo sito: la sincronizzazione automatica dipende "
+"quindi dall'attività pianificata del vostro hoster. Altrimenti usate il "
+"pulsante « Aggiorna da Couverty »."
 
 #: includes/class-couverty-admin.php:632
 msgid "Synchronisation des données"
-msgstr ""
+msgstr "Sincronizzazione dei dati"
 
 #: includes/class-couverty-admin.php:634
-msgid "Vos données Couverty sont copiées dans WordPress sous forme de types de contenu personnalisés, toutes les 30 minutes. Elles restent donc disponibles pour vos constructeurs de pages même si l'API est momentanément injoignable."
+msgid ""
+"Vos données Couverty sont copiées dans WordPress sous forme de types de "
+"contenu personnalisés, toutes les 30 minutes. Elles restent donc disponibles "
+"pour vos constructeurs de pages même si l'API est momentanément injoignable."
 msgstr ""
+"I vostri dati Couverty vengono copiati in WordPress come tipi di contenuto "
+"personalizzati ogni 30 minuti. Restano quindi disponibili per i vostri page "
+"builder anche se l'API è temporaneamente irraggiungibile."
 
 #: includes/class-couverty-admin.php:641
 msgid "Type de contenu"
-msgstr ""
+msgstr "Tipo di contenuto"
 
 #: includes/class-couverty-admin.php:642
 msgid "Champs"
-msgstr ""
+msgstr "Campi"
 
 #: includes/class-couverty-admin.php:643
 msgid "Taxonomie"
-msgstr ""
+msgstr "Tassonomia"
 
 #: includes/class-couverty-admin.php:678
 msgid "Menu (carte des plats)"
-msgstr ""
+msgstr "Menu (carta dei piatti)"
 
 #: includes/class-couverty-admin.php:693
 msgid "Réservation (widget)"
-msgstr ""
+msgstr "Prenotazione (widget)"
 
 #: includes/class-couverty-admin.php:700
 msgid "Shortcodes & blocs"
-msgstr ""
+msgstr "Shortcode e blocchi"
 
 #: includes/class-couverty-admin.php:702
-msgid "Ces shortcodes fonctionnent dans n'importe quel éditeur, constructeur de pages ou template de thème. Les mêmes contenus sont disponibles en blocs dans la catégorie « Couverty » de l'éditeur WordPress."
+msgid ""
+"Ces shortcodes fonctionnent dans n'importe quel éditeur, constructeur de "
+"pages ou template de thème. Les mêmes contenus sont disponibles en blocs "
+"dans la catégorie « Couverty » de l'éditeur WordPress."
 msgstr ""
+"Questi shortcode funzionano in qualsiasi editor, page builder o template del "
+"tema. Gli stessi contenuti sono disponibili come blocchi nella categoria "
+"« Couverty » dell'editor di WordPress."
 
 #: includes/class-couverty-admin.php:709
 msgid "Contenu"
-msgstr ""
+msgstr "Contenuto"
 
 #: includes/class-couverty-admin.php:710
 msgid "Shortcode"
-msgstr ""
+msgstr "Shortcode"
 
 #: includes/class-couverty-admin.php:711
 msgid "Options"
-msgstr ""
+msgstr "Opzioni"
 
 #: includes/class-couverty-admin.php:737
 msgid "Données dynamiques (constructeurs de pages)"
-msgstr ""
+msgstr "Dati dinamici (page builder)"
 
 #: includes/class-couverty-admin.php:740
 msgid "En trois étapes :"
-msgstr ""
+msgstr "In tre passaggi:"
 
 #: includes/class-couverty-admin.php:742
-msgid "Créez une boucle de requête (Query Loop) et choisissez un type de contenu Couverty"
-msgstr ""
+msgid ""
+"Créez une boucle de requête (Query Loop) et choisissez un type de contenu "
+"Couverty"
+msgstr "Create un query loop e scegliete un tipo di contenuto Couverty"
 
 #: includes/class-couverty-admin.php:743
-msgid "Dans la boucle, utilisez « Champ personnalisé » ou « Données dynamiques »"
-msgstr ""
+msgid ""
+"Dans la boucle, utilisez « Champ personnalisé » ou « Données dynamiques »"
+msgstr "Nel loop, usate « Campo personalizzato » o « Dati dinamici »"
 
 #: includes/class-couverty-admin.php:744
 msgid "Collez le nom du champ depuis les tableaux ci-dessous"
-msgstr ""
+msgstr "Incollate il nome del campo dalle tabelle qui sotto"
 
 #: includes/class-couverty-admin.php:756
 msgid "Champ"
-msgstr ""
+msgstr "Campo"
 
 #: includes/class-couverty-admin.php:757
 msgid "Nom du champ"
-msgstr ""
+msgstr "Nome del campo"
 
 #: includes/class-couverty-admin.php:758
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: includes/class-couverty-admin.php:775
 msgid "Nom"
-msgstr ""
+msgstr "Nome"
 
 #: includes/class-couverty-admin.php:776
 msgid "Titre de l'article (champ WordPress standard)"
-msgstr ""
+msgstr "Titolo dell'articolo (campo standard di WordPress)"
 
 #: includes/class-couverty-admin.php:780
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: includes/class-couverty-admin.php:781
 msgid "Contenu de l'article (champ WordPress standard)"
-msgstr ""
+msgstr "Contenuto dell'articolo (campo standard di WordPress)"
 
 #: includes/class-couverty-admin.php:790
 msgid "Taxonomies (pour filtrer) :"
-msgstr ""
+msgstr "Tassonomie (per filtrare):"
 
 #: includes/class-couverty-admin.php:792
 msgid "Catégories de plats"
-msgstr ""
+msgstr "Categorie di piatti"
 
 #: includes/class-couverty-admin.php:793
 msgid "Catégories de boissons"
-msgstr ""
+msgstr "Categorie di bevande"
 
 #: includes/class-couverty-admin.php:797
 msgid "Syntaxe par constructeur"
-msgstr ""
+msgstr "Sintassi per page builder"
 
 #: includes/class-couverty-admin.php:803
 msgid "Dynamic Tags → Custom Field → nom du champ"
-msgstr ""
+msgstr "Dynamic Tags → Custom Field → nome del campo"
 
 #. translators: 1: generic syntax, 2: concrete example
 #: includes/class-couverty-admin.php:811
 #, php-format
 msgid "Syntaxe %1$s — par exemple %2$s"
-msgstr ""
+msgstr "Sintassi %1$s — per esempio %2$s"
 
 #: includes/class-couverty-admin.php:820
 msgid "Dynamic Content → Post Fields → Custom Fields → nom du champ"
-msgstr ""
+msgstr "Dynamic Content → Post Fields → Custom Fields → nome del campo"
 
 #: includes/class-couverty-admin.php:824
 msgid "Field Connections → Post Custom Field → nom du champ"
-msgstr ""
+msgstr "Field Connections → Post Custom Field → nome del campo"
 
 #: includes/class-couverty-admin.php:828
-msgid "Blocs Couverty, ou bloc Boucle de requête filtré sur un type de contenu Couverty"
+msgid ""
+"Blocs Couverty, ou bloc Boucle de requête filtré sur un type de contenu "
+"Couverty"
 msgstr ""
+"Blocchi Couverty, oppure blocco Query Loop filtrato su un tipo di contenuto "
+"Couverty"
 
 #: includes/class-couverty-admin.php:847
 msgid "Plats par catégorie"
-msgstr ""
+msgstr "Piatti per categoria"
 
 #: includes/class-couverty-admin.php:848
 msgid "Boissons par catégorie"
-msgstr ""
+msgstr "Bevande per categoria"
 
 #: includes/class-couverty-admin.php:849
 msgid "Menu du jour / de la semaine"
-msgstr ""
+msgstr "Menu del giorno / della settimana"
 
 #: includes/class-couverty-admin.php:850
 msgid "Informations du restaurant"
-msgstr ""
+msgstr "Informazioni sul ristorante"
 
 #: includes/class-couverty-admin.php:854
 msgid "API REST & fonctions PHP"
-msgstr ""
+msgstr "API REST e funzioni PHP"
 
 #: includes/class-couverty-admin.php:856
-msgid "Pour les intégrations sur mesure : ces endpoints servent les données Couverty depuis votre propre site, en passant par le cache du plugin."
+msgid ""
+"Pour les intégrations sur mesure : ces endpoints servent les données "
+"Couverty depuis votre propre site, en passant par le cache du plugin."
 msgstr ""
+"Per integrazioni su misura: questi endpoint servono i dati Couverty dal "
+"vostro sito, passando dalla cache del plugin."
 
 #: includes/class-couverty-admin.php:863
 msgid "Endpoint"
-msgstr ""
+msgstr "Endpoint"
 
 #: includes/class-couverty-admin.php:864
 msgid "Données"
-msgstr ""
+msgstr "Dati"
 
 #: includes/class-couverty-admin.php:865
 msgid "Fonction PHP"
-msgstr ""
+msgstr "Funzione PHP"
 
 #: includes/class-couverty-admin.php:881
 msgid "Exemple PHP"
-msgstr ""
+msgstr "Esempio PHP"
 
 #: includes/class-couverty-admin.php:902
 msgid "La clé API relie ce site à votre établissement Couverty."
-msgstr ""
+msgstr "La chiave API collega questo sito al vostro esercizio Couverty."
 
 #: includes/class-couverty-admin.php:922
 msgid "Laissez vide pour conserver la clé actuelle"
-msgstr ""
+msgstr "Lasciare vuoto per mantenere la chiave attuale"
 
 #. translators: %s: masked API key preview
 #: includes/class-couverty-admin.php:930
 #, php-format
 msgid "Clé enregistrée : %s"
-msgstr ""
+msgstr "Chiave salvata: %s"
 
 #. translators: %s: link to the Couverty dashboard integrations page
 #: includes/class-couverty-admin.php:939
 #, php-format
 msgid "Créez-la dans %s."
-msgstr ""
+msgstr "Potete crearla %s."
 
 #: includes/class-couverty-admin.php:941
 msgid "votre tableau de bord Couverty → Intégrations"
-msgstr ""
+msgstr "nella vostra dashboard Couverty → Integrazioni"
 
 #: includes/class-couverty-admin.php:953
 msgid "Tester la connexion"
-msgstr ""
+msgstr "Verifica la connessione"
 
 #: includes/class-couverty-admin.php:953
 msgid "Connecter"
-msgstr ""
+msgstr "Connetti"
 
 #: includes/class-couverty-admin.php:977
 msgid "Rempli automatiquement à la connexion."
-msgstr ""
+msgstr "Compilato automaticamente alla connessione."
 
 #: includes/class-couverty-admin.php:985
-msgid "Durée pendant laquelle les données sont réutilisées sans rappeler l'API Couverty."
+msgid ""
+"Durée pendant laquelle les données sont réutilisées sans rappeler l'API "
+"Couverty."
 msgstr ""
+"Periodo durante il quale i dati vengono riutilizzati senza richiamare l'API "
+"Couverty."
 
 #: includes/class-couverty-admin.php:995
 msgid "5 minutes"
-msgstr ""
+msgstr "5 minuti"
 
 #: includes/class-couverty-admin.php:996
 msgid "10 minutes"
-msgstr ""
+msgstr "10 minuti"
 
 #: includes/class-couverty-admin.php:997
 msgid "30 minutes"
-msgstr ""
+msgstr "30 minuti"
 
 #: includes/class-couverty-admin.php:998
 msgid "1 heure"
-msgstr ""
+msgstr "1 ora"
 
 #: includes/class-couverty-admin.php:1015
-msgid "Affiche un bouton de réservation en bas à droite, sur toutes les pages du site."
+msgid ""
+"Affiche un bouton de réservation en bas à droite, sur toutes les pages du "
+"site."
 msgstr ""
+"Mostra un pulsante di prenotazione in basso a destra su tutte le pagine del "
+"sito."
 
 #: includes/class-couverty-admin.php:1031
 msgid "Afficher sur toutes les pages"
-msgstr ""
+msgstr "Mostra su tutte le pagine"
 
 #: includes/class-couverty-admin.php:1049
 msgid "Réserver"
-msgstr ""
+msgstr "Prenota"
 
-#: includes/class-couverty-api.php:68
-#: includes/class-couverty-sync.php:238
+#: includes/class-couverty-api.php:68 includes/class-couverty-sync.php:238
 msgid "Aucune clé API renseignée."
-msgstr ""
+msgstr "Nessuna chiave API inserita."
 
 #. translators: %s: underlying transport error message
 #: includes/class-couverty-api.php:92
 #, php-format
 msgid "Impossible de joindre Couverty : %s"
-msgstr ""
+msgstr "Impossibile raggiungere Couverty: %s"
 
 #: includes/class-couverty-api.php:114
 msgid "Réponse inattendue de l'API Couverty."
-msgstr ""
+msgstr "Risposta inattesa dall'API Couverty."
 
 #: includes/class-couverty-api.php:135
-msgid "Clé API invalide, expirée ou révoquée. Générez-en une nouvelle depuis votre tableau de bord Couverty."
+msgid ""
+"Clé API invalide, expirée ou révoquée. Générez-en une nouvelle depuis votre "
+"tableau de bord Couverty."
 msgstr ""
+"Chiave API non valida, scaduta o revocata. Generatene una nuova dalla vostra "
+"dashboard Couverty."
 
 #: includes/class-couverty-api.php:140
-msgid "Cette clé API n'a pas les permissions nécessaires (menu:read et restaurant:read)."
+msgid ""
+"Cette clé API n'a pas les permissions nécessaires (menu:read et "
+"restaurant:read)."
 msgstr ""
+"Questa chiave API non ha i permessi necessari (menu:read e restaurant:read)."
 
 #: includes/class-couverty-api.php:145
-msgid "Quota de requêtes dépassé. Augmentez la durée du cache ou attendez la prochaine heure."
+msgid ""
+"Quota de requêtes dépassé. Augmentez la durée du cache ou attendez la "
+"prochaine heure."
 msgstr ""
+"Quota di richieste superata. Aumentate la durata della cache o attendete "
+"l'ora successiva."
 
 #: includes/class-couverty-api.php:150
-msgid "Ressource introuvable côté Couverty. Vérifiez que votre établissement est bien actif."
+msgid ""
+"Ressource introuvable côté Couverty. Vérifiez que votre établissement est "
+"bien actif."
 msgstr ""
+"Risorsa non trovata su Couverty. Verificate che il vostro esercizio sia "
+"attivo."
 
 #. translators: %d: HTTP status code
 #: includes/class-couverty-api.php:157
 #, php-format
 msgid "L'API Couverty a répondu avec une erreur (HTTP %d)."
-msgstr ""
+msgstr "L'API Couverty ha risposto con un errore (HTTP %d)."
 
 #: includes/class-couverty-rest.php:71
 msgid "Couverty plugin is not configured."
-msgstr ""
+msgstr "Il plugin Couverty non è configurato."
 
 #: includes/class-couverty-rest.php:150
-msgid "Couverty plugin is not configured. Add your API key in Settings > Couverty."
+msgid ""
+"Couverty plugin is not configured. Add your API key in Settings > Couverty."
 msgstr ""
+"Il plugin Couverty non è configurato. Inserite la vostra chiave API in "
+"Impostazioni > Couverty."
 
 #: includes/class-couverty-rest.php:157
 msgid "Unable to fetch data from Couverty API."
-msgstr ""
+msgstr "Impossibile recuperare i dati dall'API Couverty."
 
 #: includes/class-couverty-shortcodes.php:45
 msgid "la carte des plats"
-msgstr ""
+msgstr "la carta dei piatti"
 
 #: includes/class-couverty-shortcodes.php:76
 msgid "la carte des boissons"
-msgstr ""
+msgstr "la carta delle bevande"
 
 #: includes/class-couverty-shortcodes.php:105
 msgid "le menu du jour"
-msgstr ""
+msgstr "il menu del giorno"
 
 #: includes/class-couverty-shortcodes.php:167
 msgid "Couverty n'est pas encore connecté."
-msgstr ""
+msgstr "Couverty non è ancora connesso."
 
 #: includes/class-couverty-shortcodes.php:168
-msgid "Ajoutez votre clé API dans Réglages → Couverty, puis testez la connexion."
+msgid ""
+"Ajoutez votre clé API dans Réglages → Couverty, puis testez la connexion."
 msgstr ""
+"Inserite la vostra chiave API in Impostazioni → Couverty, poi verificate la "
+"connessione."
 
 #. translators: %s: what was being fetched, e.g. "la carte des plats"
 #: includes/class-couverty-shortcodes.php:189
 #, php-format
-msgid "Aucune donnée disponible pour %s. Vérifiez que le contenu est publié dans Couverty."
+msgid ""
+"Aucune donnée disponible pour %s. Vérifiez que le contenu est publié dans "
+"Couverty."
 msgstr ""
+"Nessun dato disponibile per %s. Verificate che il contenuto sia pubblicato "
+"in Couverty."
 
 #. translators: %s: what was being fetched, e.g. "la carte des plats"
 #: includes/class-couverty-shortcodes.php:197
 #, php-format
 msgid "Couverty n'a pas pu charger %s."
-msgstr ""
+msgstr "Couverty non è riuscito a caricare %s."
 
 #: includes/class-couverty-shortcodes.php:216
 msgid "Ce message n'est visible que par les administrateurs du site."
-msgstr ""
+msgstr "Questo messaggio è visibile solo agli amministratori del sito."
 
 #: includes/class-couverty-sync.php:88
 msgid "Every 30 minutes"
-msgstr ""
+msgstr "Ogni 30 minuti"
 
 #: includes/class-couverty-sync.php:101
 msgid "Boisson"
-msgstr ""
+msgstr "Bevanda"
 
 #: includes/class-couverty-sync.php:102
 msgid "Menus du jour"
-msgstr ""
+msgstr "Menu del giorno"
 
 #: includes/class-couverty-sync.php:103
 msgid "Événement"
-msgstr ""
+msgstr "Evento"
 
 #: includes/class-couverty-sync.php:106
 msgid "Categories plats"
-msgstr ""
+msgstr "Categorie piatti"
 
 #: includes/class-couverty-sync.php:107
 msgid "Categories boissons"
-msgstr ""
+msgstr "Categorie bevande"
 
 #: includes/class-couverty-sync.php:170
 msgid "Formatted price, e.g. CHF 18.- / CHF 28.-"
-msgstr ""
+msgstr "Prezzo formattato, es. CHF 18.- / CHF 28.-"
 
 #: includes/class-couverty-sync.php:180
 msgid "Formatted price, e.g. CHF 5.-"
-msgstr ""
+msgstr "Prezzo formattato, es. CHF 5.-"
 
 #: includes/class-couverty-sync.php:193
 msgid "Formatted price, e.g. CHF 18.-"
-msgstr ""
+msgstr "Prezzo formattato, es. CHF 18.-"
 
 #: includes/class-couverty-sync.php:197
 msgid "ISO 8601 datetime"
-msgstr ""
+msgstr "Data e ora ISO 8601"
 
 #: includes/class-couverty-sync.php:198
 msgid "ISO 8601 datetime (optional)"
-msgstr ""
+msgstr "Data e ora ISO 8601 (facoltativo)"
 
 #: includes/class-couverty-sync.php:200
 msgid "URL of the public event detail page"
-msgstr ""
+msgstr "URL della pagina pubblica di dettaglio dell'evento"
 
 #: includes/class-couverty-sync.php:257
 msgid "Aucun changement détecté — synchronisation ignorée."
-msgstr ""
+msgstr "Nessuna modifica rilevata — sincronizzazione ignorata."
 
 #: includes/class-couverty-sync.php:271
-msgid "L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
-msgstr ""
+msgid ""
+"L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
+msgstr "L'API non ha restituito dati — i dati esistenti vengono conservati."
 
 #: includes/class-couverty-sync.php:694
 msgid "Menu de la semaine"
-msgstr ""
+msgstr "Menu della settimana"
 
-#: includes/class-couverty-sync.php:695
-#: templates/menu-du-jour.php:16
+#: includes/class-couverty-sync.php:695 templates/menu-du-jour.php:16
 msgid "Lundi"
-msgstr ""
+msgstr "Lunedì"
 
-#: includes/class-couverty-sync.php:696
-#: templates/menu-du-jour.php:17
+#: includes/class-couverty-sync.php:696 templates/menu-du-jour.php:17
 msgid "Mardi"
-msgstr ""
+msgstr "Martedì"
 
-#: includes/class-couverty-sync.php:697
-#: templates/menu-du-jour.php:18
+#: includes/class-couverty-sync.php:697 templates/menu-du-jour.php:18
 msgid "Mercredi"
-msgstr ""
+msgstr "Mercoledì"
 
-#: includes/class-couverty-sync.php:698
-#: templates/menu-du-jour.php:19
+#: includes/class-couverty-sync.php:698 templates/menu-du-jour.php:19
 msgid "Jeudi"
-msgstr ""
+msgstr "Giovedì"
 
-#: includes/class-couverty-sync.php:699
-#: templates/menu-du-jour.php:20
+#: includes/class-couverty-sync.php:699 templates/menu-du-jour.php:20
 msgid "Vendredi"
-msgstr ""
+msgstr "Venerdì"
 
-#: includes/class-couverty-sync.php:700
-#: templates/menu-du-jour.php:21
+#: includes/class-couverty-sync.php:700 templates/menu-du-jour.php:21
 msgid "Samedi"
-msgstr ""
+msgstr "Sabato"
 
-#: includes/class-couverty-sync.php:701
-#: templates/menu-du-jour.php:22
+#: includes/class-couverty-sync.php:701 templates/menu-du-jour.php:22
 msgid "Dimanche"
-msgstr ""
+msgstr "Domenica"
 
 #: includes/class-couverty.php:103
 msgid "Fermer"
-msgstr ""
+msgstr "Chiudi"
 
 #: templates/menu-du-jour.php:15
 msgid "Semaine"
-msgstr ""
+msgstr "Settimana"
 
 #: templates/menu.php:75
 msgid "Voir la photo du plat"
-msgstr ""
+msgstr "Vedi la foto del piatto"
 
 #: templates/menu.php:103
 msgid "Vegan"
-msgstr ""
+msgstr "Vegano"
 
 #. translators: %s: comma-separated allergen list
 #: templates/menu.php:115
 #, php-format
 msgid "Allergènes : %s"
-msgstr ""
+msgstr "Allergeni: %s"
 
 #: templates/reservation.php:43
 msgid "Réservation en ligne"
-msgstr ""
+msgstr "Prenotazione online"
 
-#: blocks/boissons/index.js:24
-#: blocks/menu-du-jour/index.js:23
+#: blocks/boissons/index.js:24 blocks/menu-du-jour/index.js:23
 #: blocks/menu/index.js:24
 msgid "Options d'affichage"
-msgstr ""
+msgstr "Opzioni di visualizzazione"
 
-#: blocks/boissons/index.js:26
-#: blocks/menu/index.js:26
+#: blocks/boissons/index.js:26 blocks/menu/index.js:26
 msgid "Disposition"
-msgstr ""
+msgstr "Disposizione"
 
-#: blocks/boissons/index.js:29
-#: blocks/menu/index.js:29
+#: blocks/boissons/index.js:29 blocks/menu/index.js:29
 msgid "Liste"
-msgstr ""
+msgstr "Elenco"
 
-#: blocks/boissons/index.js:30
-#: blocks/menu/index.js:30
+#: blocks/boissons/index.js:30 blocks/menu/index.js:30
 msgid "Grille"
-msgstr ""
+msgstr "Griglia"
 
-#: blocks/boissons/index.js:37
-#: blocks/menu/index.js:37
+#: blocks/boissons/index.js:37 blocks/menu/index.js:37
 msgid "Afficher les prix"
-msgstr ""
+msgstr "Mostra i prezzi"
 
 #: blocks/boissons/index.js:44
 msgid "Afficher les détails"
-msgstr ""
+msgstr "Mostra i dettagli"
 
 #: blocks/menu-du-jour/index.js:25
 msgid "Afficher le prix"
-msgstr ""
+msgstr "Mostra il prezzo"
 
 #: blocks/menu/index.js:44
 msgid "Afficher les images"
-msgstr ""
+msgstr "Mostra le immagini"
 
 #: blocks/menu/index.js:51
 msgid "Afficher les allergènes"
-msgstr ""
+msgstr "Mostra gli allergeni"
 
 #: blocks/reservation/index.js:23
 msgid "Paramètres"
-msgstr ""
+msgstr "Impostazioni"
 
 #: blocks/reservation/index.js:25
 msgid "Hauteur (px)"
-msgstr ""
+msgstr "Altezza (px)"
 
 #: blocks/reservation/index.js:35
 msgid "Apparence"
-msgstr ""
+msgstr "Aspetto"
 
 #: blocks/reservation/index.js:38
 msgid "Carte"
-msgstr ""
+msgstr "Scheda"
 
 #: blocks/reservation/index.js:39
 msgid "Verre"
-msgstr ""
+msgstr "Vetro"
 
 #: blocks/reservation/index.js:40
 msgid "Minimal"
-msgstr ""
+msgstr "Minimal"
 
 #: blocks/reservation/index.js:41
 msgid "Sombre"
-msgstr ""
+msgstr "Scuro"
 
 #: blocks/reservation/index.js:48
 msgid "Arrondi"
-msgstr ""
+msgstr "Arrotondamento"
 
 #: blocks/reservation/index.js:51
 msgid "Aucun"
-msgstr ""
+msgstr "Nessuno"
 
 #: blocks/reservation/index.js:52
 msgid "Petit"
-msgstr ""
+msgstr "Piccolo"
 
 #: blocks/reservation/index.js:53
 msgid "Moyen"
-msgstr ""
+msgstr "Medio"
 
 #: blocks/reservation/index.js:54
 msgid "Grand"
-msgstr ""
+msgstr "Grande"
 
 #: blocks/reservation/index.js:66
 msgid "Réservation Couverty"
-msgstr ""
+msgstr "Prenotazione Couverty"
 
 #: blocks/reservation/index.js:67
-msgid "Le formulaire de réservation s'affiche sur le site public. Ajustez sa hauteur et son apparence dans les réglages du bloc."
+msgid ""
+"Le formulaire de réservation s'affiche sur le site public. Ajustez sa "
+"hauteur et son apparence dans les réglages du bloc."
 msgstr ""
+"Il modulo di prenotazione appare sul sito pubblico. Regolate altezza e "
+"aspetto nelle impostazioni del blocco."
 
 #: blocks/boissons/block.json
 msgctxt "block title"
 msgid "Couverty – Boissons"
-msgstr ""
+msgstr "Couverty – Bevande"
 
 #: blocks/boissons/block.json
 msgctxt "block description"
 msgid "Affiche la carte des boissons de votre restaurant depuis Couverty."
-msgstr ""
+msgstr "Mostra la carta delle bevande del vostro ristorante da Couverty."
 
 #: blocks/boissons/block.json
 msgctxt "block keyword"
 msgid "boissons"
-msgstr ""
+msgstr "bevande"
 
 #: blocks/boissons/block.json
 msgctxt "block keyword"
 msgid "drinks"
-msgstr ""
+msgstr "drinks"
 
-#: blocks/boissons/block.json
-#: blocks/menu/block.json
+#: blocks/boissons/block.json blocks/menu/block.json
 msgctxt "block keyword"
 msgid "carte"
-msgstr ""
+msgstr "carta"
 
 #: blocks/boissons/block.json
 msgctxt "block keyword"
 msgid "vins"
-msgstr ""
+msgstr "vini"
 
-#: blocks/boissons/block.json
-#: blocks/menu-du-jour/block.json
-#: blocks/menu/block.json
-#: blocks/reservation/block.json
+#: blocks/boissons/block.json blocks/menu-du-jour/block.json
+#: blocks/menu/block.json blocks/reservation/block.json
 msgctxt "block keyword"
 msgid "couverty"
-msgstr ""
+msgstr "couverty"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block title"
 msgid "Couverty – Menu du jour"
-msgstr ""
+msgstr "Couverty – Menu del giorno"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block description"
 msgid "Affiche le menu du jour de votre restaurant depuis Couverty."
-msgstr ""
+msgstr "Mostra il menu del giorno del vostro ristorante da Couverty."
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block keyword"
 msgid "menu du jour"
-msgstr ""
+msgstr "menu del giorno"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block keyword"
 msgid "plat du jour"
-msgstr ""
+msgstr "piatto del giorno"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block keyword"
 msgid "daily"
-msgstr ""
+msgstr "giornaliero"
 
 #: blocks/menu/block.json
 msgctxt "block title"
 msgid "Couverty – Menu"
-msgstr ""
+msgstr "Couverty – Menu"
 
 #: blocks/menu/block.json
 msgctxt "block description"
 msgid "Affiche la carte des plats de votre restaurant depuis Couverty."
-msgstr ""
+msgstr "Mostra la carta dei piatti del vostro ristorante da Couverty."
 
 #: blocks/menu/block.json
 msgctxt "block keyword"
 msgid "menu"
-msgstr ""
+msgstr "menu"
 
 #: blocks/menu/block.json
 msgctxt "block keyword"
 msgid "restaurant"
-msgstr ""
+msgstr "ristorante"
 
 #: blocks/menu/block.json
 msgctxt "block keyword"
 msgid "plats"
-msgstr ""
+msgstr "piatti"
 
 #: blocks/reservation/block.json
 msgctxt "block title"
 msgid "Couverty – Réservation"
-msgstr ""
+msgstr "Couverty – Prenotazione"
 
 #: blocks/reservation/block.json
 msgctxt "block description"
 msgid "Affiche le widget de réservation de votre restaurant depuis Couverty."
-msgstr ""
+msgstr "Mostra il widget di prenotazione del vostro ristorante da Couverty."
 
 #: blocks/reservation/block.json
 msgctxt "block keyword"
 msgid "reservation"
-msgstr ""
+msgstr "prenotazione"
 
 #: blocks/reservation/block.json
 msgctxt "block keyword"
 msgid "booking"
-msgstr ""
+msgstr "booking"
 
 #: blocks/reservation/block.json
 msgctxt "block keyword"
 msgid "réserver"
-msgstr ""
+msgstr "prenotare"
