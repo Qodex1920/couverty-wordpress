@@ -7,6 +7,7 @@
 		bindAction('#couverty-test-connection', i18n.testing, testConnection);
 		bindAction('#couverty-sync-data', i18n.syncing, syncData);
 		bindAction('#couverty-clear-cache', i18n.clearing, clearCache);
+		bindAction('#couverty-create-pages', i18n.creating, createPages);
 		bindCopyButtons();
 	});
 
@@ -166,6 +167,17 @@
 	function clearCache(done) {
 		post('couverty_clear_cache', {}, done, function (data) {
 			showResult(data, true);
+		});
+	}
+
+	function createPages(done) {
+		post('couverty_create_pages', {}, done, function (data) {
+			showResult(data.message, true);
+			// The table of pages is rendered server-side; reload so it reflects
+			// what was just created rather than duplicating the markup here.
+			setTimeout(function () {
+				window.location.reload();
+			}, 1200);
 		});
 	}
 

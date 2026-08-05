@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.8.2
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,7 @@ Le plugin officiel Couverty affiche le menu de votre restaurant, la carte des bo
 
 **Fonctionnalités :**
 
+* Pages Carte, Menu du jour, Boissons et Réservation créées en un clic
 * 4 blocs WordPress et 4 shortcodes équivalents
 * Synchronisation automatique des données dans des types de contenu WordPress, utilisables par tous les constructeurs de pages
 * Cache local : le site continue d'afficher vos données même si l'API est momentanément injoignable
@@ -63,6 +64,12 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.9.0 =
+* Nouveau : créez en un clic les pages Carte, Menu du jour, Boissons et Réservation, prêtes à publier
+* Les pages sont créées en brouillon — vous les relisez avant qu'elles n'apparaissent sur votre site
+* Les mêmes mises en page sont disponibles comme compositions dans l'éditeur : cherchez « Couverty »
+* Une page supprimée peut être recréée ; une page existante n'est jamais écrasée
 
 = 1.8.2 =
 * Protection contre l'accès direct ajoutée aux fichiers d'assets des blocs

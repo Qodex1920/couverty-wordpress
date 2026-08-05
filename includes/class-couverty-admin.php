@@ -36,6 +36,7 @@ class Couverty_Admin {
 		add_action( 'wp_ajax_couverty_test_connection', array( $this, 'ajax_test_connection' ) );
 		add_action( 'wp_ajax_couverty_clear_cache', array( $this, 'ajax_clear_cache' ) );
 		add_action( 'wp_ajax_couverty_sync_data', array( $this, 'ajax_sync_data' ) );
+		add_action( 'wp_ajax_couverty_create_pages', array( $this, 'ajax_create_pages' ) );
 	}
 
 	/**
@@ -202,6 +203,7 @@ class Couverty_Admin {
 				'testing'      => __( 'Test en cours…', 'couverty' ),
 				'syncing'      => __( 'Synchronisation…', 'couverty' ),
 				'clearing'     => __( 'Vidage…', 'couverty' ),
+				'creating'     => __( 'Création…', 'couverty' ),
 				'connected'    => __( 'Connexion réussie', 'couverty' ),
 				/* translators: %s: restaurant name */
 				'connectedTo'  => __( 'Connecté à %s', 'couverty' ),
@@ -394,6 +396,35 @@ class Couverty_Admin {
 	}
 
 	/**
+	 * AJAX create the example pages
+	 */
+	public function ajax_create_pages() {
+		$this->verify_ajax_request();
+
+		if ( ! current_user_can( 'publish_pages' ) ) {
+			wp_send_json_error( __( 'Vous n\'avez pas le droit de créer des pages.', 'couverty' ) );
+		}
+
+		$result = Couverty_Pages::create();
+
+		if ( 0 === $result['created'] ) {
+			wp_send_json_error( __( 'Les pages existent déjà — retrouvez-les dans Pages.', 'couverty' ) );
+		}
+
+		/* translators: %d: number of pages created */
+		$message = _n(
+			'%d page créée en brouillon. Relisez-la, puis publiez-la.',
+			'%d pages créées en brouillon. Relisez-les, puis publiez-les.',
+			$result['created'],
+			'couverty'
+		);
+
+		wp_send_json_success( array(
+			'message' => sprintf( $message, $result['created'] ),
+		) );
+	}
+
+	/**
 	 * AJAX clear cache
 	 */
 	public function ajax_clear_cache() {
@@ -469,6 +500,7 @@ class Couverty_Admin {
 					</form>
 				</div>
 				<?php if ( $is_connected ) : ?>
+					<?php $this->render_pages_section(); ?>
 					<?php $this->render_sync_section(); ?>
 				<?php endif; ?>
 			<?php else : ?>
@@ -618,6 +650,78 @@ class Couverty_Admin {
 				</p>
 			</div>
 		<?php endif; ?>
+		<?php
+	}
+
+	/**
+	 * Render the example pages section.
+	 *
+	 * Answers the "what now?" moment right after a successful connection.
+	 */
+	private function render_pages_section() {
+		$pages   = Couverty_Pages::get_status();
+		$missing = count( array_filter( $pages, function( $p ) {
+			return ! $p['exists'];
+		} ) );
+		?>
+		<div class="couverty-admin-section">
+			<h2><?php esc_html_e( 'Pages prêtes à l\'emploi', 'couverty' ); ?></h2>
+			<p class="description">
+				<?php esc_html_e( 'Créez en un clic les pages qui affichent vos contenus Couverty. Elles sont créées en brouillon : relisez-les et publiez-les quand vous êtes prêt.', 'couverty' ); ?>
+			</p>
+
+			<div class="couverty-table-scroll">
+				<table class="widefat striped couverty-table">
+					<thead>
+						<tr>
+							<th scope="col"><?php esc_html_e( 'Page', 'couverty' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Contenu', 'couverty' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'État', 'couverty' ); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ( $pages as $page ) : ?>
+							<tr>
+								<td><strong><?php echo esc_html( $page['title'] ); ?></strong></td>
+								<td><?php echo esc_html( $page['description'] ); ?></td>
+								<td>
+									<?php if ( ! $page['exists'] ) : ?>
+										<span class="couverty-type"><?php esc_html_e( 'Pas encore créée', 'couverty' ); ?></span>
+									<?php else : ?>
+										<?php if ( 'publish' === $page['status'] ) : ?>
+											<span class="couverty-status-indicator connected"></span>
+											<?php esc_html_e( 'Publiée', 'couverty' ); ?>
+										<?php else : ?>
+											<span class="couverty-status-indicator pending"></span>
+											<?php esc_html_e( 'Brouillon', 'couverty' ); ?>
+										<?php endif; ?>
+										<?php if ( $page['edit_url'] ) : ?>
+											— <a href="<?php echo esc_url( $page['edit_url'] ); ?>"><?php esc_html_e( 'Modifier', 'couverty' ); ?></a>
+										<?php endif; ?>
+									<?php endif; ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+
+			<p class="couverty-field-actions">
+				<?php if ( $missing > 0 ) : ?>
+					<button type="button" id="couverty-create-pages" class="button button-primary">
+						<?php
+						printf(
+							/* translators: %d: number of pages that will be created */
+							esc_html( _n( 'Créer %d page manquante', 'Créer %d pages manquantes', $missing, 'couverty' ) ),
+							(int) $missing
+						);
+						?>
+					</button>
+				<?php else : ?>
+					<span class="description"><?php esc_html_e( 'Toutes les pages existent. Vous pouvez aussi insérer ces mises en page dans n\'importe quelle page depuis l\'éditeur : cherchez « Couverty » dans les compositions.', 'couverty' ); ?></span>
+				<?php endif; ?>
+			</p>
+		</div>
 		<?php
 	}
 

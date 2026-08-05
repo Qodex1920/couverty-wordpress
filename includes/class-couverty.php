@@ -62,6 +62,7 @@ class Couverty {
 		new Couverty_Blocks( $shortcodes );
 		new Couverty_REST();
 		new Couverty_Sync();
+		new Couverty_Pages();
 	}
 
 	/**

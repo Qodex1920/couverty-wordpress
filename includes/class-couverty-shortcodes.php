@@ -165,7 +165,7 @@ class Couverty_Shortcodes {
 
 		return $this->notice(
 			__( 'Couverty n\'est pas encore connecté.', 'couverty' ),
-			__( 'Ajoutez votre clé API dans Réglages → Couverty, puis testez la connexion.', 'couverty' )
+			__( 'Ajoutez votre clé API dans Réglages → Couverty, puis cliquez sur « Connecter ».', 'couverty' )
 		);
 	}
 
