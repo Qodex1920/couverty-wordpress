@@ -30,6 +30,8 @@
 		iframe.setAttribute('scrolling', 'no');
 		iframe.loading = 'lazy';
 
+		// Drops the crawler fallback link the template renders inside the container.
+		container.innerHTML = '';
 		container.appendChild(iframe);
 		frames.push({ iframe: iframe, origin: container.dataset.couvertyOrigin });
 	}

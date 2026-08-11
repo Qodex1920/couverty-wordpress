@@ -54,6 +54,8 @@ class Couverty {
 		// loading them on `plugins_loaded` triggers a _load_textdomain_just_in_time notice.
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_assets' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_editor_styles' ) );
+		add_action( 'wp_head', array( $this, 'output_reservation_schema' ) );
 
 		// Blocks delegate their rendering to the shortcode handler, so they share
 		// the same instance rather than re-registering shortcodes on every render.
@@ -63,6 +65,56 @@ class Couverty {
 		new Couverty_REST();
 		new Couverty_Sync();
 		new Couverty_Pages();
+	}
+
+	/**
+	 * Declare the online booking in JSON-LD.
+	 *
+	 * The widget lives in a `noindex` iframe and the floating button is built in
+	 * JS, so nothing in the served HTML tells a crawler that the site takes
+	 * bookings, nor that Couverty powers them. `@id` points at the site's own
+	 * entity so the markup merges with the theme's schema instead of competing
+	 * with it. Disable with `add_filter( 'couverty_output_schema', '__return_false' )`.
+	 */
+	public function output_reservation_schema() {
+		$settings = self::get_settings();
+
+		if ( empty( $settings['slug'] ) || empty( $settings['base_url'] ) ) {
+			return;
+		}
+
+		if ( ! apply_filters( 'couverty_output_schema', true ) ) {
+			return;
+		}
+
+		$home        = untrailingslashit( home_url() );
+		$reserve_url = untrailingslashit( $settings['base_url'] ) . '/' . rawurlencode( $settings['slug'] ) . '/reserver';
+
+		$schema = array(
+			'@context'            => 'https://schema.org',
+			'@type'               => 'Restaurant',
+			'@id'                 => $home . '/#restaurant',
+			'name'                => get_bloginfo( 'name' ),
+			'url'                 => $home,
+			'acceptsReservations' => $reserve_url,
+			'potentialAction'     => array(
+				'@type'    => 'ReserveAction',
+				'target'   => array(
+					'@type'       => 'EntryPoint',
+					'urlTemplate' => $reserve_url,
+				),
+				'provider' => array(
+					'@type' => 'Organization',
+					'name'  => 'Couverty',
+					'url'   => 'https://couverty.ch',
+				),
+			),
+		);
+
+		// wp_json_encode() escapes slashes, so a `</script>` in the site name
+		// cannot break out of the tag.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>' . "\n";
 	}
 
 	/**
@@ -131,6 +183,32 @@ class Couverty {
 			return;
 		}
 
+		$this->enqueue_stylesheet();
+	}
+
+	/**
+	 * Load the public stylesheet inside the block editor.
+	 *
+	 * The blocks preview their real markup through ServerSideRender, so without
+	 * this the owner edits an unstyled stack of text and cannot judge the page
+	 * before publishing it. The `couverty_enqueue_public_styles` filter is not
+	 * applied here on purpose: a site that narrows the stylesheet down to a few
+	 * front-end templates still needs a faithful preview while editing.
+	 */
+	public function enqueue_editor_styles() {
+		// `enqueue_block_assets` also fires on the front end, where
+		// enqueue_public_styles() already ran with the filter applied.
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		$this->enqueue_stylesheet();
+	}
+
+	/**
+	 * Enqueue the public stylesheet. Shared by the front end and the editor.
+	 */
+	private function enqueue_stylesheet() {
 		wp_enqueue_style(
 			'couverty-public',
 			COUVERTY_PLUGIN_URL . 'assets/css/couverty-public.css',

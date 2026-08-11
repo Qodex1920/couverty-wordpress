@@ -1,12 +1,17 @@
 /* Couverty Public Styles */
 
-/* Custom Properties for theming */
-.couverty-menu,
-.couverty-boissons,
-.couverty-menu-du-jour,
-.couverty-reservation {
+/* Custom Properties for theming.
+
+   Déclarées sur :root, et non sur les composants : une déclaration posée sur
+   .couverty-menu gagnait toujours sur la même variable redéfinie dans :root par
+   le thème, ce qui rendait les surcharges documentées inopérantes. Depuis :root,
+   n'importe quel sélecteur du thème — :root, body, .entry-content ou le
+   composant lui-même — reprend la main. */
+:root {
 	--couverty-font: inherit;
-	--couverty-text: #1a1a1a;
+	/* L'encre appartient au thème. Une valeur en dur (#1a1a1a) rendait la carte
+	   illisible sur un site à fond sombre. */
+	--couverty-text: inherit;
 	/* 4.94:1 sur blanc. L'ancienne valeur (#9a8b78) tombait à 3.31:1, sous le
 	   seuil WCAG AA — y compris pour la ligne des allergènes, qui est une
 	   information de sécurité alimentaire. */
@@ -36,7 +41,11 @@
 	margin-bottom: 2.5rem;
 }
 
-.couverty-category__title {
+/* Le niveau de ces titres varie — h2 quand la carte n'a pas de titre de section,
+   h3 sinon — pour ne pas trouer le plan de la page. La règle est donc écrite en
+   deux classes, sinon un thème qui style `.entry-content h2` ferait changer de
+   taille selon la présence d'un titre. */
+.couverty-category .couverty-category__title {
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin: 0 0 1.25rem 0;
@@ -99,10 +108,12 @@
 	word-break: break-word;
 }
 
+/* 26x26 : l'icône fait 18px, le reste est du rembourrage pour atteindre les
+   24x24 minimum exigés par WCAG 2.2 (SC 2.5.8 Target Size). */
 .couverty-plat__image-btn {
 	background: none;
 	border: none;
-	padding: 2px;
+	padding: 4px;
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
@@ -115,6 +126,13 @@
 
 .couverty-plat__image-btn:hover {
 	opacity: 1;
+}
+
+.couverty-plat__image-btn:focus-visible {
+	opacity: 1;
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+	border-radius: 4px;
 }
 
 .couverty-plat__image-icon {
@@ -343,7 +361,7 @@
 	margin: 0;
 }
 
-.couverty-menu-du-jour__title {
+.couverty-menu-du-jour .couverty-menu-du-jour__title {
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin-bottom: 1.25rem;
@@ -365,7 +383,7 @@
 	background: color-mix(in srgb, var(--couverty-accent) 4%, transparent);
 }
 
-.couverty-menu-jour__day {
+.couverty-menu-jour .couverty-menu-jour__day {
 	font-size: 1.125rem;
 	font-weight: 600;
 	margin: 0 0 0.75rem 0;
@@ -425,7 +443,9 @@
 	z-index: 99999;
 	align-items: center;
 	justify-content: center;
-	padding: 1rem;
+	/* Écarte l'image de l'encoche et de la barre de gestes sur iOS. */
+	padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+		max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
 }
 
 .couverty-lightbox__img {
@@ -435,15 +455,17 @@
 	border-radius: var(--couverty-radius);
 }
 
+/* 44x44 : la cible de fermeture est la seule commande de la vue, et c'est au
+   doigt qu'on s'en sert. Elle ne rétrécit pas sur petit écran. */
 .couverty-lightbox__close {
 	position: absolute;
-	top: 1rem;
-	right: 1rem;
+	top: max(1rem, env(safe-area-inset-top));
+	right: max(1rem, env(safe-area-inset-right));
 	background: rgba(255, 255, 255, 0.9);
 	border: none;
 	border-radius: 50%;
-	width: 2.5rem;
-	height: 2.5rem;
+	width: 2.75rem;
+	height: 2.75rem;
 	font-size: 1.75rem;
 	cursor: pointer;
 	display: flex;
@@ -457,6 +479,12 @@
 
 .couverty-lightbox__close:hover {
 	background: #fff;
+}
+
+.couverty-lightbox__close:focus-visible {
+	background: #fff;
+	outline: 2px solid #fff;
+	outline-offset: 3px;
 }
 
 /* ═══════════════════════════════
@@ -505,7 +533,7 @@
 		padding: 1rem;
 	}
 
-	.couverty-category__title {
+	.couverty-category .couverty-category__title {
 		font-size: 1.25rem;
 	}
 }
@@ -524,7 +552,7 @@
 		font-size: 0.9375rem;
 	}
 
-	.couverty-category__title {
+	.couverty-category .couverty-category__title {
 		font-size: 1.125rem;
 		gap: 0.5rem;
 	}
@@ -541,12 +569,6 @@
 	.couverty-menu-jour__label {
 		min-width: 55px;
 	}
-
-	.couverty-lightbox__close {
-		width: 2rem;
-		height: 2rem;
-		font-size: 1.5rem;
-	}
 }
 
 /* ═══════════════════════════════
@@ -558,22 +580,14 @@
    untouched — sites already live must render exactly as before.
    ═══════════════════════════════ */
 
-/* Page containers need the tokens too: they sit above .couverty-menu, not
-   inside it, so a var() fallback would resolve to currentColor. */
-.couverty-page__intro,
-.couverty-page__carte,
-.couverty-page__cta {
-	--couverty-text-muted: #7d6e5b;
-	--couverty-border: #d4c5b4;
-	--couverty-accent: #8b1a2b;
-}
-
 /* One interval between the parts of a page, so the sections read as a set
-   rather than as stacked blocks. Block themes set their own vertical rhythm on
-   direct children of the content, hence the matching specificity. */
-:where(.entry-content, .wp-block-post-content) > .couverty-page__intro,
-:where(.entry-content, .wp-block-post-content) > .couverty-page__carte,
-:where(.entry-content, .wp-block-post-content) > .couverty-page__cta,
+   rather than as stacked blocks.
+
+   Un seul sélecteur suffit : la règle d'écart des thèmes de blocs est elle-même
+   enveloppée dans :where(), donc de spécificité nulle, et c'est l'ordre de
+   chargement — la feuille du plugin après les styles globaux — qui tranche. Les
+   variantes `:where(.entry-content) > …` d'avant avaient exactement la même
+   spécificité que le sélecteur nu : elles ne servaient à rien. */
 .couverty-page__intro,
 .couverty-page__carte,
 .couverty-page__cta {
@@ -581,7 +595,6 @@
 }
 
 /* More air before the invitation than between reading blocks. */
-:where(.entry-content, .wp-block-post-content) > .couverty-page__cta,
 .couverty-page__cta {
 	margin-block-start: clamp(3.5rem, 9vw, 6.5rem);
 }
@@ -612,8 +625,13 @@
 }
 
 .couverty-page__cta .wp-block-buttons {
-	justify-content: center;
 	margin-top: 1.75rem;
+}
+
+/* Centré par défaut, mais le choix fait dans l'éditeur reprend la main : WordPress
+   pose alors une classe is-content-justification-*, que cette règle laisse passer. */
+.couverty-page__cta .wp-block-buttons:not([class*="is-content-justification"]) {
+	justify-content: center;
 }
 
 /* More room above a heading than below it, throughout. */

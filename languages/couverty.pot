@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Couverty 1.9.2\n"
-"Report-Msgid-Bugs-To: https://couverty.ch\n"
+"Project-Id-Version: Couverty 1.10.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/couverty\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-05T07:05:53+00:00\n"
+"POT-Creation-Date: 2026-08-11T12:55:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: couverty\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: couverty.php
 #: includes/class-couverty-admin.php:457
 #: includes/class-couverty-blocks.php:55
-#: includes/class-couverty-pages.php:338
+#: includes/class-couverty-pages.php:370
 msgid "Couverty"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 
 #: includes/class-couverty-admin.php:233
 #: includes/class-couverty-sync.php:172
-#: templates/menu.php:100
+#: templates/menu.php:111
 msgid "Végétarien"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 
 #: includes/class-couverty-admin.php:235
 #: includes/class-couverty-sync.php:174
-#: templates/menu.php:106
+#: templates/menu.php:117
 msgid "Sans gluten"
 msgstr ""
 
@@ -202,20 +202,20 @@ msgstr ""
 
 #: includes/class-couverty-admin.php:247
 #: includes/class-couverty-sync.php:190
-#: templates/menu-du-jour.php:41
+#: templates/menu-du-jour.php:48
 msgid "Entrée"
 msgstr ""
 
 #: includes/class-couverty-admin.php:248
 #: includes/class-couverty-sync.php:100
 #: includes/class-couverty-sync.php:191
-#: templates/menu-du-jour.php:42
+#: templates/menu-du-jour.php:49
 msgid "Plat"
 msgstr ""
 
 #: includes/class-couverty-admin.php:249
 #: includes/class-couverty-sync.php:192
-#: templates/menu-du-jour.php:43
+#: templates/menu-du-jour.php:50
 msgid "Dessert"
 msgstr ""
 
@@ -255,7 +255,7 @@ msgstr ""
 
 #: includes/class-couverty-admin.php:269
 #: includes/class-couverty-admin.php:797
-#: includes/class-couverty-pages.php:77
+#: includes/class-couverty-pages.php:87
 #: includes/class-couverty-sync.php:102
 msgid "Menu du jour"
 msgstr ""
@@ -715,56 +715,76 @@ msgstr ""
 msgid "L'API Couverty a répondu avec une erreur (HTTP %d)."
 msgstr ""
 
-#: includes/class-couverty-pages.php:68
+#: includes/class-couverty-pages.php:77
 msgid "Notre carte"
 msgstr ""
 
-#: includes/class-couverty-pages.php:69
-msgid "La carte des plats, par catégorie."
-msgstr ""
-
-#: includes/class-couverty-pages.php:70
-msgid "Une cuisine de saison, préparée chaque jour avec des produits que nous choisissons nous-mêmes. La carte évolue au fil des arrivages."
-msgstr ""
-
 #: includes/class-couverty-pages.php:78
-msgid "Le menu du jour ou de la semaine."
+msgctxt "permalien de la page"
+msgid "carte"
 msgstr ""
 
 #: includes/class-couverty-pages.php:79
-msgid "Servi du lundi au vendredi, à midi. Entrée, plat et dessert composés le matin même selon le marché."
+msgid "La carte des plats, par catégorie."
 msgstr ""
 
-#: includes/class-couverty-pages.php:86
-msgid "Nos boissons"
-msgstr ""
-
-#: includes/class-couverty-pages.php:87
-msgid "La carte des boissons."
+#: includes/class-couverty-pages.php:80
+msgid "Voici notre carte, mise à jour au fil des saisons. Pour toute question sur un plat ou sur un allergène, demandez-nous."
 msgstr ""
 
 #: includes/class-couverty-pages.php:88
-msgid "Une sélection courte, travaillée avec des vignerons de la région, complétée de quelques belles bouteilles à découvrir."
+msgctxt "permalien de la page"
+msgid "menu-du-jour"
 msgstr ""
 
-#: includes/class-couverty-pages.php:95
-#: includes/class-couverty-pages.php:150
-msgid "Réserver une table"
+#: includes/class-couverty-pages.php:89
+msgid "Le menu du jour ou de la semaine."
 msgstr ""
 
-#: includes/class-couverty-pages.php:96
-msgid "Le formulaire de réservation en ligne."
+#: includes/class-couverty-pages.php:90
+msgid "Notre menu du moment. Cette page suit ce que nous servons aujourd'hui, sans que nous ayons à la retoucher."
 msgstr ""
 
 #: includes/class-couverty-pages.php:97
-msgid "Choisissez votre date et le nombre de convives : vous recevez la confirmation par e-mail dans la foulée."
+msgid "Nos boissons"
 msgstr ""
 
-#: includes/class-couverty-pages.php:135
-msgid "Envie de passer à table ?"
+#: includes/class-couverty-pages.php:98
+msgctxt "permalien de la page"
+msgid "boissons"
 msgstr ""
 
-#: includes/class-couverty-pages.php:141
+#: includes/class-couverty-pages.php:99
+msgid "La carte des boissons."
+msgstr ""
+
+#: includes/class-couverty-pages.php:100
+msgid "Notre carte des boissons, tenue à jour en même temps que celle des plats."
+msgstr ""
+
+#: includes/class-couverty-pages.php:107
+#: includes/class-couverty-pages.php:165
+msgid "Réserver une table"
+msgstr ""
+
+#: includes/class-couverty-pages.php:108
+msgctxt "permalien de la page"
+msgid "reservation"
+msgstr ""
+
+#: includes/class-couverty-pages.php:109
+msgid "Le formulaire de réservation en ligne."
+msgstr ""
+
+#: includes/class-couverty-pages.php:110
+msgid "Choisissez une date et le nombre de convives. Vous recevez un e-mail dès que votre demande est enregistrée."
+msgstr ""
+
+#: includes/class-couverty-pages.php:150
+msgid "Envie de passer à table ?"
+msgstr ""
+
+#: includes/class-couverty-pages.php:156
 msgid "Réservez en quelques secondes, sans créer de compte."
 msgstr ""
 
@@ -911,7 +931,7 @@ msgstr ""
 msgid "Dimanche"
 msgstr ""
 
-#: includes/class-couverty.php:104
+#: includes/class-couverty.php:156
 msgid "Fermer"
 msgstr ""
 
@@ -919,22 +939,28 @@ msgstr ""
 msgid "Semaine"
 msgstr ""
 
-#: templates/menu.php:75
+#: templates/menu.php:86
 msgid "Voir la photo du plat"
 msgstr ""
 
-#: templates/menu.php:103
+#: templates/menu.php:114
 msgid "Vegan"
 msgstr ""
 
 #. translators: %s: comma-separated allergen list
-#: templates/menu.php:115
+#: templates/menu.php:126
 #, php-format
-msgid "Allergènes : %s"
+msgid "Allergènes : %s"
 msgstr ""
 
-#: templates/reservation.php:43
+#: templates/reservation.php:47
 msgid "Réservation en ligne"
+msgstr ""
+
+#. translators: %s: site name.
+#: templates/reservation.php:51
+#, php-format
+msgid "Réserver une table — %s"
 msgstr ""
 
 #: blocks/boissons/index.js:24

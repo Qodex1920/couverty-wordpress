@@ -116,18 +116,39 @@ class Couverty_Blocks {
 	}
 
 	/**
+	 * Wrap the shared markup in the element WordPress expects from a block.
+	 *
+	 * Without get_block_wrapper_attributes(), everything the editor writes on the
+	 * wrapper is silently dropped on the front end: the wide/full alignment picked
+	 * in the toolbar, the CSS class typed in the Advanced panel, and the generated
+	 * `wp-block-couverty-*` class. The controls were there, they just did nothing.
+	 *
+	 * @param string $html Markup returned by the shared shortcode handler.
+	 * @return string
+	 */
+	private function wrap( $html ) {
+		// A visitor gets an empty string when the plugin is not connected; an empty
+		// wrapper would still print a stray element into the page.
+		if ( '' === $html ) {
+			return '';
+		}
+
+		return sprintf( '<div %s>%s</div>', get_block_wrapper_attributes(), $html );
+	}
+
+	/**
 	 * Render menu block
 	 *
 	 * @param array $attributes Block attributes.
 	 * @return string
 	 */
 	public function render_menu_block( $attributes ) {
-		return $this->shortcodes->render_menu( [
+		return $this->wrap( $this->shortcodes->render_menu( [
 			'layout'         => $this->pick( $attributes, 'layout', [ 'list', 'grid' ], 'list' ),
 			'show_prices'    => $this->flag( $attributes, 'showPrices' ),
 			'show_images'    => $this->flag( $attributes, 'showImages' ),
 			'show_allergens' => $this->flag( $attributes, 'showAllergens' ),
-		] );
+		] ) );
 	}
 
 	/**
@@ -137,11 +158,11 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_boissons_block( $attributes ) {
-		return $this->shortcodes->render_boissons( [
+		return $this->wrap( $this->shortcodes->render_boissons( [
 			'layout'       => $this->pick( $attributes, 'layout', [ 'list', 'grid' ], 'list' ),
 			'show_prices'  => $this->flag( $attributes, 'showPrices' ),
 			'show_details' => $this->flag( $attributes, 'showDetails' ),
-		] );
+		] ) );
 	}
 
 	/**
@@ -151,9 +172,9 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_menu_du_jour_block( $attributes ) {
-		return $this->shortcodes->render_menu_du_jour( [
+		return $this->wrap( $this->shortcodes->render_menu_du_jour( [
 			'show_price' => $this->flag( $attributes, 'showPrice' ),
-		] );
+		] ) );
 	}
 
 	/**
@@ -163,10 +184,10 @@ class Couverty_Blocks {
 	 * @return string
 	 */
 	public function render_reservation_block( $attributes ) {
-		return $this->shortcodes->render_reservation( [
+		return $this->wrap( $this->shortcodes->render_reservation( [
 			'height'     => max( 300, min( 1200, (int) ( $attributes['height'] ?? 600 ) ) ),
 			'appearance' => $this->pick( $attributes, 'appearance', [ 'card', 'glass', 'minimal', 'dark' ], 'card' ),
 			'radius'     => $this->pick( $attributes, 'radius', [ 'none', 'sm', 'md', 'lg' ], 'lg' ),
-		] );
+		] ) );
 	}
 }

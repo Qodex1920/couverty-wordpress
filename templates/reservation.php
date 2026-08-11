@@ -26,6 +26,10 @@ $iframe_url = add_query_arg(
 	$base_url . '/embed/' . rawurlencode( $slug )
 );
 
+// Served in clear text for crawlers that do not run JS; couverty-reservation.js
+// replaces it with the iframe as soon as the widget mounts.
+$reserve_url = $base_url . '/' . rawurlencode( $slug ) . '/reserver';
+
 // Origin the widget is allowed to post resize messages from.
 $parsed = wp_parse_url( $base_url );
 $origin = isset( $parsed['scheme'], $parsed['host'] )
@@ -41,4 +45,10 @@ wp_enqueue_script( 'couverty-reservation' );
 	data-couverty-origin="<?php echo esc_attr( $origin ); ?>"
 	data-couverty-height="<?php echo esc_attr( (string) $height ); ?>"
 	data-couverty-title="<?php esc_attr_e( 'Réservation en ligne', 'couverty' ); ?>"
-></div>
+><a href="<?php echo esc_url( $reserve_url ); ?>"><?php
+	printf(
+		/* translators: %s: site name. */
+		esc_html__( 'Réserver une table — %s', 'couverty' ),
+		esc_html( get_bloginfo( 'name' ) )
+	);
+?></a></div>

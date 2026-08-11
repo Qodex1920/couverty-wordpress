@@ -13,6 +13,10 @@ $show_prices = isset( $atts['show_prices'] ) ? filter_var( $atts['show_prices'],
 $show_details = isset( $atts['show_details'] ) ? filter_var( $atts['show_details'], FILTER_VALIDATE_BOOLEAN ) : true;
 
 $categories = isset( $data['categories'] ) ? $data['categories'] : [];
+
+// Même règle que pour la carte des plats : sans titre de section, les catégories
+// prennent le niveau qui suit directement le h1 de la page.
+$category_level = ! empty( $data['boissonsTitre'] ) ? 3 : 2;
 ?>
 
 <div class="couverty-boissons couverty-boissons--<?php echo esc_attr( $layout ); ?>">
@@ -30,7 +34,13 @@ $categories = isset( $data['categories'] ) ? $data['categories'] : [];
 	<?php foreach ( $categories as $category ) : ?>
 		<div class="couverty-category">
 			<?php if ( isset( $category['nom'] ) ) : ?>
-				<h3 class="couverty-category__title"><?php echo esc_html( $category['nom'] ); ?></h3>
+				<?php
+				printf(
+					'<h%1$d class="couverty-category__title">%2$s</h%1$d>',
+					(int) $category_level,
+					esc_html( $category['nom'] )
+				);
+				?>
 			<?php endif; ?>
 
 			<div class="couverty-category__items">

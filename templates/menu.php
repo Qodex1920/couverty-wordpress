@@ -16,6 +16,11 @@ $show_allergens = isset( $atts['show_allergens'] ) ? filter_var( $atts['show_all
 $categories = isset( $data['categories'] ) ? $data['categories'] : [];
 $has_images = false;
 
+// La page porte déjà un h1. Sans titre de carte, les catégories deviennent le
+// premier niveau du contenu : les laisser en h3 ferait sauter le h2 et casserait
+// le plan de la page pour un lecteur d'écran.
+$category_level = ! empty( $data['menuTitre'] ) ? 3 : 2;
+
 // Check if any plat has images
 if ( $show_images ) {
 	foreach ( $categories as $category ) {
@@ -49,7 +54,13 @@ if ( $has_images && 'list' === $layout ) {
 	<?php foreach ( $categories as $category ) : ?>
 		<div class="couverty-category">
 			<?php if ( isset( $category['nom'] ) ) : ?>
-				<h3 class="couverty-category__title"><?php echo esc_html( $category['nom'] ); ?></h3>
+				<?php
+				printf(
+					'<h%1$d class="couverty-category__title">%2$s</h%1$d>',
+					(int) $category_level,
+					esc_html( $category['nom'] )
+				);
+				?>
 			<?php endif; ?>
 
 			<?php if ( isset( $category['description'] ) && $category['description'] ) : ?>
@@ -112,7 +123,7 @@ if ( $has_images && 'list' === $layout ) {
 								<?php
 								printf(
 									/* translators: %s: comma-separated allergen list */
-									esc_html__( 'Allergènes : %s', 'couverty' ),
+									esc_html__( 'Allergènes : %s', 'couverty' ),
 									esc_html( implode( ', ', $plat['allergenes'] ) )
 								);
 								?>

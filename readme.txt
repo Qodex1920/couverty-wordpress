@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.9.2
+Stable tag: 1.10.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,16 @@ Non. Les données sont mises en cache localement (transients WordPress, 10 minut
 Vos contenus déjà synchronisés restent affichés. Le plugin attend une minute avant de retenter un appel, pour ne jamais ralentir vos pages.
 
 = Puis-je personnaliser l'apparence ? =
-Oui. Les classes CSS sont préfixées (`couverty-*`) et les couleurs, espacements et arrondis passent par des variables CSS surchargeables depuis votre thème.
+Oui. Les classes CSS sont préfixées (`couverty-*`) et les couleurs, espacements et arrondis passent par des variables CSS. Ajoutez ce bloc dans Apparence → Personnaliser → CSS additionnel :
+
+`:root {
+	--couverty-accent: #8b1a2b;       /* nom des plats et des boissons */
+	--couverty-text-muted: #7d6e5b;   /* descriptions, allergènes, notes */
+	--couverty-border: #d4c5b4;       /* filets de séparation */
+	--couverty-radius: 8px;
+}`
+
+Le texte principal suit déjà la couleur de votre thème. Sur un thème à fond sombre, pensez à éclaircir `--couverty-accent`, `--couverty-text-muted` et `--couverty-border`, qui gardent des valeurs pensées pour un fond clair.
 
 = Les shortcodes fonctionnent-ils avec Elementor / Divi / Bricks ? =
 Oui. En plus des shortcodes, les données sont exposées en types de contenu personnalisés (`couverty_plat`, `couverty_boisson`, `couverty_menu_jour`, `couverty_evenement`) avec leurs champs personnalisés, utilisables dans n'importe quelle boucle de requête.
@@ -64,6 +73,19 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.10.0 =
+* L'éditeur affiche enfin la carte telle qu'elle sortira : plus besoin de publier pour voir le résultat
+* Les blocs Couverty acceptent la pleine largeur et la classe CSS saisie dans l'éditeur, qui étaient jusqu'ici sans effet
+* La carte reprend la couleur de texte de votre thème — elle restait noire, donc illisible sur un site à fond sombre
+* Les couleurs, arrondis et espacements se surchargent maintenant depuis `:root`, comme la documentation l'annonçait
+* Le bouton photo d'un plat et la fermeture de la visionneuse sont assez grands pour le doigt ; la visionneuse garde le clavier chez elle et bloque le défilement de la page
+* Titres de sections hiérarchisés correctement pour les lecteurs d'écran, quel que soit le contenu envoyé par Couverty
+* Le bouton de fin de page pointe vers l'adresse définitive de la page de réservation, sans redirection
+* La carte s'aligne sur la largeur du texte, y compris avec un thème classique
+* Textes d'exemple réécrits : ils ne mettent plus dans votre bouche des promesses que vous n'avez pas faites
+* L'adresse des pages créées suit la langue du site
+* Le centrage du bouton final ne l'emporte plus sur l'alignement choisi dans l'éditeur
 
 = 1.9.2 =
 * Correction : le bouton « Réserver une table » en bas des pages créées ne menait nulle part

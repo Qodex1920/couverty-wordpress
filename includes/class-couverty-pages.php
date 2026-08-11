@@ -7,11 +7,13 @@
  * Refuse la page-plaquette : bandeau dupliqué, grille de cartes, pavés de texte
  * promotionnel entre le visiteur et les plats.
  *
- * OWN-WORLD — Aucune police ni couleur imposée : la page emprunte celles du
- * site. Le contenu ne contient que ce qui est du contenu — le titre et l'image
- * d'ouverture appartiennent au thème, qui les rend déjà. Reconnaissable, même
- * vidée, par sa respiration : une phrase d'accroche à la mesure de lecture, la
- * carte, puis une unique zone d'action.
+ * OWN-WORLD — Aucune police imposée, et l'encre vient du thème : la page
+ * emprunte l'une et l'autre au site. Ne restent en propre que l'accent des noms
+ * de plats et la couleur des filets, surchargeables depuis :root (voir
+ * readme.txt). Le contenu ne contient que ce qui est du contenu — le titre et
+ * l'image d'ouverture appartiennent au thème, qui les rend déjà. Reconnaissable,
+ * même vidée, par sa respiration : une phrase d'accroche à la mesure de lecture,
+ * la carte, puis une unique zone d'action.
  *
  * STORY — Le visiteur voit une vraie table, parcourt les plats sans friction,
  * et trouve le bouton de réservation là où l'envie naît : après la lecture.
@@ -22,9 +24,9 @@
  * d'une carte.
  *
  * FORM — Extension du monde Couverty déjà en production (couverty-public.css),
- * pas de nouvelle identité : le rendu final appartient au thème du client, et
- * les règles existantes ne sont pas touchées pour ne rien casser sur les sites
- * déjà en ligne.
+ * pas de nouvelle identité : le rendu final appartient au thème du client. Les
+ * règles de densité restent réservées aux pages créées ici, pour qu'un
+ * shortcode posé dans une mise en page existante ne bouge pas d'un pixel.
  *
  * Les pages sont créées en brouillon : le propriétaire relit avant publication.
  */
@@ -60,14 +62,24 @@ class Couverty_Pages {
 	 * `hero` marks the pages that deserve a featured image: the theme renders
 	 * it as the opening band, so the plugin only has to say so in the admin.
 	 *
-	 * @return array Slug => definition.
+	 * `slug` is translated, the array key is not: the key identifies the page in
+	 * the option for the life of the site, so it has to stay stable, while the
+	 * permalink should read in the language the site is written in.
+	 *
+	 * The intros say only what the plugin can guarantee. Earlier wording put
+	 * claims in the owner's mouth — daily buying, regional winemakers, weekday
+	 * lunch service — that were often simply untrue of the restaurant about to
+	 * publish them.
+	 *
+	 * @return array Key => definition.
 	 */
 	public static function definitions() {
 		return array(
 			'carte' => array(
 				'title'       => __( 'Notre carte', 'couverty' ),
+				'slug'        => _x( 'carte', 'permalien de la page', 'couverty' ),
 				'description' => __( 'La carte des plats, par catégorie.', 'couverty' ),
-				'intro'       => __( 'Une cuisine de saison, préparée chaque jour avec des produits que nous choisissons nous-mêmes. La carte évolue au fil des arrivages.', 'couverty' ),
+				'intro'       => __( 'Voici notre carte, mise à jour au fil des saisons. Pour toute question sur un plat ou sur un allergène, demandez-nous.', 'couverty' ),
 				'block'       => 'couverty/menu',
 				'attributes'  => array( 'layout' => 'list' ),
 				'hero'        => true,
@@ -75,8 +87,9 @@ class Couverty_Pages {
 			),
 			'menu-du-jour' => array(
 				'title'       => __( 'Menu du jour', 'couverty' ),
+				'slug'        => _x( 'menu-du-jour', 'permalien de la page', 'couverty' ),
 				'description' => __( 'Le menu du jour ou de la semaine.', 'couverty' ),
-				'intro'       => __( 'Servi du lundi au vendredi, à midi. Entrée, plat et dessert composés le matin même selon le marché.', 'couverty' ),
+				'intro'       => __( 'Notre menu du moment. Cette page suit ce que nous servons aujourd\'hui, sans que nous ayons à la retoucher.', 'couverty' ),
 				'block'       => 'couverty/menu-du-jour',
 				'attributes'  => array(),
 				'hero'        => false,
@@ -84,8 +97,9 @@ class Couverty_Pages {
 			),
 			'boissons' => array(
 				'title'       => __( 'Nos boissons', 'couverty' ),
+				'slug'        => _x( 'boissons', 'permalien de la page', 'couverty' ),
 				'description' => __( 'La carte des boissons.', 'couverty' ),
-				'intro'       => __( 'Une sélection courte, travaillée avec des vignerons de la région, complétée de quelques belles bouteilles à découvrir.', 'couverty' ),
+				'intro'       => __( 'Notre carte des boissons, tenue à jour en même temps que celle des plats.', 'couverty' ),
 				'block'       => 'couverty/boissons',
 				'attributes'  => array( 'layout' => 'list' ),
 				'hero'        => false,
@@ -93,8 +107,9 @@ class Couverty_Pages {
 			),
 			'reservation' => array(
 				'title'       => __( 'Réserver une table', 'couverty' ),
+				'slug'        => _x( 'reservation', 'permalien de la page', 'couverty' ),
 				'description' => __( 'Le formulaire de réservation en ligne.', 'couverty' ),
-				'intro'       => __( 'Choisissez votre date et le nombre de convives : vous recevez la confirmation par e-mail dans la foulée.', 'couverty' ),
+				'intro'       => __( 'Choisissez une date et le nombre de convives. Vous recevez un e-mail dès que votre demande est enregistrée.', 'couverty' ),
 				'block'       => 'couverty/reservation',
 				'attributes'  => array(),
 				'hero'        => true,
@@ -129,10 +144,12 @@ class Couverty_Pages {
 	 * @return string
 	 */
 	private static function call_to_action() {
+		// Espace fine insécable avant le point d'interrogation : sans elle, le
+		// signe part seul à la ligne quand la question tombe en fin de mesure.
 		$heading = self::block(
 			'heading',
 			array( 'level' => 2 ),
-			sprintf( '<h2 class="wp-block-heading">%s</h2>', esc_html__( 'Envie de passer à table ?', 'couverty' ) )
+			sprintf( '<h2 class="wp-block-heading">%s</h2>', esc_html__( 'Envie de passer à table ?', 'couverty' ) )
 		);
 
 		$text = self::block(
@@ -163,10 +180,7 @@ class Couverty_Pages {
 
 		return self::block(
 			'group',
-			array(
-				'className' => 'couverty-page__cta',
-				'layout'    => array( 'type' => 'constrained' ),
-			),
+			array( 'className' => 'couverty-page__cta' ),
 			$inner
 		);
 	}
@@ -192,15 +206,17 @@ class Couverty_Pages {
 			);
 		}
 
-		// The Couverty block is wrapped rather than given a className: its render
-		// callback returns the template markup as-is, so a class set on the block
-		// would be dropped. The group also stays editable in the editor.
+		// The Couverty block is wrapped rather than given a className: the group is
+		// what the page rules hang off, and it stays editable in the editor.
+		//
+		// No layout attribute on purpose. A constrained group caps itself at the
+		// global content size, which a classic theme does not apply to the intro
+		// next to it — the card then sat narrower than the paragraph above it,
+		// with two different left edges. In flow, the group takes the measure the
+		// theme gives the content, whichever kind of theme it is.
 		$parts[] = self::block(
 			'group',
-			array(
-				'className' => 'couverty-page__carte',
-				'layout'    => array( 'type' => 'constrained' ),
-			),
+			array( 'className' => 'couverty-page__carte' ),
 			'<div class="wp-block-group couverty-page__carte">' . "\n"
 				. self::block( $page['block'], $page['attributes'] ) . "\n"
 				. '</div>'
@@ -211,6 +227,17 @@ class Couverty_Pages {
 		}
 
 		return implode( "\n\n", $parts );
+	}
+
+	/**
+	 * Slug of the booking page, used when no page exists to link to yet.
+	 *
+	 * @return string
+	 */
+	private static function booking_slug() {
+		$definitions = self::definitions();
+
+		return $definitions['reservation']['slug'];
 	}
 
 	// ─── Page creation ──────────────────────────────────────────────
@@ -224,15 +251,15 @@ class Couverty_Pages {
 		$created = get_option( self::OPTION, array() );
 		$status  = array();
 
-		foreach ( self::definitions() as $slug => $page ) {
-			$post_id = isset( $created[ $slug ] ) ? (int) $created[ $slug ] : 0;
+		foreach ( self::definitions() as $key => $page ) {
+			$post_id = isset( $created[ $key ] ) ? (int) $created[ $key ] : 0;
 			$post    = $post_id ? get_post( $post_id ) : null;
 
 			// The owner may have deleted or trashed the page since; treat it as gone
 			// so it can be created again.
 			$exists = $post instanceof WP_Post && 'trash' !== $post->post_status;
 
-			$status[ $slug ] = array(
+			$status[ $key ] = array(
 				'title'       => $page['title'],
 				'description' => $page['description'],
 				'exists'      => $exists,
@@ -261,15 +288,15 @@ class Couverty_Pages {
 		$count   = 0;
 		$skipped = 0;
 
-		foreach ( self::definitions() as $slug => $page ) {
-			if ( $status[ $slug ]['exists'] ) {
+		foreach ( self::definitions() as $key => $page ) {
+			if ( $status[ $key ]['exists'] ) {
 				$skipped++;
 				continue;
 			}
 
 			$post_id = wp_insert_post( array(
 				'post_title'   => $page['title'],
-				'post_name'    => $slug,
+				'post_name'    => $page['slug'],
 				'post_content' => self::build_content( $page ),
 				'post_status'  => 'draft',
 				'post_type'    => 'page',
@@ -279,7 +306,7 @@ class Couverty_Pages {
 				continue;
 			}
 
-			$created[ $slug ] = $post_id;
+			$created[ $key ] = $post_id;
 			$count++;
 		}
 
@@ -304,7 +331,14 @@ class Couverty_Pages {
 	 */
 	private static function resolve_booking_links( $created ) {
 		$booking_id = isset( $created['reservation'] ) ? (int) $created['reservation'] : 0;
-		$url        = $booking_id ? get_permalink( $booking_id ) : home_url( '/reservation' );
+
+		// get_page_link() sur un brouillon renvoie « ?page_id=12 » : les boutons
+		// resteraient figés sur cette forme une fois les pages publiées, avec une
+		// redirection canonique à chaque clic. Le troisième argument demande le
+		// permalien définitif, celui que la page portera après publication.
+		$url = $booking_id
+			? get_page_link( $booking_id, false, true )
+			: home_url( '/' . self::booking_slug() );
 
 		if ( ! $url ) {
 			return;
@@ -339,10 +373,12 @@ class Couverty_Pages {
 			) );
 		}
 
-		$fallback = home_url( '/reservation' );
+		// Le slug de la page de réservation, sans interroger la base : c'est celui
+		// que create() lui donne, donc le lien tombe juste dès qu'elle existe.
+		$fallback = home_url( '/' . self::booking_slug() );
 
-		foreach ( self::definitions() as $slug => $page ) {
-			register_block_pattern( 'couverty/' . $slug, array(
+		foreach ( self::definitions() as $key => $page ) {
+			register_block_pattern( 'couverty/' . $key, array(
 				'title'       => $page['title'],
 				'description' => $page['description'],
 				'categories'  => array( 'couverty' ),
