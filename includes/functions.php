@@ -103,14 +103,15 @@ function couverty_get_boissons() {
  * Returns an array with:
  *   - config: array containing:
  *       - menuUniqueSemaine: bool
- *       - afficherPrix: bool
+ *       - serviceSoirActif: bool
  *       - titre: string|null
- *   - menus: array of menus, each containing:
+ *   - menus: active menus only, each containing:
  *       - jour: int (0=week, 1=Monday, ..., 7=Sunday)
- *       - entree: string|null
- *       - plat: string
- *       - dessert: string|null
- *       - prix: float|null
+ *       - ordre: int (display order within the day)
+ *       - service: 'MIDI'|'SOIR'
+ *       - entrees, plats, desserts: string[] (alternatives, plats never empty)
+ *       - entree, plat, dessert: the same, joined with " ou " (compat)
+ *       - prix: float
  *
  * @return array|null Menu du jour data or null on failure
  */

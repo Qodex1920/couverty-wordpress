@@ -428,6 +428,57 @@
 	font-size: 1.0625rem;
 }
 
+/* Several menus in one day stack inside the card. A thin « ou » rule tells the
+   visitor they are alternatives to choose from, not courses of the same menu. */
+.couverty-menu-jour__menu + .couverty-menu-jour__menu {
+	margin-top: 1rem;
+}
+
+.couverty-menu-jour__service {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--couverty-text-muted);
+	margin-bottom: 0.375rem;
+}
+
+.couverty-menu-jour__or {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 0.75rem 0;
+	font-size: 0.8125rem;
+	font-style: italic;
+	color: var(--couverty-text-muted);
+}
+
+.couverty-menu-jour__or::before,
+.couverty-menu-jour__or::after {
+	content: '';
+	flex: 1;
+	border-top: 1px solid var(--couverty-border);
+}
+
+/* The « ou » between two alternatives of the same course. */
+.couverty-menu-jour__or-inline {
+	font-style: italic;
+	color: var(--couverty-text-muted);
+}
+
+/* Main courses stack, one alternative per line. */
+.couverty-menu-jour__alt {
+	display: block;
+}
+
+/* Under a menu, the price follows the courses without a rule: the « ou » line
+   already separates it from the next menu. */
+.couverty-menu-jour__menu .couverty-menu-jour__price {
+	border-top: 0;
+	padding-top: 0;
+	margin-top: 0.5rem;
+}
+
 /* ═══════════════════════════════
    IMAGE LIGHTBOX (shortcodes)
    ═══════════════════════════════ */

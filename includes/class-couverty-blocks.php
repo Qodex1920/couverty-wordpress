@@ -174,6 +174,8 @@ class Couverty_Blocks {
 	public function render_menu_du_jour_block( $attributes ) {
 		return $this->wrap( $this->shortcodes->render_menu_du_jour( [
 			'show_price' => $this->flag( $attributes, 'showPrice' ),
+			'part'       => $this->pick( $attributes, 'part', [ 'all', 'entrees', 'plats', 'desserts' ], 'all' ),
+			'day'        => $this->pick( $attributes, 'day', [ 'all', 'today' ], 'all' ),
 		] ) );
 	}
 

@@ -796,7 +796,7 @@ class Couverty_Admin {
 			array(
 				'name'       => __( 'Menu du jour', 'couverty' ),
 				'shortcode'  => '[couverty_menu_du_jour]',
-				'attributes' => 'show_price="true|false"',
+				'attributes' => 'show_price="true|false" part="all|entrees|plats|desserts" day="all|today"',
 			),
 			array(
 				'name'       => __( 'Réservation (widget)', 'couverty' ),

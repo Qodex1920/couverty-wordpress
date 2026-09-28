@@ -89,10 +89,20 @@ class Couverty_Shortcodes {
 		$atts = shortcode_atts(
 			[
 				'show_price' => 'true',
+				'part'       => 'all',
+				'day'        => 'all',
 			],
 			$atts,
 			'couverty_menu_du_jour'
 		);
+
+		// The template trusts these two values: anything else falls back to the default.
+		if ( ! in_array( $atts['part'], [ 'all', 'entrees', 'plats', 'desserts' ], true ) ) {
+			$atts['part'] = 'all';
+		}
+		if ( ! in_array( $atts['day'], [ 'all', 'today' ], true ) ) {
+			$atts['day'] = 'all';
+		}
 
 		if ( ! $this->is_api_configured() ) {
 			return $this->config_error();

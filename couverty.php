@@ -4,7 +4,7 @@
  * Plugin URI: https://couverty.ch
  * Update URI: https://github.com/Qodex1920/couverty-wordpress/
  * Description: Intégrez facilement le menu et les réservations de votre restaurant depuis Couverty
- * Version: 1.10.0
+ * Version: 1.11.0
  * Author: Couverty
  * Author URI: https://couverty.ch
  * License: GPL v2 or later
@@ -18,7 +18,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Define plugin constants
-define( 'COUVERTY_VERSION', '1.10.0' );
+define( 'COUVERTY_VERSION', '1.11.0' );
 define( 'COUVERTY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'COUVERTY_PLUGIN_FILE', __FILE__ );

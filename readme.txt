@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.10.0
+Stable tag: 1.11.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,12 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.11.0 =
+* Menu du jour : les alternatives d'un même service (deux entrées, deux plats au choix) s'affichent reliées par « ou », comme dans Couverty
+* Plusieurs menus le même jour sont regroupés dans une seule carte, séparés par un filet « ou », avec le service Midi ou Soir quand les deux existent
+* Nouvelles options du shortcode et du bloc : `part` pour n'afficher que les entrées, les plats ou les desserts, `day="today"` pour ne montrer que le jour courant
+* Le prix du menu du jour s'affiche enfin ; il est écrit une fois par jour quand tous les menus sont au même prix
 
 = 1.10.0 =
 * L'éditeur affiche enfin la carte telle qu'elle sortira : plus besoin de publier pour voir le résultat
