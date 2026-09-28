@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.11.0
+Stable tag: 1.11.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,10 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.11.1 =
+* Référencement : les blocs Carte, Boissons et Menu du jour publient les données structurées schema.org (Restaurant, Menu, MenuItem avec prix et régimes), comme les pages publiques Couverty
+* Les fiches synchronisées (plats, boissons, menus du jour, événements) n'ont plus d'URL propre et sortent des sitemaps WordPress, Yoast et Rank Math : elles restent disponibles pour les constructeurs de pages
 
 = 1.11.0 =
 * Menu du jour : les alternatives d'un même service (deux entrées, deux plats au choix) s'affichent reliées par « ou », comme dans Couverty

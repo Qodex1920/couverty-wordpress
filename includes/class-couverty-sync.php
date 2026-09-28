@@ -30,6 +30,10 @@ class Couverty_Sync {
 		add_action( self::CRON_HOOK, array( $this, 'sync' ) );
 		add_action( self::CRON_RESYNC_HOOK, array( $this, 'force_sync' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_cron_schedule' ) );
+		// Ceinture et bretelles pour les sites où une extension SEO a déjà listé ces types.
+		add_filter( 'wp_sitemaps_post_types', array( $this, 'exclude_from_sitemap' ) );
+		add_filter( 'wpseo_sitemap_exclude_post_type', array( $this, 'exclude_from_yoast_sitemap' ), 10, 2 );
+		add_filter( 'rank_math/sitemap/excluded_post_types', array( $this, 'exclude_from_rank_math' ) );
 	}
 
 	// ─── Activation / Deactivation ──────────────────────────────────
@@ -110,6 +114,43 @@ class Couverty_Sync {
 		$this->register_meta();
 	}
 
+	/** Types de contenu du plugin. */
+	const POST_TYPES = array( 'couverty_plat', 'couverty_boisson', 'couverty_menu_jour', 'couverty_evenement' );
+
+	/**
+	 * Retire les fiches synchronisées du sitemap natif de WordPress.
+	 *
+	 * @param array $post_types Types indexés par nom.
+	 * @return array
+	 */
+	public function exclude_from_sitemap( $post_types ) {
+		foreach ( self::POST_TYPES as $type ) {
+			unset( $post_types[ $type ] );
+		}
+		return $post_types;
+	}
+
+	/**
+	 * Idem pour le sitemap Yoast SEO.
+	 *
+	 * @param bool   $excluded  Exclusion déjà décidée.
+	 * @param string $post_type Type.
+	 * @return bool
+	 */
+	public function exclude_from_yoast_sitemap( $excluded, $post_type ) {
+		return $excluded || in_array( $post_type, self::POST_TYPES, true );
+	}
+
+	/**
+	 * Idem pour Rank Math.
+	 *
+	 * @param array $post_types Types exclus.
+	 * @return array
+	 */
+	public function exclude_from_rank_math( $post_types ) {
+		return array_values( array_unique( array_merge( (array) $post_types, self::POST_TYPES ) ) );
+	}
+
 	/**
 	 * Register a single CPT
 	 *
@@ -124,8 +165,15 @@ class Couverty_Sync {
 				'name'          => $plural,
 				'singular_name' => $singular,
 			),
+			// Miroirs de données pour les constructeurs de pages et la REST API :
+			// « public » les rend visibles à Bricks, Elementor ou Divi, mais aucune
+			// fiche n'a d'URL propre ni de place dans les sitemaps, la vraie page
+			// est celle qui porte le bloc.
 			'public'              => true,
+			'publicly_queryable'  => false,
+			'query_var'           => false,
 			'show_ui'             => false,
+			'show_in_nav_menus'   => false,
 			'show_in_rest'        => true,
 			'supports'            => array( 'title', 'editor', 'custom-fields' ),
 			'has_archive'         => false,

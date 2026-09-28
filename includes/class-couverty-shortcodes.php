@@ -45,7 +45,8 @@ class Couverty_Shortcodes {
 			return $this->data_error( $api, __( 'la carte des plats', 'couverty' ) );
 		}
 
-		return $this->render_template( 'menu', [ 'categories' => $response['plats']['categories'] ], $atts );
+		return $this->render_template( 'menu', [ 'categories' => $response['plats']['categories'] ], $atts )
+			. Couverty_Schema::carte( $response['plats']['categories'], 'plats', __( 'Carte', 'couverty' ) );
 	}
 
 	/**
@@ -76,7 +77,8 @@ class Couverty_Shortcodes {
 			return $this->data_error( $api, __( 'la carte des boissons', 'couverty' ) );
 		}
 
-		return $this->render_template( 'boissons', [ 'categories' => $response['boissons']['categories'] ], $atts );
+		return $this->render_template( 'boissons', [ 'categories' => $response['boissons']['categories'] ], $atts )
+			. Couverty_Schema::carte( $response['boissons']['categories'], 'boissons', __( 'Boissons', 'couverty' ) );
 	}
 
 	/**
@@ -115,7 +117,8 @@ class Couverty_Shortcodes {
 			return $this->data_error( $api, __( 'le menu du jour', 'couverty' ) );
 		}
 
-		return $this->render_template( 'menu-du-jour', $response['menuSemaine'], $atts );
+		return $this->render_template( 'menu-du-jour', $response['menuSemaine'], $atts )
+			. Couverty_Schema::menu_du_jour( $response['menuSemaine'] );
 	}
 
 	/**
