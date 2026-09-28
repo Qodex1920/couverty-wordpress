@@ -238,6 +238,9 @@ class Couverty_Sync {
 				'couverty_entree'      => array( 'type' => 'string',  'default' => '', 'label' => __( 'Entrée', 'couverty' ) ),
 				'couverty_plat'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Plat', 'couverty' ) ),
 				'couverty_dessert'     => array( 'type' => 'string',  'default' => '', 'label' => __( 'Dessert', 'couverty' ) ),
+				'couverty_entree_html' => array( 'type' => 'string',  'default' => '', 'label' => __( 'Entrée (HTML)', 'couverty' ), 'description' => __( 'Alternatives séparées par un « ou » en italique : pour un élément texte qui accepte le HTML', 'couverty' ) ),
+				'couverty_plat_html'   => array( 'type' => 'string',  'default' => '', 'label' => __( 'Plat (HTML)', 'couverty' ), 'description' => __( 'Idem, pour le plat', 'couverty' ) ),
+				'couverty_dessert_html' => array( 'type' => 'string', 'default' => '', 'label' => __( 'Dessert (HTML)', 'couverty' ), 'description' => __( 'Idem, pour le dessert', 'couverty' ) ),
 				'couverty_prix'        => array( 'type' => 'string',  'default' => '', 'label' => __( 'Prix', 'couverty' ), 'description' => __( 'Formatted price, e.g. CHF 18.-', 'couverty' ) ),
 				'couverty_external_id' => array( 'type' => 'string',  'default' => '' ),
 			),
@@ -259,7 +262,10 @@ class Couverty_Sync {
 					'show_in_rest' => true,
 				);
 				if ( 'string' === $config['type'] ) {
-					$args['sanitize_callback'] = 'sanitize_text_field';
+					// Les champs HTML ne gardent que la balise du « ou » ; sanitize_text_field la retirerait.
+					$args['sanitize_callback'] = '_html' === substr( $key, -5 )
+						? array( __CLASS__, 'sanitize_alternatives_html' )
+						: 'sanitize_text_field';
 				}
 				if ( ! empty( $config['label'] ) ) {
 					$args['label'] = $config['label'];
@@ -527,6 +533,11 @@ class Couverty_Sync {
 					'couverty_entree'     => isset( $menu['entree'] ) ? $menu['entree'] : '',
 					'couverty_plat'       => isset( $menu['plat'] ) ? $menu['plat'] : '',
 					'couverty_dessert'    => isset( $menu['dessert'] ) ? $menu['dessert'] : '',
+					// Mêmes services, le « ou » entre alternatives porté par une balise que
+					// le CSS du plugin met en italique : pour les constructeurs de pages.
+					'couverty_entree_html'  => $this->alternatives_html( $menu, 'entrees', 'entree' ),
+					'couverty_plat_html'    => $this->alternatives_html( $menu, 'plats', 'plat' ),
+					'couverty_dessert_html' => $this->alternatives_html( $menu, 'desserts', 'dessert' ),
 					'couverty_prix'       => $prix,
 				)
 			);
@@ -541,6 +552,38 @@ class Couverty_Sync {
 		}
 
 		return count( $synced_ids );
+	}
+
+	/**
+	 * Ne laisse passer que l'emphase du « ou » dans un champ HTML.
+	 *
+	 * @param string $value Valeur enregistrée.
+	 * @return string
+	 */
+	public static function sanitize_alternatives_html( $value ) {
+		return wp_kses( (string) $value, array( 'em' => array( 'class' => array() ) ) );
+	}
+
+	/**
+	 * Alternatives d'un service en HTML : « A <em>ou</em> B », chaque texte échappé.
+	 *
+	 * @param array  $menu     Menu du jour de l'API.
+	 * @param string $plural   Clé tableau (plats).
+	 * @param string $singular Clé chaîne de compatibilité (plat).
+	 * @return string
+	 */
+	private function alternatives_html( $menu, $plural, $singular ) {
+		if ( isset( $menu[ $plural ] ) && is_array( $menu[ $plural ] ) ) {
+			$values = $menu[ $plural ];
+		} else {
+			$values = isset( $menu[ $singular ] ) ? array( $menu[ $singular ] ) : array();
+		}
+		$values = array_filter( array_map( 'trim', array_map( 'strval', $values ) ) );
+		if ( ! $values ) {
+			return '';
+		}
+		$or = '<em class="couverty-menu-jour__or-inline">' . esc_html__( 'ou', 'couverty' ) . '</em>';
+		return implode( ' ' . $or . ' ', array_map( 'esc_html', $values ) );
 	}
 
 	/**
