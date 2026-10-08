@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.11.2
+Stable tag: 1.12.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,12 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.12.0 =
+* Widget de réservation : le logo Couverty, dans le coin du formulaire, est désormais servi dans la page de votre site, toujours au même endroit. Pour le retirer : `add_filter( 'couverty_reservation_credit', '__return_false' );` (le widget affiche alors le sien)
+* Le widget n'a plus d'ombre coupée par les bords du cadre et se cale en haut de son emplacement
+* Le lien de secours, affiché quand le widget ne peut pas se charger, devient « Réserver une table chez » suivi du nom du site
+* Données structurées : la réservation est rattachée à la fiche de l'entreprise Couverty
 
 = 1.11.2 =
 * Constructeurs de pages : les fiches Menu du jour exposent Entrée (HTML), Plat (HTML) et Dessert (HTML), où le « ou » entre alternatives est déjà en italique. À utiliser dans un élément texte qui accepte le HTML, à la place des champs texte brut

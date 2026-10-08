@@ -1066,10 +1066,11 @@ msgid "Réservation en ligne"
 msgstr "Online-Reservation"
 
 #. translators: %s: site name.
-#: templates/reservation.php:51
+#: templates/reservation.php:71
 #, php-format
-msgid "Réserver une table — %s"
-msgstr "Tisch reservieren — %s"
+msgid "Réserver une table chez %s"
+msgstr "Tisch reservieren bei %s"
+
 
 #: blocks/boissons/index.js:24 blocks/menu-du-jour/index.js:23
 #: blocks/menu/index.js:24

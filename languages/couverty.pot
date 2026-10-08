@@ -958,10 +958,11 @@ msgid "Réservation en ligne"
 msgstr ""
 
 #. translators: %s: site name.
-#: templates/reservation.php:51
+#: templates/reservation.php:71
 #, php-format
-msgid "Réserver une table — %s"
+msgid "Réserver une table chez %s"
 msgstr ""
+
 
 #: blocks/boissons/index.js:24
 #: blocks/menu-du-jour/index.js:23

@@ -103,8 +103,11 @@ class Couverty {
 					'@type'       => 'EntryPoint',
 					'urlTemplate' => $reserve_url,
 				),
+				// `@id` ties every client site to the one Couverty entity
+				// described on couverty.ch (address, Google profile, socials).
 				'provider' => array(
 					'@type' => 'Organization',
+					'@id'   => 'https://couverty.ch/#organization',
 					'name'  => 'Couverty',
 					'url'   => 'https://couverty.ch',
 				),
