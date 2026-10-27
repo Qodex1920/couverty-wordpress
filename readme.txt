@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.12.0
+Stable tag: 1.13.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,7 @@ Le plugin officiel Couverty affiche le menu de votre restaurant, la carte des bo
 * Synchronisation automatique des données dans des types de contenu WordPress, utilisables par tous les constructeurs de pages
 * Cache local : le site continue d'afficher vos données même si l'API est momentanément injoignable
 * Bouton de réservation flottant configurable
+* Réservations transmises à Google Tag Manager et Google Analytics 4 (événement `couverty_reservation`), pour mesurer vos conversions publicitaires
 * API REST et fonctions PHP pour les intégrations sur mesure
 * Mises à jour automatiques
 
@@ -73,6 +74,12 @@ Oui. En plus des shortcodes, les données sont exposées en types de contenu per
 Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis rechargez-le uniquement où vous en avez besoin.
 
 == Changelog ==
+
+= 1.13.0 =
+* Widget de réservation : chaque réservation envoie l'événement `couverty_reservation` aux outils déjà installés sur votre site (Google Tag Manager, Google Analytics 4), même sans le bouton flottant. Vous pouvez ainsi compter vos réservations comme conversions Google Ads ou Meta. Ni cookie ni donnée personnelle : vos balises et votre bannière cookies s'appliquent. Guide : https://couverty.ch/docs/integration#suivi-conversions
+* Le widget de réservation et le bouton flottant passent par le même script Couverty : une page qui affiche les deux ne le charge qu'une fois
+* Bloc Réservation : sans réglage dans le bloc, le widget prend le style et les coins choisis dans Couverty (onglet Widget). Le bloc propose les mêmes choix que Couverty ; un style déjà choisi dans le bloc reste appliqué
+* Menu du jour : les textes encore en français sur les sites en allemand ou en italien sont traduits (« Cette semaine », Midi et Soir, « ou », options du bloc, champs pour constructeurs de pages)
 
 = 1.12.0 =
 * Widget de réservation : le logo Couverty, dans le coin du formulaire, est désormais servi dans la page de votre site, toujours au même endroit. Pour le retirer : `add_filter( 'couverty_reservation_credit', '__return_false' );` (le widget affiche alors le sien)

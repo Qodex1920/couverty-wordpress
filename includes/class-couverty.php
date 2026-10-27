@@ -137,7 +137,7 @@ class Couverty {
 	public function enqueue_public_assets() {
 		$this->enqueue_public_styles();
 		$this->register_on_demand_scripts();
-		$this->enqueue_floating_widget();
+		$this->register_widget_script();
 		$this->enqueue_lightbox_fix();
 	}
 
@@ -158,14 +158,6 @@ class Couverty {
 		wp_localize_script( 'couverty-lightbox', 'couvertyLightbox', array(
 			'closeLabel' => __( 'Fermer', 'couverty' ),
 		) );
-
-		wp_register_script(
-			'couverty-reservation',
-			COUVERTY_PLUGIN_URL . 'assets/js/couverty-reservation.js',
-			array(),
-			COUVERTY_VERSION,
-			array( 'in_footer' => true )
-		);
 	}
 
 	/**
@@ -221,31 +213,36 @@ class Couverty {
 	}
 
 	/**
-	 * Enqueue the floating booking button script.
+	 * Register Couverty's hosted widget script, and enqueue it on every page when
+	 * the floating button is on.
+	 *
+	 * One script (widget.js, served by Couverty) mounts the reservation widgets of
+	 * the page and, when it carries a `slug`, the floating button. It also relays
+	 * each booking to the site's tags (`couverty_reservation` event). The
+	 * reservation template enqueues the same handle, so a page loads it once.
 	 */
-	private function enqueue_floating_widget() {
+	private function register_widget_script() {
 		$settings = self::get_settings();
 
-		if ( empty( $settings['floating_enabled'] ) ) {
+		if ( empty( $settings['base_url'] ) ) {
 			return;
 		}
 
-		if ( empty( $settings['slug'] ) || empty( $settings['base_url'] ) ) {
-			return;
+		$args = array();
+
+		if ( ! empty( $settings['floating_enabled'] ) && ! empty( $settings['slug'] ) ) {
+			$args['slug'] = $settings['slug'];
+
+			if ( ! empty( $settings['floating_text'] ) ) {
+				$args['text'] = $settings['floating_text'];
+			}
 		}
 
-		$args = array( 'slug' => $settings['slug'] );
-
-		if ( ! empty( $settings['floating_text'] ) ) {
-			$args['text'] = $settings['floating_text'];
-		}
-
-		// add_query_arg() URL-encodes the values itself.
-		$src = add_query_arg( $args, rtrim( $settings['base_url'], '/' ) . '/widget-floating.js' );
-
-		wp_enqueue_script(
-			'couverty-floating',
-			$src,
+		// add_query_arg() does not encode values: a `&` or `#` in the button text
+		// would break the URL.
+		wp_register_script(
+			'couverty-widget',
+			add_query_arg( array_map( 'rawurlencode', $args ), rtrim( $settings['base_url'], '/' ) . '/widget.js' ),
 			array(),
 			null, // Version is carried by the remote file itself.
 			array(
@@ -253,6 +250,10 @@ class Couverty {
 				'in_footer' => true,
 			)
 		);
+
+		if ( $args ) {
+			wp_enqueue_script( 'couverty-widget' );
+		}
 	}
 
 	/**

@@ -1,5 +1,10 @@
 /**
- * Couverty — reservation widget
+ * Couverty — reservation widget (1.12 markup)
+ *
+ * No longer loaded by the plugin since 1.13.0: the reservation template now
+ * relies on Couverty's hosted widget.js. Kept for one version so pages cached
+ * before the update, which still point here, keep their widget until the cache
+ * is rebuilt. Delete in 1.14.0.
  *
  * Builds the booking iframe for every [data-couverty-embed] container, keeps its
  * height in sync with the embedded form, and lays the Couverty logo served in the

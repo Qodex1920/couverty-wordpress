@@ -801,7 +801,7 @@ class Couverty_Admin {
 			array(
 				'name'       => __( 'Réservation (widget)', 'couverty' ),
 				'shortcode'  => '[couverty_reservation]',
-				'attributes' => 'height="300-1200" appearance="card|glass|minimal|dark" radius="none|sm|md|lg"',
+				'attributes' => 'height="300-1200" appearance="card|dark" radius="none|md|lg"',
 			),
 		);
 		?>

@@ -8,8 +8,9 @@ defined( 'ABSPATH' ) || exit;
  * identical whether the user picked a block, a shortcode or a page builder.
  *
  * The rendered markup is not run through wp_kses_post(): the templates escape
- * every value they output, and kses would strip the reservation widget's script
- * tag. Attribute values coming from the editor are whitelisted here instead.
+ * every value they output, and kses would strip the JSON-LD script tags that
+ * follow the menus. Attribute values coming from the editor are whitelisted here
+ * instead.
  */
 class Couverty_Blocks {
 
@@ -188,8 +189,9 @@ class Couverty_Blocks {
 	public function render_reservation_block( $attributes ) {
 		return $this->wrap( $this->shortcodes->render_reservation( [
 			'height'     => max( 300, min( 1200, (int) ( $attributes['height'] ?? 600 ) ) ),
-			'appearance' => $this->pick( $attributes, 'appearance', [ 'card', 'glass', 'minimal', 'dark' ], 'card' ),
-			'radius'     => $this->pick( $attributes, 'radius', [ 'none', 'sm', 'md', 'lg' ], 'lg' ),
+			// Checked by render_reservation(), which also serves the shortcode.
+			'appearance' => $attributes['appearance'] ?? '',
+			'radius'     => $attributes['radius'] ?? '',
 		] ) );
 	}
 }

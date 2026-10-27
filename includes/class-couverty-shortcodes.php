@@ -131,12 +131,22 @@ class Couverty_Shortcodes {
 		$atts = shortcode_atts(
 			[
 				'height'     => 600,
-				'appearance' => 'card',
-				'radius'     => 'lg',
+				'appearance' => '',
+				'radius'     => '',
 			],
 			$atts,
 			'couverty_reservation'
 		);
+
+		// The template trusts these two values. '' follows the Widget tab in
+		// Couverty; glass, minimal and sm come from older versions of the block,
+		// and the widget renders them as card and md.
+		if ( ! in_array( $atts['appearance'], [ 'card', 'dark', 'glass', 'minimal' ], true ) ) {
+			$atts['appearance'] = '';
+		}
+		if ( ! in_array( $atts['radius'], [ 'none', 'md', 'lg', 'sm' ], true ) ) {
+			$atts['radius'] = '';
+		}
 
 		if ( ! $this->is_api_configured() ) {
 			return $this->config_error();

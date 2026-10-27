@@ -11,6 +11,10 @@
 	registerBlockType('couverty/reservation', {
 		edit: function (props) {
 			var attributes = props.attributes;
+			// Values offered by older versions of the block, shown the way the
+			// widget renders them.
+			var appearance = attributes.appearance === 'glass' || attributes.appearance === 'minimal' ? 'card' : attributes.appearance;
+			var radius = attributes.radius === 'sm' ? 'md' : attributes.radius;
 
 			return el(
 				'div',
@@ -31,13 +35,14 @@
 							max: 1200,
 							step: 50,
 						}),
+						// Same choices as the Widget tab in Couverty, which applies when
+						// the block sets nothing.
 						el(SelectControl, {
-							label: __('Apparence', 'couverty'),
-							value: attributes.appearance,
+							label: __('Style', 'couverty'),
+							value: appearance,
 							options: [
-								{ label: __('Carte', 'couverty'), value: 'card' },
-								{ label: __('Verre', 'couverty'), value: 'glass' },
-								{ label: __('Minimal', 'couverty'), value: 'minimal' },
+								{ label: __('Réglages Couverty', 'couverty'), value: '' },
+								{ label: __('Clair', 'couverty'), value: 'card' },
 								{ label: __('Sombre', 'couverty'), value: 'dark' },
 							],
 							onChange: function (val) {
@@ -45,13 +50,13 @@
 							},
 						}),
 						el(SelectControl, {
-							label: __('Arrondi', 'couverty'),
-							value: attributes.radius,
+							label: __('Coins', 'couverty'),
+							value: radius,
 							options: [
-								{ label: __('Aucun', 'couverty'), value: 'none' },
-								{ label: __('Petit', 'couverty'), value: 'sm' },
-								{ label: __('Moyen', 'couverty'), value: 'md' },
-								{ label: __('Grand', 'couverty'), value: 'lg' },
+								{ label: __('Réglages Couverty', 'couverty'), value: '' },
+								{ label: __('Carré', 'couverty'), value: 'none' },
+								{ label: __('Équilibré', 'couverty'), value: 'md' },
+								{ label: __('Arrondi', 'couverty'), value: 'lg' },
 							],
 							onChange: function (val) {
 								props.setAttributes({ radius: val });
