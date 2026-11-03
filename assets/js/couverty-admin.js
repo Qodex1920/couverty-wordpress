@@ -132,17 +132,23 @@
 			done,
 			function (data) {
 				var message = i18n.connected;
+				// One parenthesis for name and counts: the separator stays correct in every language.
+				var details = [];
 
 				if (data.restaurant_name) {
-					message += ' — ' + data.restaurant_name;
+					details.push(data.restaurant_name);
 				}
 				if (data.slug) {
 					$('#couverty_slug').val(data.slug);
 				}
-				if (data.synced) {
-					message += ' (' + formatCounts(data.counts) + ')';
-				} else if (data.sync_error) {
-					message += ' — ' + data.sync_error;
+				if (data.synced && data.counts) {
+					details.push(formatCounts(data.counts));
+				}
+				if (details.length) {
+					message += ' (' + details.join(', ') + ')';
+				}
+				if (!data.synced && data.sync_error) {
+					message += '. ' + data.sync_error;
 				}
 
 				refreshStatusCard(data);

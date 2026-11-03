@@ -208,7 +208,7 @@ class Couverty_Admin {
 				/* translators: %s: restaurant name */
 				'connectedTo'  => __( 'Connecté à %s', 'couverty' ),
 				'networkError' => __( 'Impossible de contacter votre site WordPress. Réessayez.', 'couverty' ),
-				'syncTimeout'  => __( 'La synchronisation a dépassé le délai d\'attente. Elle continue peut-être en arrière-plan — rechargez la page dans une minute.', 'couverty' ),
+				'syncTimeout'  => __( 'La synchronisation a dépassé le délai d\'attente. Elle continue peut-être en arrière-plan : rechargez la page dans une minute.', 'couverty' ),
 				'copied'       => __( 'copié', 'couverty' ),
 				'copy'         => __( 'copier', 'couverty' ),
 				'plats'        => __( 'plats', 'couverty' ),
@@ -408,7 +408,7 @@ class Couverty_Admin {
 		$result = Couverty_Pages::create();
 
 		if ( 0 === $result['created'] ) {
-			wp_send_json_error( __( 'Les pages existent déjà — retrouvez-les dans Pages.', 'couverty' ) );
+			wp_send_json_error( __( 'Les pages existent déjà : retrouvez-les dans Pages.', 'couverty' ) );
 		}
 
 		/* translators: %d: number of pages created */
@@ -696,7 +696,7 @@ class Couverty_Admin {
 											<?php esc_html_e( 'Brouillon', 'couverty' ); ?>
 										<?php endif; ?>
 										<?php if ( $page['edit_url'] ) : ?>
-											— <a href="<?php echo esc_url( $page['edit_url'] ); ?>"><?php esc_html_e( 'Modifier', 'couverty' ); ?></a>
+											| <a href="<?php echo esc_url( $page['edit_url'] ); ?>"><?php esc_html_e( 'Modifier', 'couverty' ); ?></a>
 										<?php endif; ?>
 										<?php if ( ! empty( $page['needs_image'] ) ) : ?>
 											<span class="couverty-hint">
@@ -856,7 +856,7 @@ class Couverty_Admin {
 
 			<?php foreach ( $all_fields as $post_type => $fields ) : ?>
 				<?php $info = isset( $post_type_info[ $post_type ] ) ? $post_type_info[ $post_type ] : array( 'label' => $post_type ); ?>
-				<h3><?php echo esc_html( $info['label'] ); ?> — <code><?php echo esc_html( $post_type ); ?></code></h3>
+				<h3><?php echo esc_html( $info['label'] ); ?> (<code><?php echo esc_html( $post_type ); ?></code>)</h3>
 
 				<div class="couverty-table-scroll">
 					<table class="widefat striped couverty-table">
@@ -898,8 +898,8 @@ class Couverty_Admin {
 			<div class="couverty-callout couverty-callout--warning">
 				<strong><?php esc_html_e( 'Taxonomies (pour filtrer) :', 'couverty' ); ?></strong>
 				<ul>
-					<li><code>couverty_cat_plat</code> — <?php esc_html_e( 'Catégories de plats', 'couverty' ); ?></li>
-					<li><code>couverty_cat_boisson</code> — <?php esc_html_e( 'Catégories de boissons', 'couverty' ); ?></li>
+					<li><code>couverty_cat_plat</code> (<?php esc_html_e( 'Catégories de plats', 'couverty' ); ?>)</li>
+					<li><code>couverty_cat_boisson</code> (<?php esc_html_e( 'Catégories de boissons', 'couverty' ); ?>)</li>
 				</ul>
 			</div>
 
@@ -917,7 +917,7 @@ class Couverty_Admin {
 							<?php
 							printf(
 								/* translators: 1: generic syntax, 2: concrete example */
-								esc_html__( 'Syntaxe %1$s — par exemple %2$s', 'couverty' ),
+								esc_html__( 'Syntaxe %1$s, par exemple %2$s', 'couverty' ),
 								'<code>{cf_nom_du_champ}</code>',
 								'<code>{cf_couverty_prix}</code>'
 							);

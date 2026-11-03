@@ -119,10 +119,10 @@ msgstr "Impossibile contattare il vostro sito WordPress. Riprovare."
 #: includes/class-couverty-admin.php:211
 msgid ""
 "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en "
-"arrière-plan — rechargez la page dans une minute."
+"arrière-plan : rechargez la page dans une minute."
 msgstr ""
 "La sincronizzazione ha superato il tempo massimo. Potrebbe continuare in "
-"background — ricaricare la pagina fra un minuto."
+"background: ricaricare la pagina fra un minuto."
 
 #: includes/class-couverty-admin.php:212
 msgid "copié"
@@ -271,8 +271,8 @@ msgid "Vous n'avez pas le droit de créer des pages."
 msgstr "Non avete i permessi per creare pagine."
 
 #: includes/class-couverty-admin.php:411
-msgid "Les pages existent déjà — retrouvez-les dans Pages."
-msgstr "Le pagine esistono già — le trovate in Pagine."
+msgid "Les pages existent déjà : retrouvez-les dans Pages."
+msgstr "Le pagine esistono già: le trovate in Pagine."
 
 #. translators: %d: number of pages created
 #: includes/class-couverty-admin.php:415
@@ -577,8 +577,8 @@ msgstr "Dynamic Tags → Custom Field → nome del campo"
 #. translators: 1: generic syntax, 2: concrete example
 #: includes/class-couverty-admin.php:920
 #, php-format
-msgid "Syntaxe %1$s — par exemple %2$s"
-msgstr "Sintassi %1$s — per esempio %2$s"
+msgid "Syntaxe %1$s, par exemple %2$s"
+msgstr "Sintassi %1$s, per esempio %2$s"
 
 #: includes/class-couverty-admin.php:929
 msgid "Dynamic Content → Post Fields → Custom Fields → nom du champ"
@@ -1036,13 +1036,13 @@ msgid "URL of the public event detail page"
 msgstr "URL della pagina pubblica di dettaglio dell'evento"
 
 #: includes/class-couverty-sync.php:311
-msgid "Aucun changement détecté — synchronisation ignorée."
-msgstr "Nessuna modifica rilevata — sincronizzazione ignorata."
+msgid "Aucun changement détecté, synchronisation ignorée."
+msgstr "Nessuna modifica rilevata, sincronizzazione ignorata."
 
 #: includes/class-couverty-sync.php:325
 msgid ""
-"L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
-msgstr "L'API non ha restituito dati — i dati esistenti vengono conservati."
+"L'API n'a renvoyé aucune donnée : les données existantes sont conservées."
+msgstr "L'API non ha restituito dati: i dati esistenti vengono conservati."
 
 #: includes/class-couverty-sync.php:785
 msgid "Menu de la semaine"
@@ -1195,8 +1195,8 @@ msgstr ""
 
 #: blocks/boissons/block.json
 msgctxt "block title"
-msgid "Couverty – Boissons"
-msgstr "Couverty – Bevande"
+msgid "Couverty : Boissons"
+msgstr "Couverty: Bevande"
 
 #: blocks/boissons/block.json
 msgctxt "block description"
@@ -1231,8 +1231,8 @@ msgstr "couverty"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block title"
-msgid "Couverty – Menu du jour"
-msgstr "Couverty – Menu del giorno"
+msgid "Couverty : Menu du jour"
+msgstr "Couverty: Menu del giorno"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block description"
@@ -1256,8 +1256,8 @@ msgstr "giornaliero"
 
 #: blocks/menu/block.json
 msgctxt "block title"
-msgid "Couverty – Menu"
-msgstr "Couverty – Menu"
+msgid "Couverty : Menu"
+msgstr "Couverty: Menu"
 
 #: blocks/menu/block.json
 msgctxt "block description"
@@ -1281,8 +1281,8 @@ msgstr "piatti"
 
 #: blocks/reservation/block.json
 msgctxt "block title"
-msgid "Couverty – Réservation"
-msgstr "Couverty – Prenotazione"
+msgid "Couverty : Réservation"
+msgstr "Couverty: Prenotazione"
 
 #: blocks/reservation/block.json
 msgctxt "block description"

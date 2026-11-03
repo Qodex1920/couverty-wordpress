@@ -160,7 +160,7 @@ class Couverty_API {
 		}
 
 		if ( $remote_message ) {
-			$message .= ' — ' . $remote_message;
+			$message .= ' ' . $remote_message;
 		}
 
 		return new WP_Error( $code, $message, array( 'status' => $status ) );

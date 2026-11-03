@@ -4,7 +4,7 @@ Tags: restaurant, menu, réservation, booking, food
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.13.0
+Stable tag: 1.13.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,10 +27,10 @@ Le plugin officiel Couverty affiche le menu de votre restaurant, la carte des bo
 
 **Blocs et shortcodes disponibles :**
 
-* **Menu** — `[couverty_menu]` — carte des plats par catégorie
-* **Boissons** — `[couverty_boissons]` — carte des boissons
-* **Menu du jour** — `[couverty_menu_du_jour]` — menu du jour ou de la semaine
-* **Réservation** — `[couverty_reservation]` — widget de réservation en ligne
+* **Menu** (`[couverty_menu]`) : carte des plats par catégorie
+* **Boissons** (`[couverty_boissons]`) : carte des boissons
+* **Menu du jour** (`[couverty_menu_du_jour]`) : menu du jour ou de la semaine
+* **Réservation** (`[couverty_reservation]`) : widget de réservation en ligne
 
 == Installation ==
 
@@ -75,6 +75,9 @@ Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis
 
 == Changelog ==
 
+= 1.13.1 =
+* Ponctuation revue dans l'administration, les titres des blocs et les messages d'erreur, en français, en allemand et en italien
+
 = 1.13.0 =
 * Widget de réservation : chaque réservation envoie l'événement `couverty_reservation` aux outils déjà installés sur votre site (Google Tag Manager, Google Analytics 4), même sans le bouton flottant. Vous pouvez ainsi compter vos réservations comme conversions Google Ads ou Meta. Ni cookie ni donnée personnelle : vos balises et votre bannière cookies s'appliquent. Guide : https://couverty.ch/docs/integration#suivi-conversions
 * Le widget de réservation et le bouton flottant passent par le même script Couverty : une page qui affiche les deux ne le charge qu'une fois
@@ -103,7 +106,7 @@ Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis
 = 1.10.0 =
 * L'éditeur affiche enfin la carte telle qu'elle sortira : plus besoin de publier pour voir le résultat
 * Les blocs Couverty acceptent la pleine largeur et la classe CSS saisie dans l'éditeur, qui étaient jusqu'ici sans effet
-* La carte reprend la couleur de texte de votre thème — elle restait noire, donc illisible sur un site à fond sombre
+* La carte reprend la couleur de texte de votre thème (elle restait noire, donc illisible sur un site à fond sombre)
 * Les couleurs, arrondis et espacements se surchargent maintenant depuis `:root`, comme la documentation l'annonçait
 * Le bouton photo d'un plat et la fermeture de la visionneuse sont assez grands pour le doigt ; la visionneuse garde le clavier chez elle et bloque le défilement de la page
 * Titres de sections hiérarchisés correctement pour les lecteurs d'écran, quel que soit le contenu envoyé par Couverty
@@ -121,14 +124,14 @@ Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis
 * Les réglages signalent les pages auxquelles il manque une image mise en avant
 
 = 1.9.1 =
-* Les pages créées laissent le thème afficher le titre et l'image d'ouverture — plus de titre en double
+* Les pages créées laissent le thème afficher le titre et l'image d'ouverture : plus de titre en double
 * Carte mise en page comme une carte imprimée : plats aérés, filets de séparation, ligne de conduite jusqu'au prix
 * Le bouton de fin de page pointe vers votre vraie page de réservation
 * Meilleure lisibilité des descriptions et des allergènes : le gris secondaire passe le seuil de contraste WCAG AA
 
 = 1.9.0 =
 * Nouveau : créez en un clic les pages Carte, Menu du jour, Boissons et Réservation, prêtes à publier
-* Les pages sont créées en brouillon — vous les relisez avant qu'elles n'apparaissent sur votre site
+* Les pages sont créées en brouillon : vous les relisez avant qu'elles n'apparaissent sur votre site
 * Les mêmes mises en page sont disponibles comme compositions dans l'éditeur : cherchez « Couverty »
 * Une page supprimée peut être recréée ; une page existante n'est jamais écrasée
 
@@ -137,7 +140,7 @@ Ajoutez `add_filter( 'couverty_enqueue_public_styles', '__return_false' );` puis
 * Échappement consolidé sur les détails des boissons (volume, région, année)
 
 = 1.8.1 =
-* Plugin traduit en allemand et en italien — interface d'administration, blocs de l'éditeur et messages d'erreur
+* Plugin traduit en allemand et en italien : interface d'administration, blocs de l'éditeur et messages d'erreur
 * Allemand en orthographe suisse (« ss » et non « ß ») ; variantes de_CH, de_CH_informal et de_DE fournies
 * L'interface suit désormais la langue du site WordPress, sans réglage supplémentaire
 

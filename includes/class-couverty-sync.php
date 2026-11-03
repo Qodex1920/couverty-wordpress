@@ -308,7 +308,7 @@ class Couverty_Sync {
 
 			if ( $remote_updated && $remote_updated === $local_updated ) {
 				// Data hasn't changed — skip full sync.
-				$this->save_sync_status( true, __( 'Aucun changement détecté — synchronisation ignorée.', 'couverty' ) );
+				$this->save_sync_status( true, __( 'Aucun changement détecté, synchronisation ignorée.', 'couverty' ) );
 				update_option( 'couverty_last_sync', current_time( 'mysql', true ), false );
 				return array( 'success' => true, 'skipped' => true );
 			}
@@ -322,7 +322,7 @@ class Couverty_Sync {
 		if ( ! is_array( $menu ) ) {
 			$error = $api->get_last_error_message();
 			if ( ! $error ) {
-				$error = __( 'L\'API n\'a renvoyé aucune donnée — les données existantes sont conservées.', 'couverty' );
+				$error = __( 'L\'API n\'a renvoyé aucune donnée : les données existantes sont conservées.', 'couverty' );
 			}
 
 			$this->save_sync_status( false, $error );

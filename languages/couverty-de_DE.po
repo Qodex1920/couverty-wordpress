@@ -119,10 +119,10 @@ msgstr "Ihre WordPress-Website ist nicht erreichbar. Bitte erneut versuchen."
 #: includes/class-couverty-admin.php:211
 msgid ""
 "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en "
-"arrière-plan — rechargez la page dans une minute."
+"arrière-plan : rechargez la page dans une minute."
 msgstr ""
 "Die Synchronisation hat das Zeitlimit überschritten. Möglicherweise läuft "
-"sie im Hintergrund weiter — laden Sie die Seite in einer Minute neu."
+"sie im Hintergrund weiter. Laden Sie die Seite in einer Minute neu."
 
 #: includes/class-couverty-admin.php:212
 msgid "copié"
@@ -271,8 +271,8 @@ msgid "Vous n'avez pas le droit de créer des pages."
 msgstr "Ihnen fehlt die Berechtigung, Seiten zu erstellen."
 
 #: includes/class-couverty-admin.php:411
-msgid "Les pages existent déjà — retrouvez-les dans Pages."
-msgstr "Die Seiten bestehen bereits — Sie finden sie unter Seiten."
+msgid "Les pages existent déjà : retrouvez-les dans Pages."
+msgstr "Die Seiten bestehen bereits. Sie finden sie unter Seiten."
 
 #. translators: %d: number of pages created
 #: includes/class-couverty-admin.php:415
@@ -431,7 +431,7 @@ msgstr "Bearbeiten"
 
 #: includes/class-couverty-admin.php:703
 msgid "Ajoutez une image mise en avant : elle devient le bandeau d'ouverture."
-msgstr "Legen Sie ein Beitragsbild fest — es wird zum Kopfbild der Seite."
+msgstr "Legen Sie ein Beitragsbild fest: Es wird zum Kopfbild der Seite."
 
 #. translators: %d: number of pages that will be created
 #: includes/class-couverty-admin.php:720
@@ -584,8 +584,8 @@ msgstr "Dynamic Tags → Custom Field → Feldname"
 #. translators: 1: generic syntax, 2: concrete example
 #: includes/class-couverty-admin.php:920
 #, php-format
-msgid "Syntaxe %1$s — par exemple %2$s"
-msgstr "Syntax %1$s — zum Beispiel %2$s"
+msgid "Syntaxe %1$s, par exemple %2$s"
+msgstr "Syntax %1$s, zum Beispiel %2$s"
 
 #: includes/class-couverty-admin.php:929
 msgid "Dynamic Content → Post Fields → Custom Fields → nom du champ"
@@ -1044,14 +1044,14 @@ msgid "URL of the public event detail page"
 msgstr "URL der öffentlichen Detailseite der Veranstaltung"
 
 #: includes/class-couverty-sync.php:311
-msgid "Aucun changement détecté — synchronisation ignorée."
-msgstr "Keine Änderungen erkannt — Synchronisation übersprungen."
+msgid "Aucun changement détecté, synchronisation ignorée."
+msgstr "Keine Änderungen erkannt, Synchronisation übersprungen."
 
 #: includes/class-couverty-sync.php:325
 msgid ""
-"L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
+"L'API n'a renvoyé aucune donnée : les données existantes sont conservées."
 msgstr ""
-"Die API hat keine Daten geliefert — die vorhandenen Daten bleiben erhalten."
+"Die API hat keine Daten geliefert: Die vorhandenen Daten bleiben erhalten."
 
 #: includes/class-couverty-sync.php:785
 msgid "Menu de la semaine"
@@ -1204,8 +1204,8 @@ msgstr ""
 
 #: blocks/boissons/block.json
 msgctxt "block title"
-msgid "Couverty – Boissons"
-msgstr "Couverty – Getränke"
+msgid "Couverty : Boissons"
+msgstr "Couverty: Getränke"
 
 #: blocks/boissons/block.json
 msgctxt "block description"
@@ -1240,8 +1240,8 @@ msgstr "couverty"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block title"
-msgid "Couverty – Menu du jour"
-msgstr "Couverty – Tagesmenü"
+msgid "Couverty : Menu du jour"
+msgstr "Couverty: Tagesmenü"
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block description"
@@ -1265,8 +1265,8 @@ msgstr "täglich"
 
 #: blocks/menu/block.json
 msgctxt "block title"
-msgid "Couverty – Menu"
-msgstr "Couverty – Speisekarte"
+msgid "Couverty : Menu"
+msgstr "Couverty: Speisekarte"
 
 #: blocks/menu/block.json
 msgctxt "block description"
@@ -1290,8 +1290,8 @@ msgstr "Gerichte"
 
 #: blocks/reservation/block.json
 msgctxt "block title"
-msgid "Couverty – Réservation"
-msgstr "Couverty – Reservation"
+msgid "Couverty : Réservation"
+msgstr "Couverty: Reservation"
 
 #: blocks/reservation/block.json
 msgctxt "block description"

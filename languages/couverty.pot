@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Couverty 1.13.0\n"
+"Project-Id-Version: Couverty 1.13.1\n"
 "Report-Msgid-Bugs-To: https://couverty.ch\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T16:13:02+00:00\n"
+"POT-Creation-Date: 2026-11-03T07:59:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: couverty\n"
@@ -114,7 +114,7 @@ msgid "Impossible de contacter votre site WordPress. Réessayez."
 msgstr ""
 
 #: includes/class-couverty-admin.php:211
-msgid "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en arrière-plan — rechargez la page dans une minute."
+msgid "La synchronisation a dépassé le délai d'attente. Elle continue peut-être en arrière-plan : rechargez la page dans une minute."
 msgstr ""
 
 #: includes/class-couverty-admin.php:212
@@ -290,7 +290,7 @@ msgid "Vous n'avez pas le droit de créer des pages."
 msgstr ""
 
 #: includes/class-couverty-admin.php:411
-msgid "Les pages existent déjà — retrouvez-les dans Pages."
+msgid "Les pages existent déjà : retrouvez-les dans Pages."
 msgstr ""
 
 #. translators: %d: number of pages created
@@ -558,7 +558,7 @@ msgstr ""
 #. translators: 1: generic syntax, 2: concrete example
 #: includes/class-couverty-admin.php:920
 #, php-format
-msgid "Syntaxe %1$s — par exemple %2$s"
+msgid "Syntaxe %1$s, par exemple %2$s"
 msgstr ""
 
 #: includes/class-couverty-admin.php:929
@@ -968,11 +968,11 @@ msgid "URL of the public event detail page"
 msgstr ""
 
 #: includes/class-couverty-sync.php:311
-msgid "Aucun changement détecté — synchronisation ignorée."
+msgid "Aucun changement détecté, synchronisation ignorée."
 msgstr ""
 
 #: includes/class-couverty-sync.php:325
-msgid "L'API n'a renvoyé aucune donnée — les données existantes sont conservées."
+msgid "L'API n'a renvoyé aucune donnée : les données existantes sont conservées."
 msgstr ""
 
 #: includes/class-couverty-sync.php:785
@@ -1128,7 +1128,7 @@ msgstr ""
 
 #: blocks/boissons/block.json
 msgctxt "block title"
-msgid "Couverty – Boissons"
+msgid "Couverty : Boissons"
 msgstr ""
 
 #: blocks/boissons/block.json
@@ -1167,7 +1167,7 @@ msgstr ""
 
 #: blocks/menu-du-jour/block.json
 msgctxt "block title"
-msgid "Couverty – Menu du jour"
+msgid "Couverty : Menu du jour"
 msgstr ""
 
 #: blocks/menu-du-jour/block.json
@@ -1192,7 +1192,7 @@ msgstr ""
 
 #: blocks/menu/block.json
 msgctxt "block title"
-msgid "Couverty – Menu"
+msgid "Couverty : Menu"
 msgstr ""
 
 #: blocks/menu/block.json
@@ -1217,7 +1217,7 @@ msgstr ""
 
 #: blocks/reservation/block.json
 msgctxt "block title"
-msgid "Couverty – Réservation"
+msgid "Couverty : Réservation"
 msgstr ""
 
 #: blocks/reservation/block.json
