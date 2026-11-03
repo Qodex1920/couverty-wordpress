@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "couverty/reservation",
   "version": "1.0.0",
-  "title": "Couverty – Réservation",
+  "title": "Couverty : Réservation",
   "category": "couverty",
   "icon": "calendar",
   "description": "Affiche le widget de réservation de votre restaurant depuis Couverty.",

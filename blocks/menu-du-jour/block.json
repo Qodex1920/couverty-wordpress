@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "couverty/menu-du-jour",
   "version": "1.1.0",
-  "title": "Couverty – Menu du jour",
+  "title": "Couverty : Menu du jour",
   "category": "couverty",
   "icon": "calendar-alt",
   "description": "Affiche le menu du jour de votre restaurant depuis Couverty.",

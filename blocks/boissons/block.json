@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "couverty/boissons",
   "version": "1.0.0",
-  "title": "Couverty – Boissons",
+  "title": "Couverty : Boissons",
   "category": "couverty",
   "icon": "coffee",
   "description": "Affiche la carte des boissons de votre restaurant depuis Couverty.",

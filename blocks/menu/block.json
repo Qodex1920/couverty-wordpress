@@ -3,7 +3,7 @@
   "apiVersion": 3,
   "name": "couverty/menu",
   "version": "1.0.0",
-  "title": "Couverty – Menu",
+  "title": "Couverty : Menu",
   "category": "couverty",
   "icon": "food",
   "description": "Affiche la carte des plats de votre restaurant depuis Couverty.",
